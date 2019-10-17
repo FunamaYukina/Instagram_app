@@ -64,6 +64,21 @@ header {
 //home
 .home {
   background-color: #fafafa;
+  .user-item{
+    padding: 20px 30px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 6px #c1ced7;
+    display: table;
+    width: 70%;
+    .user-right{
+      width: 90%;
+      padding-left: 25px;
+      text-align: left;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
 }
 
 
