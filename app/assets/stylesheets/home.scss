@@ -3,55 +3,67 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
 // header
 
-header{
-  padding: 0 50px 0 50px ;
-  border-bottom:1px solid #CCCCCC;
-  .fa{
+header {
+  padding: 0 50px 0 50px;
+  border-bottom: 1px solid #CCCCCC;
+
+  .fa {
     font-size: 26px;
     margin-right: 16px;
     color: dimgray;
   }
-  .navbar{
+
+  .navbar {
     background-color: white;
   }
-  .nav-left{
-    .navbar-brand img{
+
+  .nav-left {
+    .navbar-brand img {
       width: 30px;
       height: 30px;
       margin-right: 5px;
     }
   }
-  .nav-right{
-    margin-left:auto;
+
+  .nav-right {
+    margin-left: auto;
   }
-  .nav-center{
+
+  .nav-center {
     margin-left: 220px;
     height: 26px;
   }
-  .search-form{
+
+  .search-form {
     height: 24px;
     font-size: 14px;
     background-color: whitesmoke;
     padding-left: 1.4rem;
   }
-  input::placeholder{
+
+  input::placeholder {
     text-align: center;
   }
+
   .fa-search {
     position: absolute;
     z-index: 2;
     display: block;
-    width:1.4rem;
-    height:1.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
     font-size: 16px;
     line-height: 1.4rem;
     text-align: center;
     pointer-events: none;
     color: #aaa;
   }
+}
+
+//home
+.home {
+  background-color: #fafafa;
 }
 
 
