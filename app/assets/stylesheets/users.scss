@@ -3,12 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 //new
-.body {
+.sign-up-body {
   background-color: #fafafa;
   padding-top: 50px;
   padding-bottom: 80px;
   .sign-up-container {
-    width: 500px;
+    width: 450px;
     height: 350px;
     background-color: white;
     margin-left: auto;
@@ -23,7 +23,6 @@
         padding-top: 10px;
       }
     }
-
     .form-body {
       input {
         width: 80%;
@@ -49,7 +48,67 @@
     }
   }
   .log-in-container{
-    width: 500px;
+    width: 450px;
+    height: 90px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    padding-top: 10px;
+  }
+}
+
+// login
+
+.log-in-body {
+  background-color: #fafafa;
+  padding-top: 50px;
+  padding-bottom: 80px;
+  .log-in-container {
+    width: 450px;
+    height: 250px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #CCCCCC;
+
+    .form-heading {
+      text-align: center;
+
+      .heading-logo {
+        font-size: 32px;
+        padding-top: 10px;
+      }
+    }
+
+    .form-body {
+      input {
+        width: 80%;
+        margin-bottom: 25px;
+        margin-left: 50px;
+      }
+
+      input::placeholder {
+        padding-left: 10px;
+        color: #999999;
+        font-size: 14px;
+      }
+    }
+
+    .form-submit {
+      input {
+        width: 80%;
+        margin-bottom: 10px;
+        margin-left: 50px;
+        background-color: dodgerblue;
+        color: white;
+      }
+    }
+  }
+  .sign-in-container{
+    width: 450px;
     height: 90px;
     background-color: white;
     margin-left: auto;
