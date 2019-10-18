@@ -4,10 +4,11 @@
       .heading-logo
         p Instagram
     .form-body
-      input placeholder="携帯電話またはメールアドレス"
-      input placeholder="パスワード"
-    .form-submit
-      input type="submit" value="ログイン"
+      = form_tag("/users/login") do
+        input placeholder="携帯電話またはメールアドレス" name="email" value="#{@email}"
+        input placeholder="パスワード"  name="password" value="#{@password}" type="password"
+        .form-submit
+          input type="submit" value="ログイン"
   .sign-in-container
     .sign-in-header
       p アカウントをお持ちでないですか？

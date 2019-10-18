@@ -6,12 +6,14 @@
       .heading-message
         p 友達の動画や写真をチェックしよう
     .form-body
-      input placeholder="携帯電話またはメールアドレス"
-      input placeholder="フルネーム"
-      input placeholder="ユーザーネーム"
-      input placeholder="パスワード"
-    .form-submit
-      input type="submit" value="登録する"
+      = form_tag("/users/create") do
+        input placeholder="携帯電話またはメールアドレス" name="email" value="#{@user.email}"
+        input placeholder="フルネーム" name="full_name" value="#{@user.full_name}"
+        input placeholder="ユーザーネーム" name="name" value="#{@user.name}"
+        input placeholder="パスワード" name="password" value="#{@user.password}" type="password"
+        .form-submit
+          input type="submit" value="登録する"
+
   .log-in-container
     .log-in-header
       p アカウントをお持ちですか？

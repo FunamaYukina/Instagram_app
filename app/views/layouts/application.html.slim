@@ -27,5 +27,7 @@ html
               i.fa.fa-heart-o aria-hidden="true"
             a.nav-item.nav-link href="#"
               i.fa.fa-user-o aria-hidden="true"
-
+    - if flash[:notice]
+      .flash
+        = flash[:notice]
     = yield

@@ -64,6 +64,7 @@ header {
 //home
 .home {
   background-color: #fafafa;
+  padding-top: 70px;
   .user-item{
     padding: 20px 30px;
     background-color: white;
@@ -79,6 +80,19 @@ header {
       vertical-align: middle;
     }
   }
+}
+
+.flash {
+  padding: 10px 0;
+  color: white;
+  background-color: #13a2b0;
+  text-align: center;
+  position: absolute;
+  top: 62px;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0 0 2px 2px;
+  font-size: 14px;
 }
 
 
