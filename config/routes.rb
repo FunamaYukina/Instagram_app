@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'posts/index'
+
   get 'login' => "users#login_form"
   post 'login' => "users#login"
   post "users/logout" =>"users#logout"
