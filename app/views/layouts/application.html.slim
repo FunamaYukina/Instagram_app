@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title InstagramApp
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /
+    link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+  body
+    header
+      nav.navbar.navbar-expand-lg.navbar-light
+        .nav-left
+          a.navbar-brand href="/"
+            = image_tag 'logo.png'
+            || Instagram
+        .nav-center
+          form.form-group
+            span.fa.fa-search aria-hidden="true"
+            input.form-control.search-form.font-awesome aria-label="Search" placeholder="検索" type="search" /
+        .nav-right
+          .navbar-nav
+            a.nav-item.nav-link.active href="#"
+              i.fa.fa-compass aria-hidden="true"
+            a.nav-item.nav-link href="#"
+              i.fa.fa-heart-o aria-hidden="true"
+            a.nav-item.nav-link href="#"
+              i.fa.fa-user-o aria-hidden="true"
+
+    = yield
