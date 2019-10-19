@@ -22,7 +22,6 @@ RSpec.describe User, type: :request do
       end
     end
 
-
     context "新規ユーザーが妥当でない場合" do
       it "signup success" do
         get "/signup"
@@ -79,13 +78,20 @@ RSpec.describe User, type: :request do
       expect(response).to have_http_status(200)
     end
 
-    it "save new user" do
-      expect do
-        post :login, params: {
-            email: "aaa@test.com",
-            password: "rrr"
-        }
-      end
+    it "can login exist user" do
+      post "/login", params: {
+          email: "aaa@test.com",
+          password: "aaa"
+      }
+      expect(response.body).to include '間違っています'
+    end
+
+    it "can't login non-exist user" do
+      post "/login", params: {
+          email: "xxx@test.com",
+          password: "rrr"
+      }
+      expect(response.body).to include '間違っています'
     end
   end
 end
