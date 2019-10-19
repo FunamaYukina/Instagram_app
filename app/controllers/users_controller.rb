@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  protect_from_forgery
+
   def new
     @user = User.new
+  end
+
+  def login_form
   end
 
   def login
@@ -14,7 +19,7 @@ class UsersController < ApplicationController
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render("users/login")
+      render("users/login_form")
     end
   end
 
@@ -26,7 +31,7 @@ class UsersController < ApplicationController
         password: params[:password]
     )
     if @user.save
-      # session[:user_id] = @user.id
+      session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
       # redirect_to("/users/#{@user.id}")
       redirect_to("/")
@@ -34,4 +39,11 @@ class UsersController < ApplicationController
       render("users/new")
     end
   end
+
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "ログアウトしました"
+    redirect_to("/login")
+  end
+
 end

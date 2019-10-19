@@ -1,10 +1,14 @@
 .log-in-body
+
   .log-in-container
     .form-heading
       .heading-logo
         p Instagram
     .form-body
-      = form_tag("/users/login") do
+      - @error_message
+      .form-error
+        = @error_message
+      = form_tag("/login") do
         input placeholder="携帯電話またはメールアドレス" name="email" value="#{@email}"
         input placeholder="パスワード"  name="password" value="#{@password}" type="password"
         .form-submit
