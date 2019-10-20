@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   protect_from_forgery
 
-  def user_params
-    params.require(:user).permit(:name,:full_name, :email, :password)
-  end
 
   def new
     @user = User.new
@@ -49,5 +46,12 @@ class UsersController < ApplicationController
     flash[:notice] = "ログアウトしました"
     redirect_to("/login")
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :full_name, :email, :password)
+  end
+
 
 end
