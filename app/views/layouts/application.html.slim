@@ -29,12 +29,12 @@ html
               i.fa.fa-user-o aria-hidden="true"
             a.nav-item.nav-link href="/login"
               i.fa.fa-sign-in aria-hidden="true"
-            = link_to  logout_path, method: :post do
+            = link_to logout_path, method: :post do
               .nav-item.nav-link
                 i.fa.fa-sign-out aria-hidden="true"
             a.nav-item.nav-link href="/signup"
               i.fa.fa-address-card-o aria-hidden="true"
-    - if flash[:notice]
+    - flash.each do |notice, value|
       .flash
-        = flash[:notice]
+        = content_tag(:div, value, class: notice)
     = yield
