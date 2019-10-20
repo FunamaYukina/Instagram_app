@@ -20,11 +20,11 @@ module InstagramApp
                        view_specs: false,
                        helper_specs: false,
                        routing_specs: false,
-                       controller_specs:false
+                       controller_specs: false
     end
     config.generators do |g|
-      g.assets     false
-      g.helper     false
+      g.assets false
+      g.helper false
     end
 
     config.generators.template_engine = :slim

@@ -1,10 +1,25 @@
 .home
   .container
+    = form_tag("/posts/create") do
+      .new-post-form
+        .form-body
+          / - @post.errors.full_messages.each do |message|
+          /   .form-error
+          /     = message
+          textarea name="message" 
+          input type="submit" value="投稿"
     - @users.each do |user|
       .user-item
         .user-right
+          span user_name...
           = user.name
           span ....email....
           = user.email
           span ....pass.....
           = user.password
+    - @posts.each do |post|
+      .posts-index-item
+        span user_id...
+        = post.user_id
+        span ...message...
+        = post.message
