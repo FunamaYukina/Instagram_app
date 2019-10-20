@@ -29,7 +29,7 @@ html
               i.fa.fa-user-o aria-hidden="true"
             a.nav-item.nav-link href="/login"
               i.fa.fa-sign-in aria-hidden="true"
-            =link_to("users/logout",{method: :post})
+            = link_to  logout_path, method: :post do
               .nav-item.nav-link
                 i.fa.fa-sign-out aria-hidden="true"
             a.nav-item.nav-link href="/signup"

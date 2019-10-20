@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe User, type: :request do
 
   describe "POST users#create" do
-    context "新規登録ユーザーが妥当な場合" do
-      it "signup success" do
+    context "新規登録ユーザー登録に成功する場合" do
+      it "新規登録ページでのresponce成功" do
         get "/signup"
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
-      it "save new user" do
+      it "新規ユーザーを保存" do
         expect do
-          post "/users/create", params: {
+          post "/signup", params: {
               email: "rrr@test.com",
               name: "rrr",
               full_name: "rrrrr",
@@ -22,16 +22,16 @@ RSpec.describe User, type: :request do
       end
     end
 
-    context "新規ユーザーが妥当でない場合" do
-      it "signup success" do
+    context "新規ユーザー登録に失敗する場合" do
+      it "新規登録ページでのresponce成功" do
         get "/signup"
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
-      it "failed to save no-name user" do
+      it "新規ユーザーの登録に失敗" do
         expect do
-          post "/users/create", params: {
+          post "/signup", params: {
               email: "rrr@test.com",
               name: "",
               full_name: "rrrrr",
@@ -39,9 +39,9 @@ RSpec.describe User, type: :request do
           }
         end.to_not change(User, :count)
       end
-      it "failed to save no-full-name user" do
+      it "フルネームが空欄のユーザーの登録の失敗" do
         expect do
-          post "/users/create", params: {
+          post "/signup", params: {
               email: "rrr@test.com",
               name: "rrr",
               full_name: "",
@@ -49,9 +49,9 @@ RSpec.describe User, type: :request do
           }
         end.to_not change(User, :count)
       end
-      it "failed to save no-email user" do
+      it "emailが空欄のユーザーの登録の失敗" do
         expect do
-          post "/users/create", params: {
+          post "/signup", params: {
               email: "",
               name: "rrr",
               full_name: "rrrrr",
@@ -59,9 +59,9 @@ RSpec.describe User, type: :request do
           }
         end.to_not change(User, :count)
       end
-      it "failed to save no-password user" do
+      it "passwordが空欄のユーザーの登録の失敗" do
         expect do
-          post "/users/create", params: {
+          post "/signup", params: {
               email: "rrr@test.com",
               name: "rrr",
               full_name: "rrrrr",
@@ -72,13 +72,13 @@ RSpec.describe User, type: :request do
     end
   end
   describe "POST login" do
-    it "login success" do
+    it "ログインページでのレスポンス成功" do
       get "/login"
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
 
-    it "can login exist user" do
+    it "ログインに成功" do
       post "/login", params: {
           email: "aaa@test.com",
           password: "aaa"
@@ -86,7 +86,7 @@ RSpec.describe User, type: :request do
       expect(response.body).to include '間違っています'
     end
 
-    it "can't login non-exist user" do
+    it "ログインに失敗" do
       post "/login", params: {
           email: "xxx@test.com",
           password: "rrr"

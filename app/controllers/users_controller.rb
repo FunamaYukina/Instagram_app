@@ -6,7 +6,25 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def create
+    @user = User.new(
+        email: params[:email],
+        full_name: params[:full_name],
+        name: params[:name],
+        password: params[:password]
+    )
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:notice] = "ユーザー登録が完了しました"
+      # redirect_to("/users/#{@user.id}")
+      redirect_to home_path
+    else
+      render("users/new")
+    end
+  end
+
   def login_form
+    @user = User.find_by(email: params[:email], password: params[:password])
   end
 
   def login
@@ -24,22 +42,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def create
-    @user = User.new(
-        email: params[:email],
-        full_name: params[:full_name],
-        name: params[:name],
-        password: params[:password]
-    )
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "ユーザー登録が完了しました"
-      # redirect_to("/users/#{@user.id}")
-      redirect_to home_path
-    else
-      render("users/new")
-    end
-  end
 
   def logout
     session[:user_id] = nil

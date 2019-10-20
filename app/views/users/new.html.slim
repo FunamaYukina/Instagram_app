@@ -6,7 +6,7 @@
       .heading-message
         p 友達の動画や写真をチェックしよう
     .form-body
-      = form_tag("/users/create") do
+      = form_tag(signup_path) do
         input placeholder="携帯電話またはメールアドレス" name="email" value="#{@user.email}" type="text"
         input placeholder="フルネーム" name="full_name" value="#{@user.full_name}" type="text"
         input placeholder="ユーザーネーム" name="name" value="#{@user.name}" type="text"

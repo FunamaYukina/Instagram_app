@@ -8,7 +8,7 @@
       - @error_message
       .form-error
         = @error_message
-      = form_tag("/login") do
+      = form_tag(login_url) do
         input placeholder="携帯電話またはメールアドレス" name="email" value="#{@email}"
         input placeholder="パスワード"  name="password" value="#{@password}" type="password"
         .form-submit
