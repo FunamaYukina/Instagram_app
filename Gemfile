@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'rails-i18n'
+gem "factory_bot_rails", "~> 4.10.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -42,6 +43,7 @@ group :development, :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'rspec-rails','~> 3.6.0'
+  gem "pry-rails"
 end
 
 group :development do

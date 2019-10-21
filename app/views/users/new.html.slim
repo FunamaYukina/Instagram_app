@@ -12,13 +12,12 @@
             - @user.errors.full_messages.each do |msg|
               li= msg
 
-      = form_tag(signup_path) do
-        input placeholder="メールアドレス" name="email" value="#{@user.email}" type="text"
-        input placeholder="フルネーム" name="full_name" value="#{@user.full_name}" type="text"
-        input placeholder="ユーザーネーム" name="name" value="#{@user.name}" type="text"
-        input placeholder="パスワード" name="password" type="password"
-        .form-submit
-          input type="submit" value="登録する"
+      = form_for(@user, url: signup_path) do |f|
+        =f.email_field :email, placeholder: "メールアドレス"
+        =f.text_field :full_name, placeholder: "フルネーム"
+        =f.text_field :name, placeholder: "ユーザーネーム"
+        =f.password_field :password ,placeholder: "パスワード"
+        =f.submit "登録する",class: "form-submit"
 
   .log-in-container
     .log-in-header
