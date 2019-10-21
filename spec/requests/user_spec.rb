@@ -21,13 +21,13 @@ RSpec.describe User, type: :request do
         user_param = FactoryBot.attributes_for(:user)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(home_path)
+        expect(response).to redirect_to(root_path)
       end
       it "emailが大文字でも登録に成功" do
-        user_param = FactoryBot.attributes_for(:user,email:"RRR@TEST.com")
+        user_param = FactoryBot.attributes_for(:user, email: "RRR@TEST.com")
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(home_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -98,7 +98,6 @@ RSpec.describe User, type: :request do
       end
     end
   end
-
 
   describe "POST login" do
     before do

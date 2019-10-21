@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   protect_from_forgery
 
-
   def new
     @user = User.new
   end
@@ -12,7 +11,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
       # redirect_to("/users/#{@user.id}")
-      redirect_to home_path
+      redirect_to root_path
     else
       render("users/new")
     end
@@ -26,7 +25,7 @@ class UsersController < ApplicationController
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
-      redirect_to home_path
+      redirect_to root_path
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
@@ -35,11 +34,10 @@ class UsersController < ApplicationController
     end
   end
 
-
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    redirect_to("/login")
+    redirect_to login_path
   end
 
   private
@@ -47,6 +45,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :full_name, :email, :password)
   end
-
 
 end

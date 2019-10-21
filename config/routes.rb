@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post 'login' => "users#login"
   post 'logout' => "users#logout"
 
-  get '/' => "home#top", as: "home"
+  root "home#top"
   get 'signup' => "users#new"
   post 'signup' => "users#create"
 
