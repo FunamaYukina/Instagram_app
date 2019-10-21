@@ -3,11 +3,11 @@ FactoryBot.define do
     email "rrr@test.com"
     name "rrr"
     full_name "rrrrr"
-    password "rrr"
+    password "rrrrrr"
   end
 
   factory :exist_user, class: User do
     email "zzz@test.com"
-    password  "zzz"
+    password  "zzzzzz"
   end
 end
