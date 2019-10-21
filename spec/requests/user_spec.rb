@@ -25,7 +25,7 @@ RSpec.describe User, type: :request do
         expect(response).to redirect_to(home_path)
       end
     end
-    
+
     context "新規ユーザー登録に失敗する場合" do
       it "新規登録ページでのresponce成功" do
         get signup_path
@@ -56,22 +56,30 @@ RSpec.describe User, type: :request do
     end
   end
   describe "POST login" do
+    before do
+      User.create(
+          email: "rrr@test.com",
+          name: "rrr",
+          full_name: "rrrrr",
+          password: "rrr")
+    end
     it "ログインページでのレスポンス成功" do
-      get "/login"
+      get login_path
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
 
     it "ログインに成功" do
-      post "/login", params: {
-          email: "aaa@test.com",
-          password: "aaa"
+      post login_path, params: {
+          email: "rrr@test.com",
+          password: "rrr"
       }
-      expect(response.body).to include '間違っています'
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to(home_path)
     end
 
     it "ログインに失敗" do
-      post "/login", params: {
+      post login_path, params: {
           email: "xxx@test.com",
           password: "rrr"
       }
