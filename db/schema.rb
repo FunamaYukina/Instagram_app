@@ -10,22 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191021120039) do
-
-  create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20191022030750) do
 
   create_table "users", force: :cascade do |t|
-    t.integer "name", default: 0, null: false
-    t.integer "full_name", default: 0, null: false
-    t.integer "email", default: 0, null: false
-    t.integer "password", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "user_name", null: false
+    t.string "full_name", null: false
+    t.string "email", null: false
+    t.string "password", null: false
+    t.index ["email"], name: "index_users_on_email"
   end
 
 end
