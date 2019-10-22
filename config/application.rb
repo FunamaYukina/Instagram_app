@@ -18,7 +18,12 @@ module InstagramApp
       g.test_framework :rspec,
                        view_specs: false,
                        helper_specs: false,
-                       routing_specs: false
+                       routing_specs: false,
+                       controller_specs:false
+    end
+    config.generators do |g|
+      g.helper false
+      g.assets false
     end
 
     config.generators.template_engine = :slim
