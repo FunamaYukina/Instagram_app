@@ -10,87 +10,74 @@ RSpec.describe User, type: :request do
 
   describe "POST users#create" do
 
-    context "新規登録ユーザー登録に成功する場合" do
-      it "新規登録ページでのresponce成功" do
+    context "新規登録ユーザー登録に成功すること" do
+      it "レスポンス200が返ってくること" do
         get signup_path
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
-      it "新規ユーザーを保存" do
+      it "新規ユーザーが保存されること" do
         user_param = FactoryBot.attributes_for(:user)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
+        expect(User.last.email).to eq user_param[:email]
         expect(response).to redirect_to(root_path)
       end
-      it "emailが大文字でも登録に成功" do
+
+      it "メールアドレスは小文字で登録されること" do
         user_param = FactoryBot.attributes_for(:user, email: "RRR@TEST.com")
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
+        expect(User.last.email).to eq "rrr@test.com"
         expect(response).to redirect_to(root_path)
       end
     end
 
     context "新規ユーザー登録に失敗する場合" do
-      it "新規登録ページでのresponce成功" do
-        get signup_path
-        expect(response).to be_success
-        expect(response).to have_http_status(200)
-      end
 
-      it "名前が空欄の新規ユーザーの登録に失敗" do
-        user_param = FactoryBot.attributes_for(:user, name: nil)
+      it "名前がない場合ユーザー登録に失敗すること" do
+        user_param = FactoryBot.attributes_for(:user, user_name: nil)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(200)
+        expect(response.body).to include 'ユーザーネームを入力してください'
       end
 
-      it "フルネームが空欄のユーザーの登録の失敗" do
+      it "フルネームがない場合ユーザー登録に失敗すること" do
         user_param = FactoryBot.attributes_for(:user, full_name: nil)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(200)
+        expect(response.body).to include 'フルネームを入力してください'
       end
 
-      it "emailが空欄のユーザーの登録の失敗" do
+      it "メールアドレスがない場合ユーザー登録に失敗すること" do
         user_param = FactoryBot.attributes_for(:user, email: nil)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(200)
+        expect(response.body).to include 'メールアドレスを入力してください'
       end
 
-      it "passwordが空欄のユーザーの登録の失敗" do
+      it "パスワードがない場合ユーザー登録に失敗すること" do
         user_param = FactoryBot.attributes_for(:user, password: nil)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(200)
+        expect(response.body).to include 'パスワードを入力してください'
       end
 
-      it "emailが重複した際の登録の失敗" do
-        User.create(
-            email: "rrr@test.com",
-            name: "rrr",
-            full_name: "rrrrr",
-            password: "rrrrrr")
-        user = User.new(
-            email: "rrr@test.com",
-            name: "sss",
-            full_name: "sssss",
-            password: "ssssss")
-        user.valid?
-        expect(user.errors[:email]).to include 'はすでに存在します'
-      end
-
-      it "emailのフォーマットが正しくない場合の登録失敗" do
+      it "メールアドレスのフォーマットが正しくない場合にユーザー登録に失敗すること" do
         user = User.new(
             email: "rrrtestcom",
-            name: "sss",
+            user_name: "sss",
             full_name: "sssss",
             password: "ssssss")
         user.valid?
         expect(user.errors[:email]).to include 'は不正な値です'
       end
 
-      it "passwordが６文字未満の場合の登録失敗" do
+      it "パスワードが６文字未満の場合ユーザー登録に失敗すること" do
         user = User.new(
             email: "rrrtestcom",
-            name: "sss",
+            user_name: "sss",
             full_name: "sssss",
             password: "sss")
         user.valid?
@@ -99,36 +86,4 @@ RSpec.describe User, type: :request do
     end
   end
 
-  describe "POST login" do
-    before do
-      User.create(
-          email: "rrr@test.com",
-          name: "rrr",
-          full_name: "rrrrr",
-          password: "rrrrrr")
-    end
-
-    it "ログインページでのレスポンス成功" do
-      get login_path
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
-    end
-
-    it "ログインに成功" do
-      post login_path, params: {
-          email: "rrr@test.com",
-          password: "rrrrrr"
-      }
-      expect(response.status).to eq(302)
-      expect(response).to redirect_to(home_path)
-    end
-
-    it "ログインに失敗" do
-      post login_path, params: {
-          email: "xxx@test.com",
-          password: "rrrrrr"
-      }
-      expect(response.body).to include '間違っています'
-    end
-  end
 end

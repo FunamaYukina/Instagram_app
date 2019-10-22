@@ -10,7 +10,7 @@ class SessionController < ApplicationController
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
       @password = params[:password]
-      render("users/login_form")
+      render("session/login_form")
     end
   end
 

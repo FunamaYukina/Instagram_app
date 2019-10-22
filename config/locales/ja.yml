@@ -6,6 +6,6 @@ ja:
   models:
   attributes:
       full_name: フルネーム
-      name: 名前
+      user_name: ユーザーネーム
       email: メールアドレス
       password: パスワード
