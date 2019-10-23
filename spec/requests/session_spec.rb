@@ -7,7 +7,8 @@ RSpec.describe "Session", type: :request do
           email: "rrr@test.com",
           user_name: "rrr",
           full_name: "rrrrr",
-          password: "rrrrrr")
+          password: "rrrrrr",
+          password_confirmation: "rrrrrr")
     end
 
     it "ログインページでレスポンス200が返ってくること" do
@@ -28,7 +29,6 @@ RSpec.describe "Session", type: :request do
     it "ユーザーがデータベースにない場合ログインに失敗すること" do
       post login_path, params: {
           email: "xxx@test.com",
-          password: "rrrrrr"
       }
       expect(response.body).to include '間違っています'
     end
