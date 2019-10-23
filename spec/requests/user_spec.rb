@@ -7,15 +7,41 @@ RSpec.describe User, type: :request do
       expect(FactoryBot.build(:user)).to be_valid
     end
   end
+  describe "#new" do
 
-  describe "POST users#create" do
+    before do
+      User.create(
+          email: "rrr@test.com",
+          user_name: "rrr",
+          full_name: "rrrrr",
+          password: "rrrrrr",
+          password_confirmation: "rrrrrr")
+    end
 
-    context "新規登録ユーザー登録に成功すること" do
-      it "レスポンス200が返ってくること" do
+
+    context "未ログインの場合" do
+      it "新規登録ページにアクセスできること" do
         get signup_path
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
+    end
+
+    context "ログイン済みの場合" do
+      it "新規登録ページにアクセスしてもリダイレクトされること" do
+        post login_path, params: {
+            email: "rrr@test.com",
+            password: "rrrrrr"
+        }
+        get signup_path
+        expect(response).to redirect_to root_path
+      end
+    end
+
+  end
+
+  describe "#create" do
+    context "新規登録ユーザー登録に成功する場合" do
 
       it "新規ユーザーが保存されること" do
         user_param = {
@@ -36,7 +62,7 @@ RSpec.describe User, type: :request do
             user_name: "rrr",
             full_name: "rrrrr",
             password: "rrrrrr",
-            password_digest: "asdfa"}
+            password_confirmation: "rrrrrr"}
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "rrr@test.com"

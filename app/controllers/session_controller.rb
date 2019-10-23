@@ -15,6 +15,9 @@ class SessionController < ApplicationController
   end
 
   def login_form
+    if current_user
+      redirect_to root_path
+    end
   end
 
   def logout

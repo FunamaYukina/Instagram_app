@@ -2,6 +2,9 @@ class UsersController < ApplicationController
   protect_from_forgery
 
   def new
+    if current_user
+      redirect_to root_path
+    end
     @user = User.new
   end
 
