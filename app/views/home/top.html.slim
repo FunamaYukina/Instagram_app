@@ -6,13 +6,12 @@
           / - @post.errors.full_messages.each do |message|
           /   .form-error
           /     = message
-          textarea name="message" 
+          textarea name="message"
           input type="submit" value="投稿"
     - @users.each do |user|
       .user-item
         .user-right
-          span user_name...
-          = user.name
+          = user.user_name
           span ....email....
           = user.email
           span ....pass.....

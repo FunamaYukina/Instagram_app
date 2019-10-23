@@ -16,18 +16,18 @@ module InstagramApp
     # -- all .rb files in that directory are automatically loaded.
     config.generators do |g|
       g.test_framework :rspec,
-                       fixtures: false,
                        view_specs: false,
                        helper_specs: false,
                        routing_specs: false,
-                       controller_specs: false
+                       controller_specs:false
     end
     config.generators do |g|
-      g.assets false
       g.helper false
+      g.assets false
     end
 
     config.generators.template_engine = :slim
+    config.i18n.default_locale = :ja
 
   end
 end

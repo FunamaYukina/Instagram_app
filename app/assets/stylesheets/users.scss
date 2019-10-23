@@ -1,10 +1,6 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.form-error {
-  color: #ff4d75;
-  padding-left: 50px;
-}
 
 //new
 .sign-up-body {
@@ -13,7 +9,6 @@
   padding-bottom: 80px;
   .sign-up-container {
     width: 450px;
-    height: 350px;
     background-color: white;
     margin-left: auto;
     margin-right: auto;
@@ -28,6 +23,11 @@
       }
     }
     .form-body {
+      .form-error{
+        color: darkred;
+        font-size: 14px;
+        padding-left: 35px;
+      }
       input {
         width: 80%;
         margin-bottom: 10px;
@@ -39,17 +39,16 @@
         color: #999999;
         font-size: 14px;
       }
-    }
-
-    .form-submit {
-      input {
+      .form-submit {
         width: 80%;
-        margin-bottom: 10px;
+        margin-bottom: 40px;
         margin-left: 50px;
         background-color: dodgerblue;
         color: white;
       }
     }
+
+
   }
   .log-in-container{
     width: 450px;
@@ -72,7 +71,6 @@
   padding-bottom: 80px;
   .log-in-container {
     width: 450px;
-    height: 250px;
     background-color: white;
     margin-left: auto;
     margin-right: auto;
@@ -88,6 +86,12 @@
     }
 
     .form-body {
+      .form-error{
+        color: darkred;
+        font-size: 14px;
+        padding-left: 55px;
+        padding-bottom: 10px;
+      }
       input {
         width: 80%;
         margin-bottom: 25px;
@@ -104,7 +108,7 @@
     .form-submit {
       input {
         width: 80%;
-        margin-bottom: 10px;
+        margin-bottom: 40px;
         margin-left: 50px;
         background-color: dodgerblue;
         color: white;

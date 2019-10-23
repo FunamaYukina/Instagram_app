@@ -2,96 +2,72 @@ require 'rails_helper'
 
 RSpec.describe User, type: :request do
 
-  describe "POST users#create" do
-    context "新規登録ユーザーが妥当な場合" do
-      it "signup success" do
-        get "/signup"
-        expect(response).to be_success
-        expect(response).to have_http_status(200)
-      end
-
-      it "save new user" do
-        expect do
-          post "/users/create", params: {
-              email: "rrr@test.com",
-              name: "rrr",
-              full_name: "rrrrr",
-              password: "rrr"
-          }
-        end.to change(User, :count).by(1)
-      end
-    end
-
-    context "新規ユーザーが妥当でない場合" do
-      it "signup success" do
-        get "/signup"
-        expect(response).to be_success
-        expect(response).to have_http_status(200)
-      end
-
-      it "failed to save no-name user" do
-        expect do
-          post "/users/create", params: {
-              email: "rrr@test.com",
-              name: "",
-              full_name: "rrrrr",
-              password: "rrr"
-          }
-        end.to_not change(User, :count)
-      end
-      it "failed to save no-full-name user" do
-        expect do
-          post "/users/create", params: {
-              email: "rrr@test.com",
-              name: "rrr",
-              full_name: "",
-              password: "rrr"
-          }
-        end.to_not change(User, :count)
-      end
-      it "failed to save no-email user" do
-        expect do
-          post "/users/create", params: {
-              email: "",
-              name: "rrr",
-              full_name: "rrrrr",
-              password: "rrr"
-          }
-        end.to_not change(User, :count)
-      end
-      it "failed to save no-password user" do
-        expect do
-          post "/users/create", params: {
-              email: "rrr@test.com",
-              name: "rrr",
-              full_name: "rrrrr",
-              password: ""
-          }
-        end.to_not change(User, :count)
-      end
+  describe User do
+    it "有効なファクトリを持つこと" do
+      expect(FactoryBot.build(:user)).to be_valid
     end
   end
-  describe "POST login" do
-    it "login success" do
-      get "/login"
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
+  describe "#new" do
+
+    before do
+      User.create(
+          email: "rrr@test.com",
+          user_name: "rrr",
+          full_name: "rrrrr",
+          password: "rrrrrr",
+          password_confirmation: "rrrrrr")
     end
 
-    it "can login exist user" do
-      post "/login", params: {
-          email: "aaa@test.com",
-          password: "aaa"
-      }
-      expect(response.body).to include '間違っています'
+
+    context "未ログインの場合" do
+      it "新規登録ページにアクセスできること" do
+        get signup_path
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it "can't login non-exist user" do
-      post "/login", params: {
-          email: "xxx@test.com",
-          password: "rrr"
-      }
-      expect(response.body).to include '間違っています'
+    context "ログイン済みの場合" do
+      it "新規登録ページにアクセスしてもリダイレクトされること" do
+        post login_path, params: {
+            email: "rrr@test.com",
+            password: "rrrrrr"
+        }
+        get signup_path
+        expect(response).to redirect_to root_path
+      end
+    end
+
+  end
+
+  describe "#create" do
+    context "新規登録ユーザー登録に成功する場合" do
+
+      it "新規ユーザーが保存されること" do
+        user_param = {
+            email: "rrr@test.com",
+            user_name: "rrr",
+            full_name: "rrrrr",
+            password: "rrrrrr",
+            password_confirmation: "rrrrrr"}
+        post signup_path, params: {user: user_param}
+        expect(response.status).to eq(302)
+        expect(User.last.email).to eq user_param[:email]
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "メールアドレスは小文字で登録されること" do
+        user_param = {
+            email: "rrr@test.com",
+            user_name: "rrr",
+            full_name: "rrrrr",
+            password: "rrrrrr",
+            password_confirmation: "rrrrrr"}
+        post signup_path, params: {user: user_param}
+        expect(response.status).to eq(302)
+        expect(User.last.email).to eq "rrr@test.com"
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 end
