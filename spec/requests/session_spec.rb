@@ -1,14 +1,10 @@
 require 'rails_helper'
+require 'support/utilities'
 
 RSpec.describe "Session", type: :request do
 
   before(:each) do
-    User.create(
-        email: "rrr@test.com",
-        user_name: "rrr",
-        full_name: "rrrrr",
-        password: "rrrrrr",
-        password_confirmation: "rrrrrr")
+    FactoryBot.create(:user)
   end
 
   describe "#login_form" do
@@ -23,11 +19,8 @@ RSpec.describe "Session", type: :request do
     end
     context "ログイン済みの場合" do
 
-      it "ログインページにアクセスしてもTOPへリダイレクトすること" do
-        post login_path, params: {
-            email: "rrr@test.com",
-            password: "rrrrrr"
-        }
+      it "TOPへリダイレクトすること" do
+        log_in
         get login_path
         expect(response).to redirect_to root_path
       end
@@ -37,18 +30,17 @@ RSpec.describe "Session", type: :request do
   describe "#login" do
     context "未ログインの場合" do
 
-      it "ユーザーがデータベースにあった場合ログインに成功すること" do
-        post login_path, params: {
-            email: "rrr@test.com",
-            password: "rrrrrr"
-        }
+      it "ユーザーが存在する場合ログイン出来ること" do
+        log_in
         expect(response.status).to eq(302)
         expect(response).to redirect_to(root_path)
+        expect(session[:user_id]).to eq 1
       end
 
-      it "ユーザーがデータベースにない場合ログインに失敗すること" do
+      it "ユーザーが存在しない場合ログインできないこと" do
         post login_path, params: {
             email: "xxx@test.com",
+            password: "test_password"
         }
         expect(response.body).to include '間違っています'
       end
@@ -56,12 +48,10 @@ RSpec.describe "Session", type: :request do
 
     context "ログイン済みの場合" do
       it "ログアウトに成功すること" do
-        post login_path, params: {
-            email: "rrr@test.com",
-            password: "rrrrrr"
-        }
+        log_in
         post logout_path
         expect(response).to redirect_to(login_path)
+        expect(session[:user_id]).to be_nil
       end
     end
   end

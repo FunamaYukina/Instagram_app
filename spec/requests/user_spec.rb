@@ -2,22 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :request do
 
+
   describe User do
     it "有効なファクトリを持つこと" do
       expect(FactoryBot.build(:user)).to be_valid
     end
   end
   describe "#new" do
-
-    before do
-      User.create(
-          email: "rrr@test.com",
-          user_name: "rrr",
-          full_name: "rrrrr",
-          password: "rrrrrr",
-          password_confirmation: "rrrrrr")
+    before(:each) do
+      FactoryBot.create(:user)
     end
-
 
     context "未ログインの場合" do
       it "新規登録ページにアクセスできること" do
@@ -28,28 +22,22 @@ RSpec.describe User, type: :request do
     end
 
     context "ログイン済みの場合" do
-      it "新規登録ページにアクセスしてもリダイレクトされること" do
+      it "TOPページへリダイレクトされること" do
         post login_path, params: {
-            email: "rrr@test.com",
-            password: "rrrrrr"
+            email: "example@test.com",
+            password: "test_password"
         }
         get signup_path
         expect(response).to redirect_to root_path
       end
     end
-
   end
 
   describe "#create" do
     context "新規登録ユーザー登録に成功する場合" do
 
       it "新規ユーザーが保存されること" do
-        user_param = {
-            email: "rrr@test.com",
-            user_name: "rrr",
-            full_name: "rrrrr",
-            password: "rrrrrr",
-            password_confirmation: "rrrrrr"}
+        user_param = FactoryBot.attributes_for(:another_user)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
         expect(User.last.email).to eq user_param[:email]
@@ -57,16 +45,19 @@ RSpec.describe User, type: :request do
       end
 
       it "メールアドレスは小文字で登録されること" do
-        user_param = {
-            email: "rrr@test.com",
-            user_name: "rrr",
-            full_name: "rrrrr",
-            password: "rrrrrr",
-            password_confirmation: "rrrrrr"}
+        user_param = FactoryBot.attributes_for(:another_user)
         post signup_path, params: {user: user_param}
         expect(response.status).to eq(302)
-        expect(User.last.email).to eq "rrr@test.com"
+        expect(User.last.email).to eq "another_example@test.com"
         expect(response).to redirect_to(root_path)
+      end
+    end
+    context "新規ユーザーの保存に失敗する場合" do
+      it "メールアドレスがない時に登録に失敗すること" do
+        expect do
+          user_param = FactoryBot.attributes_for(:another_user, email: "")
+          post signup_path, params: {user: user_param}
+        end.to_not change(User, :count)
       end
     end
   end
