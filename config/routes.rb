@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get 'login' => "session#login_form"
   post 'login' => "session#login"
   post 'logout' => "session#logout"
+
   get 'posts/index'
-  post "posts/create" => "posts#create"
+  post "post" => "posts#create"
 
   get 'login' => "users#login_form"
   post 'login' => "users#login"

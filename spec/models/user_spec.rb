@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors.full_messages).to include 'メールアドレスはすでに存在します'
   end
-  describe "POST signup" do
+  describe "#signup" do
     context "新規ユーザー登録に失敗する場合" do
 
       it "名前がない場合ユーザー登録に失敗すること" do

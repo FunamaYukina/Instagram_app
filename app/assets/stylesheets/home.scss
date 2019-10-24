@@ -67,19 +67,33 @@ header {
   padding-top: 70px;
   .new-post-form{
     background-color: white;
-    width: 70%;
+    border: 1px solid #CCCCCC;
+    width: 550px;
+    //margin-left: auto;
+    //margin-right: auto;
+    margin-bottom: 40px;
     .form-body{
+      margin-left: auto;
+      margin-right: auto;
+      width: 70%;
+      p{
+        text-align: center;
+      }
       textarea {
+        width: 100%;
         font-size: 20px;
         padding: 10px;
         min-height: 140px;
         border: 1px solid #CCCCCC;
         resize: none;
+        font-size: 16px;
       }
-      input {
+      .submit {
         width: 50%;
+        display: block;
         margin-bottom: 10px;
-        margin-left: 50px;
+        margin-left: auto;
+        margin-right: auto;
         background-color: dodgerblue;
         color: white;
       }
@@ -91,7 +105,7 @@ header {
     overflow: hidden;
     box-shadow: 0 2px 6px #c1ced7;
     display: table;
-    width: 70%;
+    width: 550px;
     .user-right{
       width: 90%;
       padding-left: 25px;

@@ -1,13 +1,15 @@
 .home
   .container
-    = form_tag("/posts/create") do
-      .new-post-form
-        .form-body
-          / - @post.errors.full_messages.each do |message|
-          /   .form-error
-          /     = message
-          textarea name="message"
-          input type="submit" value="投稿"
+
+    .new-post-form
+      .form-body
+        p 新規作成
+        / - @post.errors.full_messages.each do |message|
+        /   .form-error
+        /     = message
+        = form_for(@post, url: post_path(params[:id])) do |f|
+          = f.text_area :message,class: "textarea", placeholder: "メッセージ"
+          = f.submit "投稿する", class: "submit"
     - @users.each do |user|
       .user-item
         .user-right
