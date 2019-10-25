@@ -7,9 +7,16 @@
         / - @post.errors.full_messages.each do |message|
         /   .form-error
         /     = message
-        = form_for(@post, url: post_path(params[:id])) do |f|
-          = f.text_area :message,class: "textarea", placeholder: "メッセージ"
+
+        = form_for(@post, url: post_path) do |f|
+
+          = f.text_area :message, class: "textarea", placeholder: "メッセージ"
+          = f.fields_for :images,@post.images.build do |a|
+            / = image_tag(f.object.content)
+            =a.label :image
+            = a.file_field :image_file
           = f.submit "投稿する", class: "submit"
+
     - @users.each do |user|
       .user-item
         .user-right
@@ -24,3 +31,7 @@
         = post.user_id
         span ...message...
         = post.message
+    - @images.each do |image|
+      .image-item
+        =image.post_id
+        =image_tag image.image_file

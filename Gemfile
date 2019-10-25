@@ -18,7 +18,11 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'carrierwave', '1.2.2'
+gem 'mini_magick', '4.7.0'
+gem 'nested_form'
+# gem "refile-mini_magick", github: 'refile/refile-mini_magick'
+# gem "refile", require: "refile/rails", github: 'manfe/refile'
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -42,7 +46,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'rspec-rails','~> 3.6.0'
+  gem 'rspec-rails', '~> 3.6.0'
   gem "pry-rails"
 end
 
@@ -55,6 +59,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
 
+end
+group :production do
+  gem 'fog', '1.42'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'images/index'
+
   get 'login' => "session#login_form"
   post 'login' => "session#login"
   post 'logout' => "session#logout"

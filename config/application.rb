@@ -28,6 +28,6 @@ module InstagramApp
 
     config.generators.template_engine = :slim
     config.i18n.default_locale = :ja
-
+    config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
   end
 end
