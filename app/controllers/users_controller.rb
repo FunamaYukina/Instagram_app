@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   protect_from_forgery
 
   def new
-    if current_user
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user
     @user = User.new
   end
 
@@ -22,8 +22,7 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-  end
-
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
 end
