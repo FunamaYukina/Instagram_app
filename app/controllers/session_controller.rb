@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionController < ApplicationController
-  before_action :logged_in_user, only: [:login, :login_form]
+  before_action :logged_in_user, only: %i[login login_form]
 
   def login
     @user = User.find_by(email: params[:email])

@@ -59,8 +59,8 @@ RSpec.describe "Session", type: :request do
       it "TOPへリダイレクトすること" do
         log_in
         post login_path, params: {
-            email: "example@test.com",
-            password: "test_password"
+          email: "example@test.com",
+          password: "test_password"
         }
         expect(response).to redirect_to root_path
       end
