@@ -3,10 +3,13 @@
 class SessionController < ApplicationController
   before_action :check_logged_in?, only: %i[login login_form]
 
+  def login_form
+  end
+
   def login
-    @user = User.find_by(email: params[:email])
-    if @user&.authenticate(params[:password])
-      session[:user_id] = @user.id
+    user = User.find_by(email: params[:email])
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
       flash[:notice] = "ログインしました"
       redirect_to root_path
     else
@@ -16,8 +19,6 @@ class SessionController < ApplicationController
       render("session/login_form")
     end
   end
-
-  def login_form; end
 
   def logout
     session[:user_id] = nil
