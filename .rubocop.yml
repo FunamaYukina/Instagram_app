@@ -159,6 +159,9 @@ Style/StringLiteralsInInterpolation:
 Style/SingleLineBlockParams:
   Enabled: false
 
+Style/SimbolArray:
+  Enabled: false
+
 # * migrate
 # * jbuilder
 # * model の association

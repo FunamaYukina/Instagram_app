@@ -2,16 +2,13 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
+  before_action :check_logged_in?
 
   def new
-    redirect_to root_path if logged_in_user
     @user = User.new
   end
 
   def create
-    if logged_in_user
-      redirect_to root_path
-    else
       @user = User.new(user_params)
       if @user.save
         session[:user_id] = @user.id
@@ -21,11 +18,9 @@ class UsersController < ApplicationController
       else
         render("users/new")
       end
-    end
   end
 
   private
-
     def user_params
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionController < ApplicationController
-  before_action :logged_in_user, only: %i[login login_form]
+  before_action :check_logged_in?, only: [:login, :login_form]
 
   def login
     @user = User.find_by(email: params[:email])
@@ -18,7 +18,6 @@ class SessionController < ApplicationController
   end
 
   def login_form
-    redirect_to root_path if logged_in_user
   end
 
   def logout
