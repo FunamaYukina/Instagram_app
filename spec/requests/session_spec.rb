@@ -23,6 +23,15 @@ RSpec.describe "Session", type: :request do
         get login_path
         expect(response).to redirect_to root_path
       end
+
+      it "TOPへリダイレクトすること" do
+        log_in
+        post login_path, params: {
+            email: "example@test.com",
+            password: "test_password"
+        }
+        expect(response).to redirect_to root_path
+      end
     end
   end
 
@@ -41,6 +50,7 @@ RSpec.describe "Session", type: :request do
           password: "test_password"
         }
         expect(response.body).to include "間違っています"
+        expect(session[:user_id]).to be_nil
       end
     end
   end
@@ -52,17 +62,6 @@ RSpec.describe "Session", type: :request do
         post logout_path
         expect(response).to redirect_to(login_path)
         expect(session[:user_id]).to be_nil
-      end
-    end
-
-    context "ログイン済みの場合" do
-      it "TOPへリダイレクトすること" do
-        log_in
-        post login_path, params: {
-          email: "example@test.com",
-          password: "test_password"
-        }
-        expect(response).to redirect_to root_path
       end
     end
   end
