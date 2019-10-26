@@ -22,20 +22,20 @@ html
         .nav-right
           .navbar-nav
             a.nav-item.nav-link.active href="#"
-              i.fa.fa-compass aria-hidden="true"
+              i.fa.fa-compass aria-hidden="true" title="recommend"
             a.nav-item.nav-link href="#"
-              i.fa.fa-heart-o aria-hidden="true"
+              i.fa.fa-heart-o aria-hidden="true" title="notification"
             a.nav-item.nav-link href="#"
-              i.fa.fa-user-o aria-hidden="true"
+              i.fa.fa-user-o aria-hidden="true" title="my page"
             = link_to login_path do
               .nav-item.nav-link
-                i.fa.fa-sign-in aria-hidden="true"
+                i.fa.fa-sign-in aria-hidden="true" title="log in"
             = link_to logout_path, method: :post do
               .nav-item.nav-link
-                i.fa.fa-sign-out aria-hidden="true"
+                i.fa.fa-sign-out aria-hidden="true" title="logout"
             = link_to signup_path do
               .nav-item.nav-link
-                i.fa.fa-address-card-o aria-hidden="true"
+                i.fa.fa-address-card-o aria-hidden="true" title="sign up"
     - flash.each do |notice, value|
       .flash
         = content_tag(:div, value, class: notice)

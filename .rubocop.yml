@@ -224,3 +224,5 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Max: 30
 
+RSpec/DescribedClass:
+  Enabled: False

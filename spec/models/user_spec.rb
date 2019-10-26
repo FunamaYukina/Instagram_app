@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
     expect(user.errors.full_messages).to include "メールアドレスはすでに存在します"
   end
 
-  describe "#signup" do
+  describe "validation" do
     context "新規ユーザー登録に失敗する場合" do
       it "名前がない場合ユーザー登録に失敗すること" do
         user.user_name = ""
@@ -51,7 +51,8 @@ RSpec.describe User, type: :model do
       end
 
       it "パスワードと確認用パスワードが一致しない場合ユーザー登録に失敗すること" do
-        user.password = "password", user.password_confirmation = "pass"
+        user.password = "password"
+        user.password_confirmation = "pass"
         user.valid?
         expect(user.errors.full_messages).to include "再入力パスワードとパスワードの入力が一致しません"
       end
