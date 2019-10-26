@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionController < ApplicationController
-  before_action :check_logged_in?, only: [:login, :login_form]
+  before_action :check_logged_in?, only: %i[login login_form]
 
   def login
     @user = User.find_by(email: params[:email])
@@ -17,8 +17,7 @@ class SessionController < ApplicationController
     end
   end
 
-  def login_form
-  end
+  def login_form; end
 
   def logout
     session[:user_id] = nil
