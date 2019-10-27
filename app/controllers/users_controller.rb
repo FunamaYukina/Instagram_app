@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     if @user.save
       log_in(@user)
       flash[:notice] = "ユーザー登録が完了しました"
-      # redirect_to("/users/#{@user.id}")
       redirect_to root_path
     else
       render("users/new")

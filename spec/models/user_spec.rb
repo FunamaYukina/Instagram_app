@@ -25,6 +25,13 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include "メールアドレスはすでに存在します"
       end
 
+      it "ユーザーネームが重複した場合、ユーザー登録に失敗すること" do
+        FactoryBot.create(:user)
+        user = FactoryBot.build(:another_user, user_name: "test_user_name")
+        user.valid?
+        expect(user.errors.full_messages).to include "ユーザーネームはすでに存在します"
+      end
+
       it "名前がない場合ユーザー登録失敗すること" do
         user.user_name = ""
         user.valid?

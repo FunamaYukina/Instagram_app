@@ -52,7 +52,7 @@ RSpec.describe User, type: :request do
     end
 
     context "新規ユーザーの保存に失敗する場合" do
-      it "メールアドレスがない時に登録に失敗すること" do
+      it "メールアドレスがない場合登録に失敗すること" do
         expect do
           user_param = FactoryBot.attributes_for(:another_user, email: "")
           post signup_path, params: { user: user_param }

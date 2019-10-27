@@ -57,7 +57,7 @@ RSpec.describe "Session", type: :request do
     context "ログイン済みの場合" do
       it "TOPへリダイレクトすること" do
         log_in
-        get login_path
+        post login_path
         expect(response).to redirect_to root_path
       end
     end
