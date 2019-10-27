@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+  get "login" => "session#login_form"
+  post "login" => "session#login"
+  post "logout" => "session#logout"
 
-
-  get '/' => "home#top"
-
+  root "home#top"
+  get "signup" => "users#new"
+  post "signup" => "users#create"
 end

@@ -1,0 +1,28 @@
+.sign-up-body
+  .sign-up-container
+    .form-heading
+      .heading-logo
+        p Instagram
+      .heading-message
+        p 友達の動画や写真をチェックしよう
+    .form-body
+      - if @user.errors.any?
+        .form-error
+          ul
+            - @user.errors.full_messages.each do |msg|
+              li= msg
+
+      = form_for(@user, url: signup_path) do |f|
+        =f.email_field :email, placeholder: "メールアドレス"
+        =f.text_field :full_name, placeholder: "フルネーム"
+        =f.text_field :user_name, placeholder: "ユーザーネーム"
+        =f.password_field :password ,placeholder: "パスワード"
+        =f.password_field :password_confirmation ,placeholder: "パスワード再入力"
+        =f.submit "登録する",class: "form-submit"
+
+  .log-in-container
+    .log-in-header
+      p アカウントをお持ちですか？
+    .log-in-link
+      = link_to login_path do
+        span ログインする
