@@ -16,7 +16,7 @@ RSpec.describe User, type: :request do
     end
 
     context "未ログインの場合" do
-      it "新規登録ページにアクセスできること" do
+      it "レスポンス200が返ってくること" do
         get signup_path
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
@@ -34,7 +34,7 @@ RSpec.describe User, type: :request do
 
   describe "#create" do
     context "新規登録ユーザー登録に成功する場合" do
-      it "新規ユーザーが保存されること" do
+      it "新規ユーザーが登録されること" do
         user_param = FactoryBot.attributes_for(:another_user)
         post signup_path, params: { user: user_param }
         expect(response.status).to eq(302)
@@ -51,8 +51,8 @@ RSpec.describe User, type: :request do
       end
     end
 
-    context "新規ユーザーの保存に失敗する場合" do
-      it "メールアドレスがない場合登録に失敗すること" do
+    context "新規ユーザーの登録に失敗する場合" do
+      it "メールアドレスがない場合、ユーザー登録に失敗すること" do
         expect do
           user_param = FactoryBot.attributes_for(:another_user, email: "")
           post signup_path, params: { user: user_param }

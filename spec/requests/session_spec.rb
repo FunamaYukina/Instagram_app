@@ -10,7 +10,7 @@ RSpec.describe "Session", type: :request do
 
   describe "#login_form" do
     context "未ログインの場合" do
-      it "ログインページでレスポンス200が返ってくること" do
+      it "レスポンス200が返ってくること" do
         get login_path
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
@@ -18,7 +18,7 @@ RSpec.describe "Session", type: :request do
     end
 
     context "ログイン済みの場合" do
-      it "TOPへリダイレクトすること" do
+      it "TOPへリダイレクトされること" do
         log_in
         get login_path
         expect(response).to redirect_to root_path
@@ -28,14 +28,14 @@ RSpec.describe "Session", type: :request do
 
   describe "#login" do
     context "未ログインの場合" do
-      it "ユーザーが存在する場合ログイン出来ること" do
+      it "ユーザーが存在する場合、ログイン出来ること" do
         log_in
         expect(response.status).to eq(302)
         expect(response).to redirect_to(root_path)
         expect(session[:user_id]).to eq 1
       end
 
-      it "ユーザーが存在しない場合ログインできないこと" do
+      it "ユーザーが存在しない場合、ログインできないこと" do
         post login_path, params: {
           email: "xxx@test.com",
           password: "test_password"
@@ -46,7 +46,7 @@ RSpec.describe "Session", type: :request do
     end
 
     context "ログイン済みの場合" do
-      it "TOPへリダイレクトすること" do
+      it "TOPへリダイレクトされること" do
         log_in
         post login_path, params: {
           email: "example@test.com",
