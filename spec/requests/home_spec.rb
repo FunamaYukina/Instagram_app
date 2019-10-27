@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "support/utilities"
 
 RSpec.describe "Home", type: :request do
   describe "#top" do
+    before do
+      FactoryBot.create(:post)
+      log_in
+    end
+
     it "レスポンス200が返ってくること" do
       get root_path
       expect(response).to be_success
