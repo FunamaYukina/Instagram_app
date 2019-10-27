@@ -65,51 +65,56 @@ header {
 .home {
   background-color: #fafafa;
   padding-top: 70px;
+  padding-left: 100px;
   .new-post-form{
     background-color: white;
-    border: 1px solid #CCCCCC;
+    box-shadow: 0 2px 6px #c1ced7;
     width: 550px;
     margin-bottom: 40px;
     .form-body{
       margin-left: auto;
       margin-right: auto;
       width: 70%;
+      padding-bottom: 20px;
+      padding-top: 10px;
       p{
         text-align: center;
       }
       textarea {
         width: 100%;
-        font-size: 20px;
+        font-size: 16px;
         padding: 10px;
         min-height: 140px;
         border: 1px solid #CCCCCC;
         resize: none;
-        font-size: 16px;
       }
       .submit {
         width: 50%;
         display: block;
-        margin-bottom: 10px;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 10px;
         background-color: dodgerblue;
         color: white;
       }
     }
   }
-  .user-item{
-    padding: 20px 30px;
+  .post-container{
     background-color: white;
-    overflow: hidden;
     box-shadow: 0 2px 6px #c1ced7;
-    display: table;
     width: 550px;
-    .user-right{
-      width: 90%;
-      padding-left: 25px;
-      text-align: left;
-      display: table-cell;
-      vertical-align: middle;
+    margin-bottom: 20px;
+    .post-user-name{
+      height: 50px;
+      padding: 10px 20px;
+    }
+    .post-image{
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-message{
+      height: 100px;
+      padding: 10px 20px;
     }
   }
 }
