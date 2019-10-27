@@ -4,9 +4,14 @@ module SessionHelper
   end
 
   def current_user
-    if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])
-    end
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def logged_in?
+    !!current_user
+  end
+
+  def check_logged_in?
+    redirect_to root_path if logged_in?
+  end
 end

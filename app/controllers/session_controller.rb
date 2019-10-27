@@ -1,9 +1,15 @@
+# frozen_string_literal: true
+
 class SessionController < ApplicationController
+  before_action :check_logged_in?, only: %i[login login_form]
+
+  def login_form
+  end
 
   def login
-    @user = User.find_by(email: params[:email])
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+    user = User.find_by(email: params[:email])
+    if user&.authenticate(params[:password])
+      log_in(user)
       flash[:notice] = "ログインしました"
       redirect_to root_path
     else
@@ -14,16 +20,9 @@ class SessionController < ApplicationController
     end
   end
 
-  def login_form
-    if current_user
-      redirect_to root_path
-    end
-  end
-
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
     redirect_to login_path
   end
-
 end
