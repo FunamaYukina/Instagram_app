@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include "メールアドレスはすでに存在します"
       end
 
-      it "名前がない場合ユーザー登録に失敗すること" do
+      it "名前がない場合ユーザー登録失敗すること" do
         user.user_name = ""
         user.valid?
         expect(user.errors.full_messages).to include "ユーザーネームを入力してください"
@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
         expect(test_user.errors.full_messages).to include "パスワードを入力してください"
       end
 
-      it "メールアドレスのフォーマットが正しくない場合にユーザー登録に失敗すること" do
+      it "メールアドレスのフォーマットが正しくない場合ユーザー登録に失敗すること" do
         user.email = "exampletestcom"
         user.valid?
         expect(user.errors.full_messages).to include "メールアドレスは不正な値です"
