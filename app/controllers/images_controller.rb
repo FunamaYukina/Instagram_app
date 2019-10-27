@@ -1,5 +1,6 @@
-class ImagesController < ApplicationController
+# frozen_string_literal: true
 
+class ImagesController < ApplicationController
   def new
     @post = Post.find(params[:post_id])
     @image = Image.new
@@ -12,7 +13,7 @@ class ImagesController < ApplicationController
 
   private
 
-  def image_params
-    params.require(:image).permit(:image_file).merge(post_id: params[:post_id])
-  end
+    def image_params
+      params.require(:image).permit(:image_file).merge(post_id: params[:post_id])
+    end
 end
