@@ -1,7 +1,22 @@
-p this is the user page
-.user-container
-  .user-icon
-  .user-name
-  .user-detail
-  .user-follow
-  .user-introduction
+.show-container
+  .user-container
+    .user-icon
+      .user-image
+        span ◯
+    .user-information
+      .user-name
+        = current_user.user_name
+      .user-follow
+      .user-detail
+        .user-detail-left
+          span 投稿  1000件
+        .user-detail-center
+          span フォロワー　100人
+        .user-detail-right
+          span 10人をフォロー中
+      .user-introduction
+        span 猫の飼い主です。
+  .user-image-container
+    - current_user.posts.each do |post|
+      - post.images.each do |image|
+        = image_tag image.image_file , size: '250x250', class: "image-item"
