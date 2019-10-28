@@ -66,20 +66,25 @@ header {
   background-color: #fafafa;
   padding-top: 70px;
   padding-left: 100px;
-  .new-post-form{
+
+  .new-post-form {
     background-color: white;
     box-shadow: 0 2px 6px #c1ced7;
     width: 550px;
     margin-bottom: 40px;
-    .form-body{
+    display: inline-block;
+
+    .form-body {
       margin-left: auto;
       margin-right: auto;
       width: 70%;
       padding-bottom: 20px;
       padding-top: 10px;
-      p{
+
+      p {
         text-align: center;
       }
+
       textarea {
         width: 100%;
         font-size: 16px;
@@ -88,6 +93,24 @@ header {
         border: 1px solid #CCCCCC;
         resize: none;
       }
+
+      .image-form {
+        display: none;
+      }
+
+      .input-btn {
+        background: dodgerblue;
+        color: #fff;
+        cursor: pointer;
+        padding: 2px 10px;
+        width: 50%;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+      }
+
       .submit {
         width: 50%;
         display: block;
@@ -99,20 +122,41 @@ header {
       }
     }
   }
-  .post-container{
+
+  .user-container {
+    display: inline-block;
+    margin-left: 50px;
+    vertical-align: top;
+    .user-name{
+      .user-short-name {
+        margin-left: 20px;
+        font-weight: bold;
+      }
+      .user-full-name{
+        color: #999999;
+        margin-left: 20px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .post-container {
     background-color: white;
     box-shadow: 0 2px 6px #c1ced7;
     width: 550px;
     margin-bottom: 20px;
-    .post-user-name{
+
+    .post-user-name {
       height: 50px;
       padding: 10px 20px;
     }
-    .post-image{
+
+    .post-image {
       margin-left: auto;
       margin-right: auto;
     }
-    .post-message{
+
+    .post-message {
       height: 100px;
       padding: 10px 20px;
     }

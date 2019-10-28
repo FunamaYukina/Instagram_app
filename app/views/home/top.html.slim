@@ -2,16 +2,24 @@
   - if logged_in?
     .new-post-form
       .form-body
-        p 新規作成
+        p 新規投稿
         - @post.errors.full_messages.each do |message|
           .form-error
             = message
         = form_for(@post, url: post_path) do |f|
           = f.fields_for :images,@post.images.build do |a|
-            = a.label :image
-            = a.file_field :image_file
+            = a.label :image_file, "画像をアップロード", class: "input-btn"
+            = a.file_field :image_file, class: "image-form"
             = f.text_area :message, class: "textarea", placeholder: "メッセージ"
             = f.submit "投稿する", class: "submit"
+    .user-container
+      p 現在のログインユーザー名
+      .user-image
+      .user-name
+        .user-short-name
+          = current_user.user_name
+        .user-full-name
+          = current_user.full_name
 
   - @users.each do |user|
     - user.posts.each do |post|
