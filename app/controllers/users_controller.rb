@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :check_logged_in? ,only: [:new, :create]
+  before_action :check_logged_in?, only: %i[new create]
 
   def new
     @user = User.new
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
 end
