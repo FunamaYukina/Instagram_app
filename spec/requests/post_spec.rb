@@ -19,8 +19,8 @@ RSpec.describe "posts", type: :request do
       end
 
       it "画像とメッセージが投稿されること" do
-        post_param=FactoryBot.attributes_for(:post, :with_picture)
-        post post_path, params:{
+        post_param = FactoryBot.attributes_for(:post, :with_picture)
+        post post_path, params: {
           post: post_param
         }
         expect(response.status).to eq(302)

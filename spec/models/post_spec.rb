@@ -6,7 +6,6 @@ require "support/utilities"
 RSpec.describe Post, type: :model do
   describe "#create" do
     context "新規投稿に成功する場合" do
-
       it "メッセージがある場合投稿に成功すること" do
         post = FactoryBot.build(:post)
         expect(post).to be_valid

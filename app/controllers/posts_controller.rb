@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-       root_path and return
+      root_path and return
     else
       render("posts/new")
     end
