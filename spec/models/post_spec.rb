@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "support/utilities"
 
 RSpec.describe Post, type: :model do
   describe "#create" do
-    it "画像を追加していない場合投稿できないこと"
+    context "新規投稿に成功する場合" do
 
-    it "画像の枚数が３枚を超える場合投稿できないこと"
+      it "メッセージがある場合投稿に成功すること" do
+        post = FactoryBot.build(:post)
+        expect(post).to be_valid
+      end
 
-    it "画像のサイズ比が1:1であること"
-
-    it ""
+      it "メッセージがない場合でも投稿に成功すること" do
+        post = FactoryBot.build(:post, message: "")
+        expect(post).to be_valid
+      end
+    end
   end
 end

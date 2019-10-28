@@ -11,10 +11,12 @@ class PostsController < ApplicationController
   end
 
   def create
+    check_logged_in?
+    # binding.pry
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-      redirect_to root_path
+       root_path and return
     else
       render("posts/new")
     end
