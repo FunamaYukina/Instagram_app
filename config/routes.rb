@@ -11,12 +11,10 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
+  get "users/:id" => "users#show", as: "user_page"
+
   get "posts/index"
   post "post" => "posts#create"
-
-  get "login" => "users#login_form"
-  post "login" => "users#login"
-  post "users/logout" => "users#logout"
 
   root "home#top"
   get "signup" => "users#new"

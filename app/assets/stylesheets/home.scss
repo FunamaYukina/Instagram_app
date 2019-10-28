@@ -127,12 +127,18 @@ header {
     display: inline-block;
     margin-left: 50px;
     vertical-align: top;
-    .user-name{
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .user-name {
       .user-short-name {
         margin-left: 20px;
         font-weight: bold;
       }
-      .user-full-name{
+
+      .user-full-name {
         color: #999999;
         margin-left: 20px;
         font-size: 14px;

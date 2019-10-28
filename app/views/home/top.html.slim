@@ -14,12 +14,14 @@
             = f.submit "投稿する", class: "submit"
     .user-container
       p 現在のログインユーザー名
-      .user-image
-      .user-name
-        .user-short-name
-          = current_user.user_name
-        .user-full-name
-          = current_user.full_name
+      = link_to("user", user_page_path(current_user.id))
+      = link_to user_page_path(current_user.id) do
+        .user-image
+        .user-name
+          .user-short-name
+            = current_user.user_name
+          .user-full-name
+            = current_user.full_name
 
   - @users.each do |user|
     - user.posts.each do |post|
