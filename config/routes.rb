@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "logout" => "session#logout"
 
   get "users/:id" => "users#show", as: "user_page"
+  get "users/:id/edit" => "users#edit", as:"user_profile"
 
   get "posts/index"
   post "post" => "posts#create"

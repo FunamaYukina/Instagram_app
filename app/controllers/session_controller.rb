@@ -29,6 +29,6 @@ class SessionController < ApplicationController
   private
 
     def correct_user
-      redirect_to(root_path) if current_user
+      redirect_to(root_path) if logged_in?
     end
 end

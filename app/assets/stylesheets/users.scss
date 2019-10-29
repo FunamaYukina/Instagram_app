@@ -137,77 +137,144 @@
 }
 
 //show
-body {
-  background-color: red;
+.show-container {
+  background-color: #fafafa;
   width: 100%;
+  height: 100%;
   padding-bottom: 50px;
-  .show-container {
-    background-color: white;
+  padding-left: 50px;
+  padding-top: 50px;
+
+  .user-container {
     height: 300px;
-    width: 100%;
-    padding-left: 50px;
-    margin-top: 50px;
+    width: 810px;
+    margin-left: auto;
+    margin-right: auto;
 
-    .user-container {
-      height: 300px;
-      width: 810px;
-      margin-left: auto;
-      margin-right: auto;
+    .user-icon {
+      display: inline-block;
+      width: 200px;
+      height: 250px;
+      vertical-align: top;
 
-      .user-icon {
-        display: inline-block;
-        width: 200px;
-        height: 200px;
-        vertical-align: top;
-      }
+      .user-image {
+        padding-top: 30px;
+        padding-left: 20px;
 
-      .user-information {
-        display: inline-block;
-        width: 500px;
-        height: 250px;
-        margin-left: 50px;
-        vertical-align: top;
-
-        .user-name {
-          display: inline-block;
-          font-size: 24px;
-          padding: 20px 0;
-        }
-
-        .user-detail {
-          display: inline-block;
-          padding: 15px 0;
-
-          .user-detail-left {
-            width: 120px;
-            display: inline-block;
-          }
-
-          .user-detail-center {
-            width: 180px;
-            display: inline-block;
-          }
-
-          .user-detail-right {
-            width: 160px;
-            display: inline-block;
-          }
+        .image-icon {
+          border-radius: 75px;
         }
       }
     }
 
-    .user-image-container {
-      background-color: white;
-      height: 300px;
-      width: 810px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-top: 30px;
+    .user-information {
+      display: inline-block;
+      width: 500px;
+      height: 250px;
+      margin-left: 50px;
+      vertical-align: top;
 
-      .image-item {
-        margin-right: 20px;
-        margin-bottom: 20px;
+      .user-name {
+        display: inline-block;
+        font-size: 24px;
+        padding: 20px 0;
+        width: 280px;
+      }
+
+      .user-profile {
+        display: inline-block;
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid #CCC;
+        padding: 2px 15px;
+
+        a:hover {
+          text-decoration: none;
+        }
+      }
+
+      .user-follow {
+        display: inline-block;
+        background-color: #13a2b0;
+      }
+
+      .user-detail {
+        display: inline-block;
+        padding: 15px 0;
+
+        .user-detail-left {
+          width: 120px;
+          display: inline-block;
+        }
+
+        .user-detail-center {
+          width: 180px;
+          display: inline-block;
+        }
+
+        .user-detail-right {
+          width: 160px;
+          display: inline-block;
+        }
       }
     }
   }
+
+  .user-image-container {
+    height: 300px;
+    width: 810px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+
+    .image-item {
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+//edit
+.edit-container {
+  background-color: #fafafa;
+  padding-left: 50px;
+  padding-top: 70px;
+
+  .edit-menu {
+    width: 250px;
+    height: 500px;
+    background-color: white;
+    display: inline-block;
+    border: 1px solid #CCC;
+    vertical-align: top;
+
+    li {
+      padding-top: 10px;
+
+      a {
+        color: black;
+
+        :hover {
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+
+  .edit-contents {
+    background-color: white;
+    width: 600px;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #CCC;
+
+    .edit-form {
+      label {
+        display: block;
+
+      }
+    }
+  }
+
 }

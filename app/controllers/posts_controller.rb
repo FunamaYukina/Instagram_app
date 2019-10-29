@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :require_login, only:[:create]
+
   def index
     @post = Post.new
   end
@@ -11,13 +13,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    require_login
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-      root_path
+      redirect_to root_path
     else
-      render("posts/new")
+      render("home/top")
     end
   end
 
@@ -27,7 +28,7 @@ class PostsController < ApplicationController
       params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]])
     end
 
-    def require_login
-      redirect_to root_path if current_user
-    end
+  def require_login
+    redirect_to login_path and return unless logged_in?
+  end
 end

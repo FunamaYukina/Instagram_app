@@ -1,0 +1,22 @@
+.edit-container
+  .edit-menu
+    ul.nav.flex-column
+      li.nav-item
+        a.nav-link.active href="#"  プロフィールを編集
+      li.nav-item
+        a.nav-link href="#"  パスワードを変更
+      li.nav-item
+        a.nav-link href="#"  許可されたアプリ
+      li.nav-item
+        a.nav-link href="#"  メールまたはSMS
+      li.nav-item
+        a.nav-link href="#"  連絡先の管理
+      li.nav-item
+        a.nav-link href="#"  プライバシーとセキュリティ
+      li.nav-item
+        a.nav-link href="#"  ログインアクティビティ
+  .edit-contents
+    .edit-form
+      / = form_for(@user, url: , html: {method: :get, class: 'form-horizontal', role: 'form'}) do |f|
+      /   = f.text_field :code, class: 'form-control'
+      /   = f.text_field :name, class: 'form-control'

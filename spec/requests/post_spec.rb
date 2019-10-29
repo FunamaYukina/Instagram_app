@@ -10,6 +10,14 @@ RSpec.describe "posts", type: :request do
         get root_path
         expect(response.body).not_to include "新規投稿"
       end
+      it "画像とメッセージの投稿に失敗すること" do
+        post_param = FactoryBot.attributes_for(:post, :with_picture)
+        post post_path, params: {
+            post: post_param
+        }
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(login_path)
+      end
     end
 
     context "ログイン済みの場合" do
@@ -18,7 +26,7 @@ RSpec.describe "posts", type: :request do
         log_in
       end
 
-      it "画像とメッセージが投稿されること" do
+      it "画像とメッセージの投稿に成功すること" do
         post_param = FactoryBot.attributes_for(:post, :with_picture)
         post post_path, params: {
           post: post_param

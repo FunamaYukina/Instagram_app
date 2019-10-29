@@ -13,6 +13,11 @@ class UsersController < ApplicationController
     @post = @user.posts.eager_load([:images])
   end
 
+  def edit
+    @user = current_user
+    @post = @user.posts.eager_load([:images])
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
