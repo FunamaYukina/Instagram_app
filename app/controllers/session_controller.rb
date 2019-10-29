@@ -28,7 +28,7 @@ class SessionController < ApplicationController
 
   private
 
-  def correct_user
-    redirect_to(root_path) if current_user
-  end
+    def correct_user
+      redirect_to(root_path) if current_user
+    end
 end

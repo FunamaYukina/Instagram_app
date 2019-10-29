@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   get "images/index"
 
   get "login" => "session#login_form"
