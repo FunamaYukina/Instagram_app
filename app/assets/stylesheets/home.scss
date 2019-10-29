@@ -155,6 +155,9 @@ header {
     .post-user-name {
       height: 50px;
       padding: 10px 20px;
+      a:hover {
+        text-decoration: none;
+      }
     }
 
     .post-image {

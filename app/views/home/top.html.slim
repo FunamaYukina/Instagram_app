@@ -1,5 +1,5 @@
 .home
-  - if logged_in?
+  - if current_user
     .new-post-form
       .form-body
         p 新規投稿
@@ -27,7 +27,8 @@
       - post.images.each do |image|
         .post-container
           .post-user-name
-            = user.user_name
+            = link_to user_page_path(user.id)
+              = user.user_name
           .post-image
             = image_tag image.image_file , size: '550x550'
           .post-message

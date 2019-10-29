@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+
   def index
     @post = Post.new
   end
@@ -11,12 +12,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    check_logged_in?
-    # binding.pry
+    require_login
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-      root_path and return
+      root_path
     else
       render("posts/new")
     end
@@ -27,4 +27,7 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]])
     end
+  def require_login
+    redirect_to root_path if current_user
+  end
 end

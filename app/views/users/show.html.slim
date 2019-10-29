@@ -5,7 +5,7 @@
         span ◯
     .user-information
       .user-name
-        = current_user.user_name
+        = @user.user_name
       .user-follow
       .user-detail
         .user-detail-left
@@ -17,6 +17,6 @@
       .user-introduction
         span 猫の飼い主です。
   .user-image-container
-    - current_user.posts.each do |post|
+    - @post.each do |post|
       - post.images.each do |image|
         = image_tag image.image_file , size: '250x250', class: "image-item"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionController < ApplicationController
-  before_action :check_logged_in?, only: %i[login login_form]
+  before_action :correct_user, only: %i[login login_form]
 
   def login_form
   end
@@ -24,5 +24,11 @@ class SessionController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
     redirect_to login_path
+  end
+
+  private
+
+  def correct_user
+    redirect_to(root_path) if current_user
   end
 end

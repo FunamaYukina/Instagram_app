@@ -50,6 +50,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails", "~> 3.6.0"
   gem "selenium-webdriver"
+  gem 'database_cleaner'
 end
 
 group :development do
