@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :correct_user, only: %i[new create]
+  before_action :back_top_page, only: %i[new create]
 
   def new
     @user = User.new
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
     end
 
-    def correct_user
+    def back_top_page
       redirect_to(root_path) if current_user
     end
 end

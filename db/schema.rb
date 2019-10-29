@@ -21,15 +21,16 @@ ActiveRecord::Schema.define(version: 20191028055253) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
     t.text "message"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.string "image_file"
-    t.boolean "gender"
+    t.boolean "gender", default: false, null: false
     t.text "introduction"
     t.integer "user_id"
     t.datetime "created_at", null: false
