@@ -45,11 +45,11 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
 
-  def back_top_page
-    redirect_to(root_path) if current_user
-  end
+    def back_top_page
+      redirect_to(root_path) if current_user
+    end
 end

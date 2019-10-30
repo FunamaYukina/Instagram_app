@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   root "home#top"
   get "signup" => "users#new"
   post "signup" => "users#create"
@@ -18,5 +17,4 @@ Rails.application.routes.draw do
   # post "users/:user_id/posts/create" => "posts#create", as: "post"
 
   get "images/index"
-
 end

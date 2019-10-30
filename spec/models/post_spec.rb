@@ -15,14 +15,16 @@ RSpec.describe Post, type: :model do
         post = FactoryBot.build(:post, message: "")
         expect(post).to be_valid
       end
+
       it "メッセージが149文字の場合でも投稿に成功すること" do
-        post = FactoryBot.build(:post, message: "a"*149)
+        post = FactoryBot.build(:post, message: "a" * 149)
         expect(post).to be_valid
       end
     end
+
     context "新規投稿に失敗する場合" do
       it "メッセージが150文字を超える場合、投稿に失敗すること" do
-        post = FactoryBot.build(:post,message:"a"*151)
+        post = FactoryBot.build(:post, message: "a" * 151)
         expect(post).not_to be_valid
         expect(post.errors.full_messages).to include "メッセージは150文字以内で入力してください"
       end
