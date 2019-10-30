@@ -7,7 +7,6 @@ RSpec.describe "Home", type: :request do
   describe "#top" do
     before do
       FactoryBot.create(:post)
-      log_in
     end
 
     it "レスポンス200が返ってくること" do

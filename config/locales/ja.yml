@@ -11,3 +11,4 @@ ja:
       password: パスワード
       password_confirmation: 再入力パスワード
       image_file: 画像
+      message: メッセージ

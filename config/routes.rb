@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get "images/index"
+
+  root "home#top"
+  get "signup" => "users#new"
+  post "signup" => "users#create"
 
   get "login" => "session#login_form"
   post "login" => "session#login"
@@ -10,10 +13,9 @@ Rails.application.routes.draw do
   get "users/:id" => "users#show", as: "user_page"
   get "users/:id/edit" => "users#edit", as: "user_profile"
 
-  get "posts/index"
   post "post" => "posts#create"
+  # post "users/:user_id/posts/create" => "posts#create", as: "post"
 
-  root "home#top"
-  get "signup" => "users#new"
-  post "signup" => "users#create"
+  get "images/index"
+
 end
