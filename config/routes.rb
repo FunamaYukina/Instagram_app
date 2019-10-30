@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "users/:id" => "users#show", as: "user_page"
   get "users/:id/edit" => "users#edit", as: "user_profile"
+  post "users/:id/update" => "users#update", as: "user_update"
 
   post "post" => "posts#create"
   # post "users/:user_id/posts/create" => "posts#create", as: "post"

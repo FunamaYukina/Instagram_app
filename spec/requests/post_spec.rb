@@ -39,6 +39,8 @@ RSpec.describe "posts", type: :request do
         }
         expect(response.status).to eq(302)
         expect(Post.last.message).to eq post_param[:message]
+        # binding.pry
+        # expect(Image.last.image_file).to eq post_param[:with_picture]
         expect(response).to redirect_to(root_path)
       end
     end
