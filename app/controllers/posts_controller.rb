@@ -10,8 +10,6 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-
-    # @post = current_user.posts.build(post_params.merge(user_id: current_user.id))
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to root_path
@@ -23,7 +21,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]])
+      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
     end
 
     def require_login

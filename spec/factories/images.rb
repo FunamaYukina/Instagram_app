@@ -8,5 +8,6 @@ FactoryBot.define do
 
   trait :with_picture do
     image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg") }
+    association :post
   end
 end

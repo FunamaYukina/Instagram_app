@@ -6,7 +6,7 @@
         - @post.errors.full_messages.each do |message|
           .form-error
             = message
-        = form_for(@post, url: post_path) do |f|
+        = form_for(@post, url: post_path(id: current_user.id)) do |f|
           = f.fields_for :images,@post.images.build do |a|
             = a.label :image_file, "画像をアップロード", class: "input-btn"
             = a.file_field :image_file, class: "image-form"
