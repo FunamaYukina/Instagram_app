@@ -27,14 +27,14 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @profile=@user.profile
+    @profile = @user.profile
   end
 
   def update
     @user = current_user
     @user.update(update_params)
-    @profile=@user.profile
-    if @user.save ||@profile.save
+    @profile = @user.profile
+    if @user.save || @profile.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to profile_path
     else
@@ -44,15 +44,15 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
 
-  def update_params
-    params.require(:user).permit(:user_name, :full_name, :email,:password, [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def update_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def back_top_page
-    redirect_to(root_path) if current_user
-  end
+    def back_top_page
+      redirect_to(root_path) if current_user
+    end
 end
