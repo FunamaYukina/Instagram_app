@@ -4,11 +4,13 @@ class User < ApplicationRecord
   has_secure_password
   has_many :posts
   has_one :profile
+  accepts_nested_attributes_for :profile, update_only: true
   before_save { self.email = email.downcase }
   validates :user_name, presence: true, uniqueness: true
   validates :full_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
+  validates :email, presence: true, format: {with: VALID_EMAIL_REGEX},
+            uniqueness: {case_sensitive: false}
+  validates :password, length: {minimum: 6}
+  validates :password, length: {minimum: 6}, on: :update, allow_blank: true
 end

@@ -8,11 +8,11 @@
         = @user.user_name
       - if @user == current_user
         .user-profile
-          = link_to user_profile_path(current_user.id) do
+          = link_to profile_path(current_user.id) do
             span プロフィールを編集
       - else
         .user-follow
-          span current_userではない
+          button フォロー中
       .user-detail
         .user-detail-left
           span 投稿  1000件

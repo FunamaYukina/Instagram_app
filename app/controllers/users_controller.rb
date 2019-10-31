@@ -27,17 +27,16 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @post = @user.posts.eager_load([:images])
+    @profile=@user.profile
   end
 
   def update
-    @user = User.find_by(id: params[:id])
-    @user.full_name = params[:full_name]
-    @user.user_name = params[:user_name]
-    @user.email = params[:email]
-    if @user.save
+    @user = current_user
+    @user.update(update_params)
+    @profile=@user.profile
+    if @user.save ||@profile.save
       flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to("/users/#{@user.id}")
+      redirect_to profile_path
     else
       render("users/edit")
     end
@@ -45,11 +44,15 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+  end
 
-    def back_top_page
-      redirect_to(root_path) if current_user
-    end
+  def update_params
+    params.require(:user).permit(:user_name, :full_name, :email,:password, [profile_attributes: %i[image_file introduction gender user_id]])
+  end
+
+  def back_top_page
+    redirect_to(root_path) if current_user
+  end
 end

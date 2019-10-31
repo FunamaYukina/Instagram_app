@@ -16,29 +16,46 @@
       li.nav-item
         a.nav-link href="#"  ログインアクティビティ
   .edit-contents
+    - @user.errors.full_messages.each do |message|
+      .form-error
+        = message
+
     .edit-form-container
       .edit-label
+        .edit-image-container
+          / @user.profile.image_file
+            "/uploads/image/image_file/1/_2019-10-27_13.01.25.png"
+          / = image_tag @user.profile.image_file  , size: '50x50', class: "image-item"
+          / - @users.each do |user|
+          - if user.profile.image_file
+            = image_tag user.profile.image_file
+            / - else
+            /   = image_tag "wanko.png"
         p 名前
         p ユーザーネーム
-        p ウェブサイト
-        p 自己紹介
         p.label-email メールアドレス
-        p 電話番号
-        p 性別
+        p 自己紹介
+        p.label-gender 性別
 
       .edit-form
-        / =@user.user_name
-        / form_for(@user, url: user_update_path) do |f|
-        input
-        input
-        input
-        textarea
-        p 非公開情報
-        input
-        button メールアドレスを認証
-        input
-        .gender-form
-          input type="radio" name="gender" 男性
-          input type="radio" name="gender" 女性
-        .submit-form
-          button 送信する
+        = form_for(@user, url: profile_path, html: {method: "patch"}) do |i|
+          = i.label :image_file, "プロフィール画像の変更", class: "input-btn"
+          = i.file_field :image_file, class: "image_form"
+          = i.submit "変更する" ,class: "image-button button"
+        = form_for(@user, url: profile_path(id: current_user.id), html: {method: "patch"}) do |f|
+          = f.text_field :full_name
+          = f.text_field :user_name
+          p 非公開情報
+          = f.text_field :email
+          button メールアドレスを認証
+          = f.fields_for :profile do |pr|
+            = pr.text_area :introduction
+            .gender-form
+              label
+                = pr.radio_button :gender, false, :checked => true, :value => false
+                |男性
+              label
+                = pr.radio_button :gender, true, :value => true
+                |女性
+          .submit-form
+            = f.submit "送信する", class: "button"
