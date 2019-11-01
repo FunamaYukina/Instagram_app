@@ -2,7 +2,7 @@
   .user-container
     .user-icon
       .user-image
-        = image_tag "/uploads/image/image_file/1/_2019-10-27_13.01.25.png", size: '150x150', class: "image-icon"
+        = image_tag @user.profile.image_file, size: '150x150', class: "image-icon"
     .user-information
       .user-name
         = @user.user_name

@@ -7,7 +7,6 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.boolean :gender, default: false, null: false
       t.text :introduction
       t.references :user, foreign_key: true
-
       t.timestamps
     end
   end

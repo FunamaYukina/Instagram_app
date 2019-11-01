@@ -13,9 +13,10 @@
             = f.text_area :message, class: "textarea", placeholder: "メッセージ"
             = f.submit "投稿する", class: "submit"
     .user-container
-      p 現在のログインユーザー名
+      p 現在のログインユーザー
       = link_to user_page_path(current_user.id) do
         .user-image
+          = image_tag @user.profile.image_file, size: '50x50', class: "image-item"
         .user-name
           .user-short-name
             = current_user.user_name
