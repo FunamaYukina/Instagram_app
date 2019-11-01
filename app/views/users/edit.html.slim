@@ -31,6 +31,7 @@
         p.label-email メールアドレス
         p 自己紹介
         p.label-gender 性別
+        p パスワード
 
       .edit-form
         = form_for(@user, url: profile_path, html: {method: "patch"}) do |i|
@@ -53,5 +54,6 @@
               label
                 = pr.radio_button :gender, true, :value => true
                 |女性
+          = f.password_field :password
           .submit-form
             = f.submit "送信する", class: "button"

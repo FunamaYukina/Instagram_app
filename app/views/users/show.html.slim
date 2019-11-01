@@ -21,7 +21,7 @@
         .user-detail-right
           span 10人をフォロー中
       .user-introduction
-        span 猫の飼い主です。
+        = @user.profile.introduction
   .user-image-container
     - @post.each do |post|
       - post.images.each do |image|

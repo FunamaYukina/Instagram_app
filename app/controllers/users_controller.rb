@@ -39,8 +39,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(update_params)
-    if  @user.profile.save
-      # binding.pry
+    if  @user.profile.save &&@user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to profile_path
     else
@@ -55,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user).permit(:user_name, :full_name, :email, [profile_attributes: %i[image_file introduction gender user_id]])
+    params.require(:user).permit(:user_name, :full_name, :email,:password, [profile_attributes: %i[image_file introduction gender user_id]])
   end
 
   def back_top_page

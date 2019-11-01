@@ -2,8 +2,16 @@
 
 FactoryBot.define do
   factory :profile do
-    image_file { "MyString" }
+    image_file { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/test.jpg")) }
     gender { false }
-    introduction { "MyText" }
+    introduction { "test" }
+    association :user
+  end
+
+  trait :with_profile do
+    image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg")}
+    gender { false }
+    introduction { "test" }
+    association :user
   end
 end

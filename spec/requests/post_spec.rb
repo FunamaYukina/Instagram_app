@@ -23,7 +23,7 @@ RSpec.describe "posts", type: :request do
 
     context "ログイン済みの場合" do
       before do
-        FactoryBot.create(:user)
+        signup
         log_in
       end
 
@@ -40,7 +40,6 @@ RSpec.describe "posts", type: :request do
         }
         expect(response.status).to eq(302)
         expect(Post.last.message).to eq post_param[:message]
-        # binding.pry
         # expect(Post.last.images).to eq post_param[:with_picture]
         expect(response).to redirect_to(root_path)
       end
