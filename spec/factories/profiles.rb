@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   trait :with_profile do
-    image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg")}
+    image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg") }
     gender { false }
     introduction { "test" }
     association :user

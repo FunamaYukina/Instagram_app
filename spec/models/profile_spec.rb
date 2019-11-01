@@ -9,15 +9,18 @@ RSpec.describe Profile, type: :model do
         profile = FactoryBot.build(:profile)
         expect(profile).to be_valid
       end
+
       it "画像をアップロードしていない場合でも、編集に成功すること" do
         profile = FactoryBot.build(:profile, image_file: nil)
         expect(profile).to be_valid
       end
+
       it "自己紹介文がない場合でも、編集に成功すること" do
         profile = FactoryBot.build(:profile, introduction: nil)
         expect(profile).to be_valid
       end
     end
+
     context "プロフィールの編集に失敗する場合" do
       it "画像のサイズが4MBを超える場合、編集に失敗すること" do
         profile = FactoryBot.build(:profile, image_file: nil)
@@ -25,8 +28,9 @@ RSpec.describe Profile, type: :model do
         profile.valid?
         expect(profile.errors.full_messages).to include "画像は4MB以下のものをアップロードしてください"
       end
+
       it "自己紹介文が150文字を超える場合、編集に失敗すること" do
-        profile = FactoryBot.build(:profile, introduction: "a"*151)
+        profile = FactoryBot.build(:profile, introduction: "a" * 151)
         profile.valid?
         expect(profile.errors.full_messages).to include "自己紹介文は150文字以内で入力してください"
       end

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.build_profile( :introduction => "")
+      @user.build_profile(introduction: "")
       if @user.profile.save
         log_in(@user)
         flash[:notice] = "ユーザー登録が完了しました"
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(update_params)
-    if  @user.profile.save &&@user.save
+    if @user.profile.save && @user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to profile_path
     else
@@ -49,15 +49,16 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation, [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
+                                   [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def update_params
-    params.require(:user).permit(:user_name, :full_name, :email,:password, [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def update_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def back_top_page
-    redirect_to(root_path) if current_user
-  end
+    def back_top_page
+      redirect_to(root_path) if current_user
+    end
 end
