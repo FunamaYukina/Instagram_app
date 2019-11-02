@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include "ユーザーネームはすでに存在します"
       end
 
-      it "フルネームがない場合、ユーザー登録に失敗すること" do
+      it "ユーザーネームがない場合、ユーザー登録に失敗すること" do
         user.user_name = ""
         user.valid?
         expect(user.errors.full_messages).to include "ユーザーネームを入力してください"
