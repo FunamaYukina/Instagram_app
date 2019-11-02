@@ -26,12 +26,13 @@
 
           - if @user.profile.image_file
             = image_tag @user.profile.image_file, size: '50x50', class: "image-item"
-        p 名前
+        p フルネーム
         p ユーザーネーム
         p.label-email メールアドレス
         p 自己紹介
         p.label-gender 性別
         p パスワード
+        p パスワード再入力
 
       .edit-form
         = form_for(@user, url: profile_path, html: {method: "patch"}) do |i|
@@ -55,5 +56,6 @@
                 = pr.radio_button :gender, true, :value => true
                 |女性
           = f.password_field :password
+          = f.password_field :password_confirmation
           .submit-form
             = f.submit "送信する", class: "button"

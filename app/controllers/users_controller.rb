@@ -3,6 +3,7 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :back_top_page, only: %i[new create]
+  before_action :correct_user, only: %i[update edit]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -33,7 +34,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    @profile = @user.profile
   end
 
   def update
@@ -49,16 +49,22 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                   [profile_attributes: %i[image_file introduction gender user_id]])
-    end
+  def user_params
+    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
+                                 [profile_attributes: %i[image_file introduction gender user_id]])
+  end
 
-    def update_params
-      params.require(:user).permit(:user_name, :full_name, :email, :password, [profile_attributes: %i[image_file introduction gender user_id]])
-    end
+  def update_params
+    params.require(:user).permit(:user_name, :full_name, :email, :password,:password_confirmation,
+                                 [profile_attributes: %i[image_file introduction gender user_id]])
+  end
 
-    def back_top_page
-      redirect_to(root_path) if current_user
-    end
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless @user == current_user
+  end
+
+  def back_top_page
+    redirect_to(root_path) if current_user
+  end
 end
