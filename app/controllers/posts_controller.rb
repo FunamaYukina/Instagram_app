@@ -7,20 +7,20 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
-      redirect_to root_path
     else
       flash[:danger] = "画像の形式が間違っております。"
-      redirect_to root_path
     end
+
+    redirect_to root_path
   end
 
   private
 
-  def post_params
-    params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
-  end
+    def post_params
+      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
+    end
 
-  def require_login
-    redirect_to login_path and return unless logged_in?
-  end
+    def require_login
+      redirect_to login_path and return unless logged_in?
+    end
 end
