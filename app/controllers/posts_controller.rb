@@ -3,28 +3,24 @@
 class PostsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  def new
-    @post = Post.new
-    @post.images.build
-  end
-
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to root_path
     else
-      render("home/top")
+      flash[:danger] = "画像の形式が間違っております。"
+      redirect_to root_path
     end
   end
 
   private
 
-    def post_params
-      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
-    end
+  def post_params
+    params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
+  end
 
-    def require_login
-      redirect_to login_path and return unless logged_in?
-    end
+  def require_login
+    redirect_to login_path and return unless logged_in?
+  end
 end

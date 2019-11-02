@@ -2,12 +2,11 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :back_top_page, only: %i[new create]
+  before_action :back_to_top, only: %i[new create]
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.eager_load(:profile).find_by(id: params[:id])
     @post = @user.posts.eager_load([:images])
-    @profile = @user.profile
   end
 
   def new
@@ -21,7 +20,7 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to root_path
     else
-      render("users/new")
+      render "users/new"
     end
   end
 
@@ -39,7 +38,7 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
     else
-      render("users/edit")
+      render "users/edit"
     end
   end
 
@@ -49,7 +48,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
     end
 
-    def back_top_page
-      redirect_to(root_path) if current_user
+    def back_to_top
+      redirect_to root_path if current_user
     end
 end

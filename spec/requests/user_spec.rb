@@ -39,7 +39,7 @@ RSpec.describe User, type: :request do
         post signup_path, params: { user: user_param }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq user_param[:email]
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
       end
 
       it "メールアドレスは小文字で登録されること" do
@@ -47,7 +47,7 @@ RSpec.describe User, type: :request do
         post signup_path, params: { user: user_param }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "another_example@test.com"
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
       end
     end
 

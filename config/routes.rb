@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
-  # post "post" => "posts#create"
-  post "users/:id/posts/create" => "posts#create", as: "post"
+  post "users/:id/posts" => "posts#create", as: "posts"
 
   get "images/index"
 end

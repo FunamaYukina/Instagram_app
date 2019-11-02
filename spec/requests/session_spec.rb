@@ -31,7 +31,7 @@ RSpec.describe "Session", type: :request do
       it "ユーザーが存在する場合、ログイン出来ること" do
         log_in
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
         expect(session[:user_id]).to eq 1
       end
 

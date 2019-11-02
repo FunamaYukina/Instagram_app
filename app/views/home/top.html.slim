@@ -6,7 +6,7 @@
         - @post.errors.full_messages.each do |message|
           .form-error
             = message
-        = form_for(@post, url: post_path(id: current_user.id)) do |f|
+        = form_for(@post, url: posts_path(id: current_user.id)) do |f|
           = f.fields_for :images,@post.images.build do |a|
             = a.label :image_file, "画像をアップロード", class: "input-btn"
             = a.file_field :image_file, class: "image-form"
@@ -14,7 +14,7 @@
             = f.submit "投稿する", class: "submit"
     .user-container
       p 現在のログインユーザー名
-        .user-image
+      .user-image
         .user-name
           .user-short-name
             = current_user.user_name
@@ -26,7 +26,7 @@
       - post.images.each do |image|
         .post-container
           .post-user-name
-              = user.user_name
+            = user.user_name
           .post-image
             = image_tag image.image_file , size: '550x550'
           .post-message

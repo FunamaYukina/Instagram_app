@@ -13,7 +13,7 @@ RSpec.describe "posts", type: :request do
 
       it "画像とメッセージの投稿に失敗すること" do
         post_param = FactoryBot.attributes_for(:post, :with_picture)
-        post post_path(id: 0), params: {
+        post posts_path(id: 0), params: {
           post: post_param
         }
         expect(response.status).to eq(302)
@@ -35,14 +35,14 @@ RSpec.describe "posts", type: :request do
       it "画像とメッセージの投稿に成功すること" do
         get root_path
         post_param = FactoryBot.attributes_for(:post, :with_picture)
-        post post_path(id: 0), params: {
+        post posts_path(id: 0), params: {
           post: post_param
         }
         expect(response.status).to eq(302)
         expect(Post.last.message).to eq post_param[:message]
         # binding.pry
         # expect(Post.last.images).to eq post_param[:with_picture]
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
       end
     end
   end
