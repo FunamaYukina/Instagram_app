@@ -273,27 +273,28 @@
     display: inline-block;
     vertical-align: top;
     border: 1px solid #CCC;
+
     .form-error {
       color: darkred;
       font-size: 14px;
       padding-left: 35px;
     }
 
-
     .edit-form-container {
       .edit-label {
-        .edit-image-container{
+        .edit-image-container {
           display: inline-block;
           height: 110px;
           width: 200px;
           vertical-align: top;
-            padding-top: 30px;
-            padding-right: 20px;
+          padding-top: 30px;
+          padding-right: 20px;
 
-            .image-item {
-              border-radius: 25px;
-            }
+          .image-item {
+            border-radius: 25px;
+          }
         }
+
         display: inline-block;
         width: 200px;
         text-align: right;
@@ -305,7 +306,8 @@
           height: 115px;
           padding-top: 40px;
         }
-        .label-gender{
+
+        .label-gender {
           height: 50px;
           padding-top: 20px;
         }
@@ -316,9 +318,10 @@
         width: 320px;
         vertical-align: top;
 
-        .image-button{
+        .image-button {
           width: 180px;
         }
+
         input {
           display: block;
           margin-top: 10px;
@@ -337,7 +340,7 @@
           width: 300px;
         }
 
-        button,.button {
+        button, .button {
           height: 30px;
           margin-top: 10px;
           border-radius: 5px;
@@ -349,6 +352,7 @@
 
         .gender-form {
           display: inline-block;
+
           input {
             width: 20px;
             display: inline-block;
