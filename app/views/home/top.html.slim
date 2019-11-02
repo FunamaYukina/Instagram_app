@@ -14,7 +14,6 @@
             = f.submit "投稿する", class: "submit"
     .user-container
       p 現在のログインユーザー名
-      = link_to user_page_path(current_user.id) do
         .user-image
         .user-name
           .user-short-name
@@ -27,7 +26,6 @@
       - post.images.each do |image|
         .post-container
           .post-user-name
-            = link_to user_page_path(user.id)
               = user.user_name
           .post-image
             = image_tag image.image_file , size: '550x550'

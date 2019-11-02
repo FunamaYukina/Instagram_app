@@ -9,10 +9,6 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
-  get "users/:id" => "users#show", as: "user_page"
-  get "users/:id/edit" => "users#edit", as: "user_profile"
-  post "users/:id/update" => "users#update", as: "user_update"
-
   # post "post" => "posts#create"
   post "users/:id/posts/create" => "posts#create", as: "post"
 

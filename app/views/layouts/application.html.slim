@@ -26,9 +26,8 @@ html
                 i.fa.fa-compass aria-hidden="true" title="recommend"
               a.nav-item.nav-link href="#"
                 i.fa.fa-heart-o aria-hidden="true" title="notification"
-              = link_to user_page_path(current_user.id) do
-                .nav-item.nav-link href="#"
-                  i.fa.fa-user-o aria-hidden="true" title="mypage"
+              a.nav-item.nav-link href="#"
+                i.fa.fa-user-o aria-hidden="true" title="mypage"
               = link_to logout_path, method: :post do
                 .nav-item.nav-link
                   i.fa.fa-sign-out aria-hidden="true" title="logout"
