@@ -76,7 +76,48 @@ RSpec.describe User, type: :request do
     end
   end
 
-  describe "#update" do
+  describe "#show" do
+    context "未ログインの場合" do
+      before do
+        signup
+        post_message_and_image
+        logout
+      end
+
+      it "自分ではないユーザーページにアクセスできること" do
+        get user_page_path(id: 1)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).not_to include "プロフィールを編集"
+      end
+    end
+
+    context "ログイン済みの場合" do
+      before do
+        signup
+        post_message_and_image
+      end
+
+      it "マイページにアクセスできること" do
+        get user_page_path(id: 1)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include "プロフィールを編集"
+      end
+
+      it "自分ではないユーザーページにアクセスできること" do
+        logout
+        sign_up_another_user
+        log_in_another_user
+        get user_page_path(id: 1)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).not_to include "プロフィールを編集"
+      end
+    end
+  end
+
+  describe "#edit" do
     context "未ログインの場合" do
       before do
         signup
@@ -101,8 +142,10 @@ RSpec.describe User, type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+  end
 
-    context "ログイン済みの場合で、ユーザー情報の更新に成功する場合" do
+  describe "#update" do
+    context "(ログイン済みの場合で、)ユーザー情報の更新に成功する場合" do
       before do
         signup
         log_in
@@ -141,7 +184,7 @@ RSpec.describe User, type: :request do
       end
     end
 
-    context "ログイン済みの場合で、ユーザー情報の更新に失敗する場合" do
+    context "(ログイン済みの場合で、)ユーザー情報の更新に失敗する場合" do
       before do
         signup
         log_in
