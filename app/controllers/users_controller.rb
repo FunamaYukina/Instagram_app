@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :back_to_top, only: %i[new create]
-  
+
   def new
     @user = User.new
   end
