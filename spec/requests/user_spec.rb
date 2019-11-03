@@ -11,7 +11,7 @@ RSpec.describe User, type: :request do
   end
 
   describe "#new" do
-    let(:user) {FactoryBot.create(:user)}
+    let(:user) { FactoryBot.create(:user) }
 
     context "未ログインの場合" do
       it "レスポンス200が返ってくること" do
@@ -34,7 +34,7 @@ RSpec.describe User, type: :request do
     context "新規登録ユーザー登録に成功する場合" do
       it "新規ユーザーが登録されること" do
         user_param = FactoryBot.attributes_for(:another_user)
-        post signup_path, params: {user: user_param}
+        post signup_path, params: { user: user_param }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq user_param[:email]
         expect(response).to redirect_to root_path
@@ -42,7 +42,7 @@ RSpec.describe User, type: :request do
 
       it "メールアドレスは小文字で登録されること" do
         user_param = FactoryBot.attributes_for(:another_user)
-        post signup_path, params: {user: user_param}
+        post signup_path, params: { user: user_param }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "another_example@test.com"
         expect(response).to redirect_to root_path
@@ -53,19 +53,19 @@ RSpec.describe User, type: :request do
       it "メールアドレスがない場合、ユーザー登録に失敗すること" do
         expect do
           user_param = FactoryBot.attributes_for(:another_user, email: "")
-          post signup_path, params: {user: user_param}
+          post signup_path, params: { user: user_param }
         end.not_to change(User, :count)
       end
     end
 
     context "ログイン済みの場合" do
-        let(:user) {FactoryBot.create(:user)}
+      let(:user) { FactoryBot.create(:user) }
 
       it "TOPページへリダイレクトされること" do
         log_in(user)
         expect do
           user_param = FactoryBot.attributes_for(:another_user)
-          post signup_path, params: {user: user_param}
+          post signup_path, params: { user: user_param }
         end.not_to change(User, :count)
         expect(response).to redirect_to root_path
       end

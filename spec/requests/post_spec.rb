@@ -14,7 +14,7 @@ RSpec.describe "posts", type: :request do
       it "画像とメッセージの投稿に失敗すること" do
         post_param = FactoryBot.attributes_for(:post, :with_picture)
         post posts_path(id: 0), params: {
-            post: post_param
+          post: post_param
         }
         expect(response.status).to eq(302)
         expect(response).to redirect_to(login_path)
@@ -44,16 +44,16 @@ RSpec.describe "posts", type: :request do
       #   expect(Post.last.images.image_file).to eq "#{Rails.root}/spec/fixtures/test.jpg"
       #   expect(response).to redirect_to root_path
       # end
-    #   it "画像の形式が正しくない場合、投稿に失敗すること" do
-    #     get root_path
-    #     post_param = FactoryBot.attributes_for(:post, :with_incorrect_file)
-    #     post posts_path(id: User.last.id), params: {
-    #         post: post_param
-    #     }
-    #     expect(response.status).to eq(302)
-    #     expect(Post.last.message).not_to eq post_param[:message]
-    #     expect(response).to redirect_to root_path
-    #   end
-    # end
+      #   it "画像の形式が正しくない場合、投稿に失敗すること" do
+      #     get root_path
+      #     post_param = FactoryBot.attributes_for(:post, :with_incorrect_file)
+      #     post posts_path(id: User.last.id), params: {
+      #         post: post_param
+      #     }
+      #     expect(response.status).to eq(302)
+      #     expect(Post.last.message).not_to eq post_param[:message]
+      #     expect(response).to redirect_to root_path
+      #   end
+    end
   end
 end
