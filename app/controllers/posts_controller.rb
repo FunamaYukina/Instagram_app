@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   before_action :require_login, only: [:create]
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
+    post = current_user.posts.build(post_params)
+    if post.save
       flash[:notice] = "投稿を作成しました"
     else
       flash[:danger] = "画像の形式が間違っております。"

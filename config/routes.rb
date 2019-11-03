@@ -10,6 +10,4 @@ Rails.application.routes.draw do
   post "logout" => "session#logout"
 
   post "users/:id/posts" => "posts#create", as: "posts"
-
-  get "images/index"
 end
