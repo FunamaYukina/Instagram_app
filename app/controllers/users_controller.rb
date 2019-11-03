@@ -3,12 +3,7 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :back_to_top, only: %i[new create]
-
-  def show
-    @user = User.eager_load(:profile).find_by(id: params[:id])
-    @post = @user.posts.eager_load([:images])
-  end
-
+  
   def new
     @user = User.new
   end
@@ -21,24 +16,6 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       render "users/new"
-    end
-  end
-
-  def edit
-    @user = current_user
-    @post = @user.posts.eager_load([:images])
-  end
-
-  def update
-    @user = User.find_by(id: params[:id])
-    @user.full_name = params[:full_name]
-    @user.user_name = params[:user_name]
-    @user.email = params[:email]
-    if @user.save
-      flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to("/users/#{@user.id}")
-    else
-      render "users/edit"
     end
   end
 
