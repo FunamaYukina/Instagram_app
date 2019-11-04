@@ -5,6 +5,9 @@ class User < ApplicationRecord
   has_many :posts
   has_one :profile
   accepts_nested_attributes_for :profile, update_only: true
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
+
   before_save { self.email = email.downcase }
   validates :user_name, presence: true, uniqueness: true
   validates :full_name, presence: true

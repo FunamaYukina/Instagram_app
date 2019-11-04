@@ -33,4 +33,5 @@
           .post-image
             = image_tag image.image_file , size: '550x550'
           .post-message
+            = render partial: 'posts/posts',locals: {post: post}
             = post.message
