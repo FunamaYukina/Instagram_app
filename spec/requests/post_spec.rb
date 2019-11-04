@@ -12,7 +12,7 @@ RSpec.describe "posts", type: :request do
       end
 
       it "画像とメッセージの投稿に失敗すること" do
-        post_param = FactoryBot.attributes_for(:post, :with_picture)
+        post_param = attributes_for(:post, :with_picture)
         post posts_path(id: 0), params: {
           post: post_param
         }
@@ -23,7 +23,7 @@ RSpec.describe "posts", type: :request do
 
     context "ログイン済みの場合" do
       before do
-        user = FactoryBot.create(:user)
+        user = create(:user)
         log_in(user)
       end
 

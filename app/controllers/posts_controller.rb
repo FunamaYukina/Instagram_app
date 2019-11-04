@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]]).merge(id: current_user.id)
+      params.require(:post).permit(:message, [images_attributes: %i[image_file post_id]])
     end
 
     def require_login

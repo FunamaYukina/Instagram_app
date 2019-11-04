@@ -4,7 +4,7 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe "Session", type: :request do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   describe "#login_form" do
     context "未ログインの場合" do
