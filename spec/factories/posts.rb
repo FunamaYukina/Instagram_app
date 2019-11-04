@@ -4,9 +4,11 @@ FactoryBot.define do
   factory :post do
     message { "test_message" }
     association :user
-    images {[
+    images {
+      [
         FactoryBot.build(:image)
-    ]}
+      ]
+    }
   end
 
   factory :no_images_post, class: Post do
