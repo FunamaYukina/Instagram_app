@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 
   post "users/:id/posts/create" => "posts#create", as: "post"
 
-  post   '/like/:post_id' => 'likes#like',   as: 'like'
-  delete '/like/:post_id' => 'likes#unlike', as: 'unlike'
+  post   "/like/:post_id" => "likes#like",   as: "like"
+  delete "/like/:post_id" => "likes#unlike", as: "unlike"
 end

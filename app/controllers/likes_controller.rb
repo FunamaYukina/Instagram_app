@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :set_variables
 
@@ -13,8 +15,8 @@ class LikesController < ApplicationController
 
   private
 
-  def set_variables
-    @post = Post.find(params[:post_id])
-    @id_name = "#like-link-#{@post.id}"
-  end
+    def set_variables
+      @post = Post.find(params[:post_id])
+      @id_name = "#like-link-#{@post.id}"
+    end
 end
