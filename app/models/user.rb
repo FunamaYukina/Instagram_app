@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_many :posts
+  has_many :posts, dependent: :destroy
   before_save { self.email = email.downcase }
   validates :user_name, presence: true, uniqueness: true
   validates :full_name, presence: true
