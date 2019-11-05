@@ -3,10 +3,10 @@
     .new-post-form
       .form-body
         p 新規投稿
-        - if flash[:posting_error].present?
+        - if flash[:posting_errors].present?
           .form-error
             ul
-              - flash[:posting_error].each do |e|
+              - flash[:posting_errors].each do |e|
                 li = e
         = form_for(@post, url: posts_path(id: current_user.id)) do |f|
           = f.fields_for :images,@post.images.build do |a|

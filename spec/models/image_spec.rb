@@ -17,7 +17,7 @@ RSpec.describe Image, type: :model do
         expect(image.errors.full_messages).to include "画像は4MB以下のものをアップロードしてください"
       end
 
-      it "画像以外が投稿された場合、投稿に失敗すること" do
+      it "画像以外を追加した場合、投稿に失敗すること" do
         image = build(:image, :with_incorrect_file_type)
         image.valid?
         expect(image.errors.full_messages).to include "画像を入力してください"

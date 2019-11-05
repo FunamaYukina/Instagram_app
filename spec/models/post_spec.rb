@@ -29,6 +29,12 @@ RSpec.describe Post, type: :model do
         expect(post).not_to be_valid
         expect(post.errors.full_messages).to include "画像を入力してください"
       end
+
+      it "画像が２枚以上追加された場合、投稿に失敗すること" do
+        post = build(:many_images_post)
+        expect(post).not_to be_valid
+        expect(post.errors.full_messages).to include "画像は1つまでです"
+      end
     end
   end
 end

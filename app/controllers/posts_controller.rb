@@ -9,8 +9,7 @@ class PostsController < ApplicationController
       flash[:success] = "投稿に成功しました"
     else
       flash[:danger] = "投稿に失敗しました"
-      # binding.pry
-      flash[:posting_error] = post.errors.full_messages
+      flash[:posting_errors] = post.errors.full_messages
     end
 
     redirect_to root_path

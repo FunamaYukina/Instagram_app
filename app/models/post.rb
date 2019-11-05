@@ -11,6 +11,6 @@ class Post < ApplicationRecord
   private
 
     def images_count
-      errors.add(:images, "は1つまでです") if images.size > 2
+      errors.add(:images, "は1つまでです") if images.size > 1
     end
 end
