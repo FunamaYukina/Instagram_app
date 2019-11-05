@@ -60,6 +60,9 @@ header {
     color: #aaa;
   }
 }
+.alert-error{
+  display:none;
+}
 
 //home
 .home {
@@ -83,6 +86,11 @@ header {
 
       p {
         text-align: center;
+      }
+      .form-error {
+        color: darkred;
+        font-size: 14px;
+        padding-left: 5px;
       }
 
       textarea {

@@ -22,9 +22,6 @@ gem "uglifier", ">= 1.3.0"
 # gem 'therubyracer', platforms: :ruby
 gem "carrierwave", "1.2.2"
 gem "mini_magick", "4.7.0"
-gem "nested_form"
-# gem "refile-mini_magick", github: 'refile/refile-mini_magick'
-# gem "refile", require: "refile/rails", github: 'manfe/refile'
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
