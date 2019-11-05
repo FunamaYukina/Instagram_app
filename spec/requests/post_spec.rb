@@ -6,6 +6,7 @@ require "support/utilities"
 RSpec.describe "posts", type: :request do
   describe "#create" do
     let(:user) { create(:user) }
+
     context "未ログインの場合" do
       it "投稿フォームが表示されないこと" do
         get root_path
