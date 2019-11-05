@@ -5,6 +5,7 @@ require "support/utilities"
 
 RSpec.describe "posts", type: :request do
   describe "#create" do
+    let(:user) { create(:user) }
     context "未ログインの場合" do
       it "投稿フォームが表示されないこと" do
         get root_path
@@ -13,7 +14,7 @@ RSpec.describe "posts", type: :request do
 
       it "画像とメッセージの投稿に失敗すること" do
         post_param = attributes_for(:post, :with_picture)
-        post posts_path(id: 999), params: {
+        post posts_path(id: user.id), params: {
           post: post_param
         }
         expect(response.status).to eq(302)
@@ -22,8 +23,6 @@ RSpec.describe "posts", type: :request do
     end
 
     context "ログイン済みの場合" do
-      let(:user) { create(:user) }
-
       before do
         log_in(user)
       end
@@ -58,9 +57,7 @@ RSpec.describe "posts", type: :request do
           post posts_path(id: user.id), params: {
             post: {
               message: post_params[:message],
-              images_attributes: {
-                "0": attributes_for(:image, image_file: Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/test.xlsx")))
-              }
+              images_attributes: :with_incorrect_file_type
             }
           }
         end.to change(Post, :count).by(0).and change(Image, :count).by(0)

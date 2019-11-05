@@ -4,13 +4,13 @@ class PostsController < ApplicationController
   before_action :require_login, only: [:create]
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      flash[:notice] = "投稿に成功しました"
+    post = current_user.posts.build(post_params)
+    if post.save
+      flash[:success] = "投稿に成功しました"
     else
       flash[:danger] = "投稿に失敗しました"
       # binding.pry
-      flash[:error] = @post.errors.full_messages
+      flash[:posting_error] = post.errors.full_messages
     end
 
     redirect_to root_path
