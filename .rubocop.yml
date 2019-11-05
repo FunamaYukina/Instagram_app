@@ -232,3 +232,6 @@ RSpec/ExampleLength:
 
 RSpec/DescribedClass:
   Enabled: False
+
+RSpec/NestedGroups:
+  Max: 4
