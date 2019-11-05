@@ -13,7 +13,7 @@ RSpec.describe "posts", type: :request do
 
       it "画像とメッセージの投稿に失敗すること" do
         post_param = attributes_for(:post, :with_picture)
-        post posts_path(id: 0), params: {
+        post posts_path(id: 999), params: {
           post: post_param
         }
         expect(response.status).to eq(302)

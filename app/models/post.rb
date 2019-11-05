@@ -6,11 +6,11 @@ class Post < ApplicationRecord
   accepts_nested_attributes_for :images
   validates :message, length: { maximum: 150 }
   validates :images, presence: true
-  validate :image_number
+  validate :image_count
 
   private
 
-    def image_number
+    def image_count
       errors.add(:images, "は1つまでです") if images.size > 2
     end
 end

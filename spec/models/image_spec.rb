@@ -6,7 +6,7 @@ RSpec.describe Image, type: :model do
   describe "validation" do
     context "新規投稿に失敗する場合" do
       it "画像を追加していない場合、投稿に失敗すること" do
-        image = build(:image, :with_picture, image_file: "")
+        image = build(:image, :with_picture, image_file: nil)
         image.valid?
         expect(image.errors.full_messages).to include "画像を入力してください"
       end

@@ -10,7 +10,7 @@ FactoryBot.define do
     image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg") }
     association :post
   end
-  trait :with_incorrect_file do
+  trait :with_incorrect_file_type do
     image_file { File.new("#{Rails.root}/spec/fixtures/test.xlsx") }
     association :post
   end

@@ -20,16 +20,16 @@ RSpec.describe User, type: :model do
     context "新規ユーザー登録に失敗する場合" do
       it "emailが重複した場合、ユーザー登録に失敗すること" do
         create(:user)
-        user = build(:another_user, email: "example@test.com")
-        user.valid?
-        expect(user.errors.full_messages).to include "メールアドレスはすでに存在します"
+        existing_user = build(:another_user, email: "example@test.com")
+        existing_user.valid?
+        expect(existing_user.errors.full_messages).to include "メールアドレスはすでに存在します"
       end
 
       it "ユーザーネームが重複した場合、ユーザー登録に失敗すること" do
         create(:user)
-        user = build(:another_user, user_name: "test_user_name")
-        user.valid?
-        expect(user.errors.full_messages).to include "ユーザーネームはすでに存在します"
+        existing_user = build(:another_user, user_name: "test_user_name")
+        existing_user.valid?
+        expect(existing_user.errors.full_messages).to include "ユーザーネームはすでに存在します"
       end
 
       it "名前がない場合、ユーザー登録に失敗すること" do
