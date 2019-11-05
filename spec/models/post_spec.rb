@@ -23,6 +23,7 @@ RSpec.describe Post, type: :model do
         expect(post).not_to be_valid
         expect(post.errors.full_messages).to include "メッセージは150文字以内で入力してください"
       end
+
       it "画像がない場合、投稿に失敗すること" do
         post = build(:no_images_post)
         expect(post).not_to be_valid
