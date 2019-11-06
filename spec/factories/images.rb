@@ -7,7 +7,7 @@ FactoryBot.define do
   end
 
   trait :with_picture do
-    image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg") }
+    image_file { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/test.jpg")) }
     association :post
   end
   trait :with_incorrect_file_type do
@@ -16,10 +16,6 @@ FactoryBot.define do
   end
   trait :with_large_file do
     image_file { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/13MB.jpg")) }
-    association :post
-  end
-  trait :with_two_pictures do
-    image_file { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/test.jpg")) }
     association :post
   end
 end

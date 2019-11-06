@@ -79,8 +79,8 @@ RSpec.describe "posts", type: :request do
               post: {
                 message: post_params[:message],
                 images_attributes: {
-                  "0": FactoryBot.attributes_for(:image, :with_two_pictures),
-                  "1": FactoryBot.attributes_for(:image, :with_two_pictures)
+                  "0": FactoryBot.attributes_for(:image, :with_picture),
+                  "1": FactoryBot.attributes_for(:image, :with_picture)
                 }
               }
             }
