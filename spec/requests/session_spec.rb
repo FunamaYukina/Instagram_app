@@ -4,9 +4,7 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe "Session", type: :request do
-
   describe "#login_form" do
-
     let(:user) { create(:user) }
 
     context "未ログインの場合" do

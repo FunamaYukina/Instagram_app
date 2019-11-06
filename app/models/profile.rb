@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Profile < ApplicationRecord
-  belongs_to :user,  foreign_key: :user_id
+  belongs_to :user, foreign_key: :user_id
   mount_uploader :image_file, ImagesUploader
   validates :introduction, length: { maximum: 150 }
   validates :introduction, length: { maximum: 150 }, on: :update, allow_blank: true

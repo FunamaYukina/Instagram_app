@@ -90,7 +90,6 @@ RSpec.describe User, type: :request do
     end
 
     context "ログイン済みの場合" do
-
       before do
         signup
         post_message_and_image
