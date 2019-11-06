@@ -38,7 +38,6 @@ html
               = link_to signup_path do
                 .nav-item.nav-link
                   i.fa.fa-address-card-o aria-hidden="true" title="signup"
-    - flash.each do |notice, value|
-      .flash
-        = content_tag(:div, value, class: notice)
+    - flash.each do |message_type, message|
+      div class=("alert alert-#{message_type}") = message
     = yield

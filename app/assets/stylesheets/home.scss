@@ -60,37 +60,122 @@ header {
     color: #aaa;
   }
 }
+.alert-error{
+  display:none;
+}
 
 //home
 .home {
   background-color: #fafafa;
   padding-top: 70px;
-  .user-item{
-    padding: 20px 30px;
+  padding-left: 100px;
+
+  .new-post-form {
     background-color: white;
-    overflow: hidden;
     box-shadow: 0 2px 6px #c1ced7;
-    display: table;
-    width: 70%;
-    .user-right{
-      width: 90%;
-      padding-left: 25px;
-      text-align: left;
-      display: table-cell;
-      vertical-align: middle;
+    width: 550px;
+    margin-bottom: 40px;
+    display: inline-block;
+
+    .form-body {
+      margin-left: auto;
+      margin-right: auto;
+      width: 70%;
+      padding-bottom: 20px;
+      padding-top: 10px;
+
+      p {
+        text-align: center;
+      }
+      .form-error {
+        color: darkred;
+        font-size: 14px;
+        padding-left: 5px;
+      }
+
+      textarea {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+        min-height: 140px;
+        border: 1px solid #CCCCCC;
+        resize: none;
+      }
+
+      .image-form {
+        display: none;
+      }
+
+      .input-btn {
+        background: dodgerblue;
+        color: #fff;
+        cursor: pointer;
+        padding: 2px 10px;
+        width: 50%;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+      }
+
+      .submit {
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        background-color: dodgerblue;
+        color: white;
+      }
     }
   }
-}
 
-.flash {
-  padding: 10px 0;
-  color: white;
-  background-color: #13a2b0;
-  text-align: center;
-  position: absolute;
-  top: 62px;
-  z-index: 10;
-  width: 100%;
-  border-radius: 0 0 2px 2px;
-  font-size: 14px;
+  .user-container {
+    display: inline-block;
+    margin-left: 50px;
+    vertical-align: top;
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .user-name {
+      .user-short-name {
+        margin-left: 20px;
+        font-weight: bold;
+      }
+
+      .user-full-name {
+        color: #999999;
+        margin-left: 20px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .post-container {
+    background-color: white;
+    box-shadow: 0 2px 6px #c1ced7;
+    width: 550px;
+    margin-bottom: 20px;
+
+    .post-user-name {
+      height: 50px;
+      padding: 10px 20px;
+      a:hover {
+        text-decoration: none;
+      }
+    }
+
+    .post-image {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .post-message {
+      height: 100px;
+      padding: 10px 20px;
+    }
+  }
 }

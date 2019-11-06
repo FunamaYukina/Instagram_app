@@ -2,6 +2,7 @@
 
 class HomeController < ApplicationController
   def top
-    @users = User.all
+    @users = User.eager_load([:posts, posts: :images]).order("posts.created_at desc")
+    @post = current_user.posts.build if logged_in?
   end
 end

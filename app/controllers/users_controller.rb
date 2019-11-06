@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :check_logged_in?
+  before_action :back_to_top, only: %i[new create]
 
   def new
     @user = User.new
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to root_path
     else
-      render("users/new")
+      render "users/new"
     end
   end
 
@@ -23,5 +23,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
+
+    def back_to_top
+      redirect_to root_path if logged_in?
     end
 end
