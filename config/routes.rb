@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
+  post "users/:id/posts" => "posts#create", as: "posts"
+
   get "users/:id" => "users#show", as: "user_page"
   get "profile/:id" => "users#edit", as: "profile"
   patch "profile/:id" => "users#update", as: nil
 
   post "users/:id/posts/create" => "posts#create", as: "post"
-
-  get "images/index"
 end

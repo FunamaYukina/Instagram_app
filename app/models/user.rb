@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_one :profile
   accepts_nested_attributes_for :profile, update_only: true
   before_save { self.email = email.downcase }

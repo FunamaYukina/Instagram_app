@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :back_top_page, only: %i[new create]
+  before_action :back_to_top, only: %i[new create]
   before_action :correct_user, only: %i[update edit]
 
   def show
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         render("users/new")
       end
     else
-      render("users/new")
+      render "users/new"
     end
   end
 
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless @user == current_user
     end
 
-    def back_top_page
-      redirect_to(root_path) if current_user
+    def back_to_top
+      redirect_to root_path if logged_in?
     end
 end

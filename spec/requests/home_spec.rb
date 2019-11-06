@@ -6,7 +6,7 @@ require "support/utilities"
 RSpec.describe "Home", type: :request do
   describe "#top" do
     before do
-      FactoryBot.create(:post)
+      create(:post)
     end
 
     it "レスポンス200が返ってくること" do

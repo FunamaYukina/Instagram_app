@@ -4,11 +4,11 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe "Session", type: :request do
-  before do
-    FactoryBot.create(:user)
-  end
 
   describe "#login_form" do
+
+    let(:user) { create(:user) }
+
     context "未ログインの場合" do
       it "レスポンス200が返ってくること" do
         get login_path
@@ -19,6 +19,7 @@ RSpec.describe "Session", type: :request do
 
     context "ログイン済みの場合" do
       it "TOPへリダイレクトされること" do
+        signup
         log_in
         get login_path
         expect(response).to redirect_to root_path
@@ -28,10 +29,15 @@ RSpec.describe "Session", type: :request do
 
   describe "#login" do
     context "未ログインの場合" do
+      before do
+        signup
+        logout
+      end
+
       it "ユーザーが存在する場合、ログイン出来ること" do
         log_in
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
         expect(session[:user_id]).to eq 1
       end
 
@@ -47,6 +53,7 @@ RSpec.describe "Session", type: :request do
 
     context "ログイン済みの場合" do
       it "TOPへリダイレクトされること" do
+        signup
         log_in
         post login_path, params: {
           email: "example@test.com",
@@ -60,6 +67,7 @@ RSpec.describe "Session", type: :request do
   describe "#logout" do
     context "ログイン済みの場合" do
       it "ログアウトに成功すること" do
+        signup
         log_in
         post logout_path
         expect(response).to redirect_to(login_path)
