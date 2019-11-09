@@ -146,6 +146,7 @@ RSpec.describe User, type: :request do
       sign_up_another_user
       log_in_another_user
     end
+
     context "(ログイン済みの場合で、)ユーザー情報の更新に成功する場合" do
       it "ユーザーネームを変更した場合、正しく更新されること" do
         user_params = FactoryBot.attributes_for(:another_user, user_name: "test_user_name2")
@@ -173,7 +174,6 @@ RSpec.describe User, type: :request do
     end
 
     context "(ログイン済みの場合で、)ユーザー情報の更新に失敗する場合" do
-
       it "ユーザーネームがない場合、更新されないこと" do
         user_params = FactoryBot.attributes_for(:another_user, user_name: "")
         patch profile_path(id: 1), params: { user: user_params }
@@ -196,13 +196,15 @@ RSpec.describe User, type: :request do
       end
     end
   end
+
   describe "#update_password" do
     before do
       sign_up_another_user
       log_in_another_user
     end
-    context '(ログイン済みの場合で)パスワードの更新に成功する場合' do
-      it 'パスワードの更新に成功すること' do
+
+    context "(ログイン済みの場合で)パスワードの更新に成功する場合" do
+      it "パスワードの更新に成功すること" do
         user_params = FactoryBot.attributes_for(:another_user,
                                                 current_password: "test_another_password",
                                                 password: "test_pass",
@@ -212,8 +214,9 @@ RSpec.describe User, type: :request do
         expect(response).to redirect_to(password_path)
       end
     end
-    context '(ログイン済みの場合で)パスワードの更新に失敗する場合' do
-      it '現在のパスワードが違う場合、更新されないこと' do
+
+    context "(ログイン済みの場合で)パスワードの更新に失敗する場合" do
+      it "現在のパスワードが違う場合、更新されないこと" do
         user_params = FactoryBot.attributes_for(:another_user,
                                                 current_password: "test_test_password",
                                                 password: "test_pass",
@@ -222,7 +225,8 @@ RSpec.describe User, type: :request do
         expect(response.status).to eq(200)
         expect(response.body).to include "現在のパスワードが違います"
       end
-      it '新しいパスワードと再入力パスワードが異なる場合、更新されないこと' do
+
+      it "新しいパスワードと再入力パスワードが異なる場合、更新されないこと" do
         user_params = FactoryBot.attributes_for(:another_user,
                                                 current_password: "test_another_password",
                                                 password: "test_pass",
