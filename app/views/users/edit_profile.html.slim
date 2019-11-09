@@ -2,9 +2,9 @@
   .edit-menu
     ul.nav.flex-column
       li.nav-item
-        a.nav-link.active href="#"  プロフィールを編集
+        = link_to "プロフィールを編集", profile_path, class: "nav-link"
       li.nav-item
-        a.nav-link href="#"  パスワードを変更
+        = link_to "パスワードを変更", password_path, class: "nav-link"
       li.nav-item
         a.nav-link href="#"  許可されたアプリ
       li.nav-item
@@ -21,7 +21,7 @@
         = message
 
     .edit-form-container
-      .edit-label
+      .edit-profile-label
         .edit-image-container
 
           - if @user.profile.image_file
@@ -31,22 +31,20 @@
         p.label-email メールアドレス
         p 自己紹介
         p.label-gender 性別
-        p パスワード
-        p パスワード再入力
+        / p パスワード
+        / p パスワード再入力
 
-      .edit-form
+      .edit-profile-form
         = form_for(@user, url: profile_path, html: {method: "patch"}) do |i|
           = i.fields_for :profile do |prf|
-            = prf.label :image_file, "プロフィール画像の変更", class: "input-btn"
+            = prf.label :image_file, "プロフィール画像の変更", class: "image_form_label"
             = prf.file_field :image_file, class: "image_form"
-          = i.submit "変更する", class: "image-button button"
-        = form_for(@user, url: profile_path(id: current_user.id), html: {method: "patch"}) do |f|
-          = f.text_field :full_name
-          = f.text_field :user_name
+          = i.text_field :full_name
+          = i.text_field :user_name
           p 非公開情報
-          = f.text_field :email
+          = i.text_field :email
           button メールアドレスを認証
-          = f.fields_for :profile do |pr|
+          = i.fields_for :profile do |pr|
             = pr.text_area :introduction
             .gender-form
               label
@@ -55,7 +53,7 @@
               label
                 = pr.radio_button :gender, true, :value => true
                 |女性
-          = f.password_field :password
-          = f.password_field :password_confirmation
+          / = i.password_field :password
+          / = i.password_field :password_confirmation
           .submit-form
-            = f.submit "送信する", class: "button"
+            = i.submit "送信する", class: "button"

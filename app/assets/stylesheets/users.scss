@@ -239,7 +239,7 @@
   }
 }
 
-//edit
+//edit_profile_and_edit_password
 .edit-container {
   background-color: #fafafa;
   padding-left: 50px;
@@ -247,7 +247,7 @@
 
   .edit-menu {
     width: 250px;
-    height: 600px;
+    height: 550px;
     background-color: white;
     display: inline-block;
     border: 1px solid #CCC;
@@ -269,7 +269,7 @@
   .edit-contents {
     background-color: white;
     width: 600px;
-    height: 600px;
+    height: 550px;
     display: inline-block;
     vertical-align: top;
     border: 1px solid #CCC;
@@ -281,7 +281,7 @@
     }
 
     .edit-form-container {
-      .edit-label {
+      .edit-profile-label ,.edit-password-label{
         .edit-image-container {
           display: inline-block;
           height: 110px;
@@ -312,14 +312,25 @@
           padding-top: 20px;
         }
       }
+      .edit-password-label{
+       margin-top: 30px;
+      }
+      .edit-password-form{
+        margin-top: 30px;
+      }
 
-      .edit-form {
+      .edit-profile-form ,.edit-password-form{
         display: inline-block;
         width: 320px;
         vertical-align: top;
 
-        .image-button {
-          width: 180px;
+        .image_form_label {
+          margin-top: 18px;
+        }
+
+        .image_form {
+          margin-top: 10px;
+          margin-bottom: 30px;
         }
 
         input {
@@ -331,7 +342,7 @@
         p {
           color: #999999;
           font-size: 14px;
-          padding-top: 10px;
+          padding-top: 14px;
         }
 
         textarea {
