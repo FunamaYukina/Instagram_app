@@ -142,31 +142,30 @@ RSpec.describe User, type: :request do
   end
 
   describe "#update_profile" do
+    before do
+      sign_up_another_user
+      log_in_another_user
+    end
     context "(ログイン済みの場合で、)ユーザー情報の更新に成功する場合" do
-      before do
-        signup
-        log_in
-      end
-
       it "ユーザーネームを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, user_name: "test_user_name2")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, user_name: "test_user_name2")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(302)
         expect(User.last.user_name).to eq "test_user_name2"
         expect(response).to redirect_to(profile_path)
       end
 
       it "フルネームを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, full_name: "test_full_name2")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, full_name: "test_full_name2")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(302)
         expect(User.last.full_name).to eq "test_full_name2"
         expect(response).to redirect_to(profile_path)
       end
 
       it "メールアドレスを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, email: "example2@test.com")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, email: "example2@test.com")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "example2@test.com"
         expect(response).to redirect_to(profile_path)
@@ -174,30 +173,63 @@ RSpec.describe User, type: :request do
     end
 
     context "(ログイン済みの場合で、)ユーザー情報の更新に失敗する場合" do
-      before do
-        signup
-        log_in
-      end
 
       it "ユーザーネームがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, user_name: "")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, user_name: "")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(200)
         expect(response.body).to include "ユーザーネームを入力してください"
       end
 
       it "フルネームがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, full_name: "")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, full_name: "")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(200)
         expect(response.body).to include "フルネームを入力してください"
       end
 
       it "メールアドレスがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, email: "")
-        patch profile_path(id: 1), params: { user: user_param }
+        user_params = FactoryBot.attributes_for(:another_user, email: "")
+        patch profile_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(200)
         expect(response.body).to include "メールアドレスを入力してください"
+      end
+    end
+  end
+  describe "#update_password" do
+    before do
+      sign_up_another_user
+      log_in_another_user
+    end
+    context '(ログイン済みの場合で)パスワードの更新に成功する場合' do
+      it 'パスワードの更新に成功すること' do
+        user_params = FactoryBot.attributes_for(:another_user,
+                                                current_password: "test_another_password",
+                                                password: "test_pass",
+                                                password_confirmation: "test_pass")
+        patch password_path(id: 1), params: { user: user_params }
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(password_path)
+      end
+    end
+    context '(ログイン済みの場合で)パスワードの更新に失敗する場合' do
+      it '現在のパスワードが違う場合、更新されないこと' do
+        user_params = FactoryBot.attributes_for(:another_user,
+                                                current_password: "test_test_password",
+                                                password: "test_pass",
+                                                password_confirmation: "test_pass")
+        patch password_path(id: 1), params: { user: user_params }
+        expect(response.status).to eq(200)
+        expect(response.body).to include "現在のパスワードが違います"
+      end
+      it '新しいパスワードと再入力パスワードが異なる場合、更新されないこと' do
+        user_params = FactoryBot.attributes_for(:another_user,
+                                                current_password: "test_another_password",
+                                                password: "test_pass",
+                                                password_confirmation: "test_password")
+        patch password_path(id: 1), params: { user: user_params }
+        expect(response.status).to eq(200)
+        expect(response.body).to include "再入力パスワードとパスワードの入力が一致しません"
       end
     end
   end

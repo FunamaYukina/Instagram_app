@@ -57,7 +57,7 @@ class UsersController < ApplicationController
         render("users/edit_password")
       end
     else
-      flash[:danger] = "現在のパスワードが間違っています"
+      flash[:danger] = "現在のパスワードが違います"
       render("users/edit_password")
     end
   end

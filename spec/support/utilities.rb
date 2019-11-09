@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 def signup
-  user_param = FactoryBot.attributes_for(:user, :with_profile)
-  post signup_path, params: { user: user_param }
+  user_params = FactoryBot.attributes_for(:user, :with_profile)
+  post signup_path, params: { user: user_params }
 end
 
 def log_in
