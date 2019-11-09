@@ -64,29 +64,29 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                 [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
+                                   [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def update_profile_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                 [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def update_profile_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
+                                   [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def update_password_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
+    def update_password_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
 
-  def correct_user
-    redirect_to(root_path) unless current_user
-  end
+    def correct_user
+      redirect_to(root_path) unless current_user
+    end
 
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
+    def set_user
+      @user = User.find_by(id: params[:id])
+    end
 
-  def back_to_top
-    redirect_to root_path if logged_in?
-  end
+    def back_to_top
+      redirect_to root_path if logged_in?
+    end
 end
