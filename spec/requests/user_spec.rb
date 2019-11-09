@@ -141,7 +141,7 @@ RSpec.describe User, type: :request do
     end
   end
 
-  describe "#update" do
+  describe "#update_profile" do
     context "(ログイン済みの場合で、)ユーザー情報の更新に成功する場合" do
       before do
         signup
@@ -171,14 +171,6 @@ RSpec.describe User, type: :request do
         expect(User.last.email).to eq "example2@test.com"
         expect(response).to redirect_to(profile_path)
       end
-
-      it "パスワードを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, password: "test_password2", password_confirmation: "test_password2")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(302)
-        expect(User.last.password_digest).not_to eq nil
-        expect(response).to redirect_to(profile_path)
-      end
     end
 
     context "(ログイン済みの場合で、)ユーザー情報の更新に失敗する場合" do
@@ -206,14 +198,6 @@ RSpec.describe User, type: :request do
         patch profile_path(id: 1), params: { user: user_param }
         expect(response.status).to eq(200)
         expect(response.body).to include "メールアドレスを入力してください"
-      end
-
-      it "パスワードがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, password: "")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(200)
-        expect(User.last.password_digest).not_to eq nil
-        expect(response.body).to include "パスワードは6文字以上で入力してください"
       end
     end
   end
