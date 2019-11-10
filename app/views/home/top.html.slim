@@ -8,7 +8,7 @@
             ul
               - flash[:posting_errors].each do |e|
                 li = e
-        = form_for(@post, url: posts_path(id: current_user.id)) do |f|
+        = form_for(@post, url: posts_path(current_user.user_name)) do |f|
           = f.fields_for :images,@post.images.build do |a|
             = a.label :image_file, "画像をアップロード", class: "input-btn"
             = a.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image-form"

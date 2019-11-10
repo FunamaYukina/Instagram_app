@@ -11,7 +11,7 @@ def post_message_and_image
   log_in(user)
   get root_path
   post_param = FactoryBot.attributes_for(:post, :with_picture)
-  post posts_path(id: 1), params: {
+  post posts_path(username: user.user_name), params: {
     post: post_param
   }
 end

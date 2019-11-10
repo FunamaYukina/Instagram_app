@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get "users/:username" => "users#show", as: "user"
 
-  post "users/:id/posts" => "posts#create", as: "posts"
+  post "users/:username/posts" => "posts#create", as: "posts"
 
   scope "settings" do
     get "profile" => "profiles#edit"
