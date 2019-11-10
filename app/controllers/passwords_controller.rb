@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordsController < ApplicationController
   before_action :set_user
   before_action :correct_user
@@ -21,15 +23,15 @@ class PasswordsController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
 
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
+    def set_user
+      @user = User.find_by(id: params[:id])
+    end
 
-  def correct_user
-    redirect_to(root_path) unless current_user == @user
-  end
+    def correct_user
+      redirect_to(root_path) unless current_user == @user
+    end
 end

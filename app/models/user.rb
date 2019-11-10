@@ -16,7 +16,8 @@ class User < ApplicationRecord
   before_create :create_profile
 
   private
-  def create_profile
-    self.build_profile
-  end
+
+    def create_profile
+      self.build_profile
+    end
 end

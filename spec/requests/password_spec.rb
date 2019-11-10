@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 require "support/utilities"
 
@@ -15,7 +17,7 @@ RSpec.describe "Password", type: :request do
                                                 current_password: "test_password",
                                                 password: "test_update_pass",
                                                 password_confirmation: "test_update_pass")
-        patch password_path(id: 1), params: {user: user_params}
+        patch password_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(302)
         expect(response).to redirect_to(password_path)
       end
@@ -27,7 +29,7 @@ RSpec.describe "Password", type: :request do
                                                 current_password: "test_wrong_password",
                                                 password: "test_update_pass",
                                                 password_confirmation: "test_update_pass")
-        patch password_path(id: 1), params: {user: user_params}
+        patch password_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(200)
         expect(response.body).to include "現在のパスワードが違います"
       end
@@ -37,7 +39,7 @@ RSpec.describe "Password", type: :request do
                                                 current_password: "test_password",
                                                 password: "test_update_pass",
                                                 password_confirmation: "test_wrong_pass")
-        patch password_path(id: 1), params: {user: user_params}
+        patch password_path(id: 1), params: { user: user_params }
         expect(response.status).to eq(200)
         expect(response.body).to include "再入力パスワードとパスワードの入力が一致しません"
       end

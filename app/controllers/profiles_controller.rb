@@ -19,16 +19,16 @@ class ProfilesController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                 [profile_attributes: %i[image_file introduction gender user_id]])
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
+                                   [profile_attributes: %i[image_file introduction gender user_id]])
+    end
 
-  def check_user
-    redirect_to root_path unless logged_in?
-  end
+    def check_user
+      redirect_to root_path unless logged_in?
+    end
 
-  def set_user
-    @user = current_user
-  end
+    def set_user
+      @user = current_user
+    end
 end

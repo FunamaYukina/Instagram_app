@@ -15,10 +15,11 @@ RSpec.describe User, type: :model do
                         password_confirmation: "test_password")
         expect(user).to be_valid
       end
+
       it "User保存時にProfileも一緒に生成されること" do
         expect do
           create(:user)
-        end.to change(User,:count).by(1).and change(Profile,:count).by(1)
+        end.to change(User, :count).by(1).and change(Profile, :count).by(1)
       end
     end
 
