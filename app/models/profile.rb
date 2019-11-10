@@ -11,7 +11,7 @@ class Profile < ApplicationRecord
   private
 
     def validate_image_file_size
-      return if image_file.size <= 4.megabytes
+      return unless image_file.size > 4.megabytes
 
       errors.add(:image_file, "は4MB以下のものをアップロードしてください")
     end

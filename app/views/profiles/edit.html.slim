@@ -1,25 +1,9 @@
 .edit-container
-  .edit-menu
-    ul.nav.flex-column
-      li.nav-item
-        = link_to "プロフィールを編集", profile_path, class: "nav-link"
-      li.nav-item
-        = link_to "パスワードを変更", password_path, class: "nav-link"
-      li.nav-item
-        a.nav-link href="#"  許可されたアプリ
-      li.nav-item
-        a.nav-link href="#"  メールまたはSMS
-      li.nav-item
-        a.nav-link href="#"  連絡先の管理
-      li.nav-item
-        a.nav-link href="#"  プライバシーとセキュリティ
-      li.nav-item
-        a.nav-link href="#"  ログインアクティビティ
+  = render 'edit_menu'
   .edit-contents
     - @user.errors.full_messages.each do |message|
       .form-error
         = message
-
     .edit-form-container
       .edit-profile-label
         .edit-image-container
@@ -31,8 +15,6 @@
         p.label-email メールアドレス
         p 自己紹介
         p.label-gender 性別
-        / p パスワード
-        / p パスワード再入力
 
       .edit-profile-form
         = form_for(@user, url: profile_path, html: {method: "patch"}) do |i|
@@ -43,7 +25,6 @@
           = i.text_field :user_name
           p 非公開情報
           = i.text_field :email
-          button メールアドレスを認証
           = i.fields_for :profile do |pr|
             = pr.text_area :introduction
             .gender-form
@@ -53,7 +34,5 @@
               label
                 = pr.radio_button :gender, true, :value => true
                 |女性
-          / = i.password_field :password
-          / = i.password_field :password_confirmation
           .submit-form
             = i.submit "送信する", class: "button"

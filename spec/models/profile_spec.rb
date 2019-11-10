@@ -10,7 +10,7 @@ RSpec.describe Profile, type: :model do
         expect(profile).to be_valid
       end
 
-      it "画像をアップロードしていない場合でも、編集に成功すること" do
+      it "画像がない場合でも、編集に成功すること" do
         profile = FactoryBot.build(:profile, image_file: nil)
         expect(profile).to be_valid
       end

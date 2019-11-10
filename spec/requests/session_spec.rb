@@ -4,9 +4,9 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe "Session", type: :request do
-  describe "#login_form" do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe "#login_form" do
     context "未ログインの場合" do
       it "レスポンス200が返ってくること" do
         get login_path
@@ -17,8 +17,7 @@ RSpec.describe "Session", type: :request do
 
     context "ログイン済みの場合" do
       it "TOPへリダイレクトされること" do
-        signup
-        log_in
+        log_in(user)
         get login_path
         expect(response).to redirect_to root_path
       end
@@ -28,12 +27,11 @@ RSpec.describe "Session", type: :request do
   describe "#login" do
     context "未ログインの場合" do
       before do
-        signup
         logout
       end
 
       it "ユーザーが存在する場合、ログイン出来ること" do
-        log_in
+        log_in(user)
         expect(response.status).to eq(302)
         expect(response).to redirect_to root_path
         expect(session[:user_id]).to eq 1
@@ -51,8 +49,7 @@ RSpec.describe "Session", type: :request do
 
     context "ログイン済みの場合" do
       it "TOPへリダイレクトされること" do
-        signup
-        log_in
+        log_in(user)
         post login_path, params: {
           email: "example@test.com",
           password: "test_password"
@@ -65,8 +62,7 @@ RSpec.describe "Session", type: :request do
   describe "#logout" do
     context "ログイン済みの場合" do
       it "ログアウトに成功すること" do
-        signup
-        log_in
+        log_in(user)
         post logout_path
         expect(response).to redirect_to(login_path)
         expect(session[:user_id]).to be_nil

@@ -1,0 +1,20 @@
+.edit-container
+  = render 'profiles/edit_menu'
+  .edit-contents
+    - @user.errors.full_messages.each do |message|
+      .form-error
+        = message
+
+    .edit-form-container
+      .edit-password-label
+        p 現在のパスワード
+        p 新しいパスワード
+        p パスワード再入力
+
+      .edit-password-form
+        = form_for(@user, url: password_path, html: {method: "patch"}) do |i|
+          = i.password_field :current_password
+          = i.password_field :password
+          = i.password_field :password_confirmation
+          .submit-form
+            = i.submit "送信する", class: "button"

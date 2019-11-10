@@ -25,8 +25,7 @@ RSpec.describe "posts", type: :request do
 
     context "ログイン済みの場合" do
       before do
-        sign_up_another_user
-        log_in_another_user
+        log_in(user)
       end
 
       it "投稿フォームが表示されること" do
