@@ -34,6 +34,12 @@ RSpec.describe Profile, type: :model do
         profile.valid?
         expect(profile.errors.full_messages).to include "自己紹介文は150文字以内で入力してください"
       end
+      it "画像以外を追加した場合、編集に失敗すること" do
+        profile = FactoryBot.build(:profile, image_file: nil)
+        profile.image_file= Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/fixtures/test.xlsx"))
+        profile.valid?
+        expect(profile.errors.full_messages).to include "画像の形式が違います"
+      end
     end
   end
 end

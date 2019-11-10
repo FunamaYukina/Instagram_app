@@ -77,8 +77,8 @@ RSpec.describe User, type: :request do
         logout
       end
 
-      it "自分ではないユーザーページにアクセスできること" do
-        get user_path(username: "test_user_name")
+      it "ユーザーページにアクセスできること" do
+        get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
@@ -90,16 +90,16 @@ RSpec.describe User, type: :request do
         post_message_and_image
       end
 
-      it "マイページにアクセスできること" do
-        get user_path(username: "test_user_name")
+      it "マイページにアクセスした場合、プロフィール編集ボタンが表示されていること" do
+        get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).to include "プロフィールを編集"
       end
 
-      it "自分ではないユーザーページにアクセスできること" do
+      it "他人のユーザーページにアクセスした場合、プロフィール編集ボタンが表示されないこと" do
         logout
-        get user_path(username: "test_user_name")
+        get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
@@ -107,21 +107,4 @@ RSpec.describe User, type: :request do
     end
   end
 
-  describe "#edit" do
-    context "未ログインの場合" do
-      it "TOPページへリダイレクトされること" do
-        get profile_path
-        expect(response).to redirect_to root_path
-      end
-    end
-
-    context "ログイン済みの場合" do
-      it "レスポンス200が返ってくること" do
-        log_in(user)
-        get profile_path
-        expect(response).to be_success
-        expect(response).to have_http_status(:ok)
-      end
-    end
-  end
 end

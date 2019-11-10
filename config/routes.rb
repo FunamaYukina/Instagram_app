@@ -11,10 +11,12 @@ Rails.application.routes.draw do
 
   get "users/:username" => "users#show", as: "user"
 
-  get "settings/profile" => "profiles#edit", as: "profile"
-  patch "settings/profile" => "profiles#update", as: nil
-  get "settings/password" => "passwords#edit", as: "password"
-  patch "settings/password" => "passwords#update", as: nil
-
   post "users/:id/posts" => "posts#create", as: "posts"
+
+  scope "settings" do
+    get "profile" => "profiles#edit"
+    patch "profile" => "profiles#update"
+    get "password" => "passwords#edit"
+    patch "password" => "passwords#update"
+  end
 end
