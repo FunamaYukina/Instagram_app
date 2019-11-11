@@ -86,6 +86,7 @@ RSpec.describe User, type: :model do
   describe "#update_password" do
     let(:user) { create(:user) }
     let(:current_password) { user.password }
+
     context "現在のパスワードが正しい場合" do
       context "パスワードと確認用パスワードが一致している場合" do
         it "更新に成功すること" do
@@ -95,6 +96,7 @@ RSpec.describe User, type: :model do
           expect(!!user.reload.authenticate(new_password)).to be true
         end
       end
+
       context "パスワードと確認用パスワードが一致していない場合" do
         it "Validationエラーが発生すること" do
           expect do

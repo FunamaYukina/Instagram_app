@@ -28,15 +28,15 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
 
-  def set_user
-    @user = User.find_by!(user_name: params[:username])
-  end
+    def set_user
+      @user = User.find_by!(user_name: params[:username])
+    end
 
-  def back_to_top
-    redirect_to root_path if logged_in?
-  end
+    def back_to_top
+      redirect_to root_path if logged_in?
+    end
 end

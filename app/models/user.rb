@@ -17,14 +17,14 @@ class User < ApplicationRecord
   before_create :create_profile
 
   def update_password(current_password, new_password, new_password_confirmation)
-    raise NoCurrentPasswordError,"現在のパスワードが違います" unless !!authenticate(current_password)
+    raise NoCurrentPasswordError, "現在のパスワードが違います" unless !!authenticate(current_password)
 
     self.update!(password: new_password, password_confirmation: new_password_confirmation)
   end
 
   private
 
-  def create_profile
-    self.build_profile
-  end
+    def create_profile
+      self.build_profile
+    end
 end
