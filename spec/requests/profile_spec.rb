@@ -107,11 +107,12 @@ RSpec.describe "Profile", type: :request do
           expect(User.last.email).not_to eq ""
           expect(response.body).to include "メールアドレスを入力してください"
         end
+
         it "自己紹介文が150文字を超える場合、更新されないこと" do
-          profile_params = FactoryBot.attributes_for(:user, profile_attributes: { introduction: "a"*151 })
+          profile_params = FactoryBot.attributes_for(:user, profile_attributes: { introduction: "a" * 151 })
           patch profile_path, params: { user: profile_params }
           expect(response.status).to eq(200)
-          expect(User.last.profile.introduction).not_to eq "a"*151
+          expect(User.last.profile.introduction).not_to eq "a" * 151
           expect(response.body).to include "自己紹介文は150文字以内で入力してください"
         end
       end

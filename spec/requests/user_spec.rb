@@ -71,7 +71,6 @@ RSpec.describe User, type: :request do
   end
 
   describe "#show" do
-
     it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
       expect do
         get user_path(username: "foobar")
@@ -100,7 +99,7 @@ RSpec.describe User, type: :request do
       end
 
       it "他人のユーザーページにアクセスした場合、プロフィール編集ボタンが表示されないこと" do
-        another_user=create(:another_user)
+        another_user = create(:another_user)
         get user_path(username: another_user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
