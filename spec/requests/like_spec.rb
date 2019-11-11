@@ -5,7 +5,11 @@ require "support/utilities"
 
 RSpec.describe "likes", type: :request do
   describe "#like_and_#unlike" do
-    let(:user) { create(:user) }
+    let(:user) {
+      create(:user) do |user|
+        user.posts.create(FactoryBot.attributes_for(:post))
+      end
+    }
 
     context "未ログインの場合" do
       it "いいねができないこと" do
@@ -17,7 +21,7 @@ RSpec.describe "likes", type: :request do
     context "ログイン済みの場合" do
       before do
         log_in(user)
-        post_message_and_image
+        # post_message_and_image
       end
 
       it "いいねしていない場合、いいねができること" do
