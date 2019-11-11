@@ -3,19 +3,17 @@
 class PostsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  def new
-    @post = Post.new
-    @post.images.build
-  end
-
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      flash[:notice] = "投稿を作成しました"
-      redirect_to root_path
+    post = current_user.posts.build(post_params)
+
+    if post.save
+      flash[:success] = "投稿に成功しました"
     else
-      render("home/top")
+      flash[:danger] = "投稿に失敗しました"
+      flash[:posting_errors] = post.errors.full_messages
     end
+
+    redirect_to root_path
   end
 
   private

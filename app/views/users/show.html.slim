@@ -6,9 +6,9 @@
     .user-information
       .user-name
         = @user.user_name
-      - if @user == current_user
+      - if current_user?(@user)
         .user-profile
-          = link_to profile_path(current_user.id) do
+          = link_to profile_path do
             span プロフィールを編集
       - else
         .user-follow

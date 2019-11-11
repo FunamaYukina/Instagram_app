@@ -1,15 +1,19 @@
 ja:
   activerecord:
     errors:
-       messages:
-         record_invalid: 'バリデーションに失敗しました: %{errors}'
+      messages:
+        record_invalid: '%{errors}'
   models:
   attributes:
-      full_name: フルネーム
-      user_name: ユーザーネーム
-      email: メールアドレス
-      password: パスワード
-      password_confirmation: 再入力パスワード
-      image_file: 画像
-      message: メッセージ
-      introduction: 自己紹介文
+    full_name: フルネーム
+    user_name: ユーザーネーム
+    email: メールアドレス
+    password: パスワード
+    password_confirmation: 再入力パスワード
+    image_file: 画像
+    message: メッセージ
+    images: 画像
+    introduction: 自己紹介文
+  errors:
+    messages:
+      extension_whitelist_error: の形式が違います

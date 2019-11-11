@@ -263,12 +263,11 @@ GEM
     mime-types (3.3)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
-    mini_magick (4.7.0)
+    mini_magick (4.9.4)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
     multi_json (1.14.1)
-    nested_form (0.3.2)
     netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.5)
@@ -440,8 +439,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3, >= 4.3.1)
   listen (>= 3.0.5, < 3.2)
-  mini_magick (= 4.7.0)
-  nested_form
+  mini_magick (= 4.9.4)
   pry-rails
   puma (~> 3.7)
   rails (~> 5.1.7)

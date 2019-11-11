@@ -7,11 +7,4 @@ FactoryBot.define do
     introduction { "test" }
     association :user
   end
-
-  trait :with_profile do
-    image_file { File.new("#{Rails.root}/spec/fixtures/test.jpg") }
-    gender { false }
-    introduction { "test" }
-    association :user
-  end
 end

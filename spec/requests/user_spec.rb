@@ -4,17 +4,15 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe User, type: :request do
+  let(:user) { create(:user) }
+
   describe FactoryBot do
     it "有効なファクトリを持つこと" do
-      expect(FactoryBot.build(:user)).to be_valid
+      expect(build(:user)).to be_valid
     end
   end
 
   describe "#new" do
-    before do
-      FactoryBot.create(:user)
-    end
-
     context "未ログインの場合" do
       it "レスポンス200が返ってくること" do
         get signup_path
@@ -25,7 +23,7 @@ RSpec.describe User, type: :request do
 
     context "ログイン済みの場合" do
       it "TOPページへリダイレクトされること" do
-        log_in
+        log_in(user)
         get signup_path
         expect(response).to redirect_to root_path
       end
@@ -35,41 +33,37 @@ RSpec.describe User, type: :request do
   describe "#create" do
     context "新規登録ユーザー登録に成功する場合" do
       it "新規ユーザーが登録されること" do
-        user_param = FactoryBot.attributes_for(:another_user)
-        post signup_path, params: { user: user_param }
+        user_params = attributes_for(:another_user)
+        post signup_path, params: { user: user_params }
         expect(response.status).to eq(302)
-        expect(User.last.email).to eq user_param[:email]
-        expect(response).to redirect_to(root_path)
+        expect(User.last.email).to eq user_params[:email]
+        expect(response).to redirect_to root_path
       end
 
       it "メールアドレスは小文字で登録されること" do
-        user_param = FactoryBot.attributes_for(:another_user)
-        post signup_path, params: { user: user_param }
+        user_params = attributes_for(:another_user)
+        post signup_path, params: { user: user_params }
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "another_example@test.com"
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to root_path
       end
     end
 
     context "新規ユーザーの登録に失敗する場合" do
       it "メールアドレスがない場合、ユーザー登録に失敗すること" do
         expect do
-          user_param = FactoryBot.attributes_for(:another_user, email: "")
-          post signup_path, params: { user: user_param }
+          user_params = attributes_for(:another_user, email: "")
+          post signup_path, params: { user: user_params }
         end.not_to change(User, :count)
       end
     end
 
     context "ログイン済みの場合" do
-      before do
-        FactoryBot.create(:user)
-      end
-
       it "TOPページへリダイレクトされること" do
-        log_in
+        log_in(user)
         expect do
-          user_param = FactoryBot.attributes_for(:another_user)
-          post signup_path, params: { user: user_param }
+          user_params = attributes_for(:another_user)
+          post signup_path, params: { user: user_params }
         end.not_to change(User, :count)
         expect(response).to redirect_to root_path
       end
@@ -77,15 +71,15 @@ RSpec.describe User, type: :request do
   end
 
   describe "#show" do
-    context "未ログインの場合" do
-      before do
-        signup
-        post_message_and_image
-        logout
-      end
+    it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
+      expect do
+        get user_path(username: "foobar")
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
 
-      it "自分ではないユーザーページにアクセスできること" do
-        get user_page_path(id: 1)
+    context "未ログインの場合" do
+      it "ユーザーページにアクセスできること" do
+        get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
@@ -94,129 +88,22 @@ RSpec.describe User, type: :request do
 
     context "ログイン済みの場合" do
       before do
-        signup
-        post_message_and_image
+        log_in(user)
       end
 
-      it "マイページにアクセスできること" do
-        get user_page_path(id: 1)
+      it "マイページにアクセスした場合、プロフィール編集ボタンが表示されていること" do
+        get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).to include "プロフィールを編集"
       end
 
-      it "自分ではないユーザーページにアクセスできること" do
-        logout
-        sign_up_another_user
-        log_in_another_user
-        get user_page_path(id: 1)
+      it "他人のユーザーページにアクセスした場合、プロフィール編集ボタンが表示されないこと" do
+        another_user = create(:another_user)
+        get user_path(username: another_user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
-      end
-    end
-  end
-
-  describe "#edit" do
-    context "未ログインの場合" do
-      before do
-        signup
-        logout
-      end
-
-      it "TOPページへリダイレクトされること" do
-        get profile_path(id: 1)
-        expect(response).to redirect_to root_path
-      end
-    end
-
-    context "ログイン済みの場合" do
-      before do
-        signup
-      end
-
-      it "レスポンス200が返ってくること" do
-        log_in
-        get profile_path(id: 1)
-        expect(response).to be_success
-        expect(response).to have_http_status(:ok)
-      end
-    end
-  end
-
-  describe "#update" do
-    context "(ログイン済みの場合で、)ユーザー情報の更新に成功する場合" do
-      before do
-        signup
-        log_in
-      end
-
-      it "ユーザーネームを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, user_name: "test_user_name2")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(302)
-        expect(User.last.user_name).to eq "test_user_name2"
-        expect(response).to redirect_to(profile_path)
-      end
-
-      it "フルネームを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, full_name: "test_full_name2")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(302)
-        expect(User.last.full_name).to eq "test_full_name2"
-        expect(response).to redirect_to(profile_path)
-      end
-
-      it "メールアドレスを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, email: "example2@test.com")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(302)
-        expect(User.last.email).to eq "example2@test.com"
-        expect(response).to redirect_to(profile_path)
-      end
-
-      it "パスワードを変更した場合、正しく更新されること" do
-        user_param = FactoryBot.attributes_for(:another_user, password: "test_password2", password_confirmation: "test_password2")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(302)
-        expect(User.last.password_digest).not_to eq nil
-        expect(response).to redirect_to(profile_path)
-      end
-    end
-
-    context "(ログイン済みの場合で、)ユーザー情報の更新に失敗する場合" do
-      before do
-        signup
-        log_in
-      end
-
-      it "ユーザーネームがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, user_name: "")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(200)
-        expect(response.body).to include "ユーザーネームを入力してください"
-      end
-
-      it "フルネームがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, full_name: "")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(200)
-        expect(response.body).to include "フルネームを入力してください"
-      end
-
-      it "メールアドレスがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, email: "")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(200)
-        expect(response.body).to include "メールアドレスを入力してください"
-      end
-
-      it "パスワードがない場合、更新されないこと" do
-        user_param = FactoryBot.attributes_for(:another_user, password: "")
-        patch profile_path(id: 1), params: { user: user_param }
-        expect(response.status).to eq(200)
-        expect(User.last.password_digest).not_to eq nil
-        expect(response.body).to include "パスワードは6文字以上で入力してください"
       end
     end
   end

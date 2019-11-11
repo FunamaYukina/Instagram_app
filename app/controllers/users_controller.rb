@@ -2,11 +2,10 @@
 
 class UsersController < ApplicationController
   protect_from_forgery
-  before_action :back_top_page, only: %i[new create]
-  before_action :correct_user, only: %i[update edit]
+  before_action :back_to_top, only: %i[new create]
+  before_action :set_user, only: :show
 
   def show
-    @user = User.find_by(id: params[:id])
     @post = @user.posts.eager_load([:images])
     @profile = @user.profile
   end
@@ -18,53 +17,26 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.build_profile(introduction: "")
-      if @user.profile.save
-        log_in(@user)
-        flash[:notice] = "ユーザー登録が完了しました"
-        redirect_to root_path
-      else
-        flash[:notice] = "ユーザー登録に失敗"
-        render("users/new")
-      end
+      log_in(@user)
+      flash[:success] = "ユーザー登録が完了しました"
+      redirect_to root_path
     else
-      render("users/new")
-    end
-  end
-
-  def edit
-    @user = current_user
-  end
-
-  def update
-    @user = current_user
-    @user.update(update_params)
-    if @user.profile.save && @user.save
-      flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to profile_path
-    else
-      render("users/edit")
+      flash.now[:danger] = "ユーザー登録に失敗しました"
+      render "users/new"
     end
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                   [profile_attributes: %i[image_file introduction gender user_id]])
+      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
     end
 
-    def update_params
-      params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation,
-                                   [profile_attributes: %i[image_file introduction gender user_id]])
+    def set_user
+      @user = User.find_by!(user_name: params[:username])
     end
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) unless @user == current_user
-    end
-
-    def back_top_page
-      redirect_to(root_path) if current_user
+    def back_to_top
+      redirect_to root_path if logged_in?
     end
 end
