@@ -71,18 +71,19 @@ RSpec.describe User, type: :request do
   end
 
   describe "#show" do
+
+    it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
+      expect do
+        get user_path(username: "foobar")
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
     context "未ログインの場合" do
       it "ユーザーページにアクセスできること" do
         get user_path(username: user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
-      end
-
-      it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
-        expect do
-          get user_path(username: "foobar")
-        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -99,8 +100,8 @@ RSpec.describe User, type: :request do
       end
 
       it "他人のユーザーページにアクセスした場合、プロフィール編集ボタンが表示されないこと" do
-        logout
-        get user_path(username: user.user_name)
+        another_user=create(:another_user)
+        get user_path(username: another_user.user_name)
         expect(response).to be_success
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"

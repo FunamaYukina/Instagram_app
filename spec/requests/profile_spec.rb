@@ -26,7 +26,7 @@ RSpec.describe "Profile", type: :request do
 
   describe "#update" do
     context "未ログインの場合" do
-      it "ユーザー情報を更新に失敗し、ログインページへリダイレクトされること" do
+      it "ユーザー情報の更新に失敗し、ログインページへリダイレクトされること" do
         user
         profile_params = FactoryBot.attributes_for(:user, user_name: "updated_user_name")
         patch profile_path, params: { user: profile_params }
@@ -106,6 +106,13 @@ RSpec.describe "Profile", type: :request do
           expect(response.status).to eq(200)
           expect(User.last.email).not_to eq ""
           expect(response.body).to include "メールアドレスを入力してください"
+        end
+        it "自己紹介文が150文字を超える場合、更新されないこと" do
+          profile_params = FactoryBot.attributes_for(:user, profile_attributes: { introduction: "a"*151 })
+          patch profile_path, params: { user: profile_params }
+          expect(response.status).to eq(200)
+          expect(User.last.profile.introduction).not_to eq "a"*151
+          expect(response.body).to include "自己紹介文は150文字以内で入力してください"
         end
       end
     end
