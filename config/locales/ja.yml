@@ -2,7 +2,7 @@ ja:
   activerecord:
     errors:
       messages:
-        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        record_invalid: '%{errors}'
   models:
   attributes:
     full_name: フルネーム
@@ -13,8 +13,7 @@ ja:
     image_file: 画像
     message: メッセージ
     images: 画像
+    introduction: 自己紹介文
   errors:
     messages:
       extension_whitelist_error: の形式が違います
-
-

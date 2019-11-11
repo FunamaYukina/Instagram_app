@@ -9,5 +9,14 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
-  post "users/:id/posts" => "posts#create", as: "posts"
+  get "users/:username" => "users#show", as: "user"
+
+  post "users/:username/posts" => "posts#create", as: "posts"
+
+  scope "settings" do
+    get "profile" => "profiles#edit"
+    patch "profile" => "profiles#update"
+    get "password" => "passwords#edit"
+    patch "password" => "passwords#update"
+  end
 end

@@ -136,11 +136,22 @@ header {
     margin-left: 50px;
     vertical-align: top;
 
+    .user-image {
+      display: inline-block;
+      vertical-align: top;
+
+      .image-item {
+        border-radius: 25px;
+      }
+    }
+
     a:hover {
       text-decoration: none;
     }
 
     .user-name {
+      display: inline-block;
+
       .user-short-name {
         margin-left: 20px;
         font-weight: bold;
@@ -163,6 +174,7 @@ header {
     .post-user-name {
       height: 50px;
       padding: 10px 20px;
+
       a:hover {
         text-decoration: none;
       }

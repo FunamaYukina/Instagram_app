@@ -15,6 +15,12 @@ RSpec.describe User, type: :model do
                         password_confirmation: "test_password")
         expect(user).to be_valid
       end
+
+      it "User保存時にProfileも一緒に生成されること" do
+        expect do
+          create(:user)
+        end.to change(User, :count).by(1).and change(Profile, :count).by(1)
+      end
     end
 
     context "新規ユーザー登録に失敗する場合" do
@@ -32,7 +38,7 @@ RSpec.describe User, type: :model do
         expect(existing_user.errors.full_messages).to include "ユーザーネームはすでに存在します"
       end
 
-      it "名前がない場合、ユーザー登録に失敗すること" do
+      it "ユーザーネームがない場合、ユーザー登録に失敗すること" do
         user.user_name = ""
         user.valid?
         expect(user.errors.full_messages).to include "ユーザーネームを入力してください"
@@ -73,6 +79,43 @@ RSpec.describe User, type: :model do
         user.password_confirmation = "pass"
         user.valid?
         expect(user.errors.full_messages).to include "再入力パスワードとパスワードの入力が一致しません"
+      end
+    end
+  end
+
+  describe "#update_password" do
+    let(:user) { create(:user) }
+    let(:current_password) { user.password }
+
+    context "現在のパスワードが正しい場合" do
+      context "パスワードと確認用パスワードが一致している場合" do
+        it "更新に成功すること" do
+          new_password = "updated_password"
+          user.update_password(current_password, new_password, new_password)
+
+          expect(!!user.reload.authenticate(new_password)).to be true
+        end
+      end
+
+      context "パスワードと確認用パスワードが一致していない場合" do
+        it "Validationエラーが発生すること" do
+          expect do
+            user.update_password(current_password, "password", "buzzword")
+          end.to raise_error(ActiveRecord::RecordInvalid)
+          expect(!!user.reload.authenticate("password")).to be false
+          expect(user.errors.full_messages).to include "再入力パスワードとパスワードの入力が一致しません"
+        end
+      end
+    end
+
+    context "現在のパスワードが正しくない場合" do
+      it "NoCurrentPasswordErrorが発生すること" do
+        new_password = "updated_password"
+        expect do
+          user.update_password("buzzword", new_password, new_password)
+        end.to raise_error(Exceptions::NoCurrentPasswordError)
+
+        expect(!!user.reload.authenticate(new_password)).to be false
       end
     end
   end

@@ -4,6 +4,8 @@ require "rails_helper"
 require "support/utilities"
 
 RSpec.describe User, type: :request do
+  let(:user) { create(:user) }
+
   describe FactoryBot do
     it "有効なファクトリを持つこと" do
       expect(build(:user)).to be_valid
@@ -11,8 +13,6 @@ RSpec.describe User, type: :request do
   end
 
   describe "#new" do
-    let(:user) { create(:user) }
-
     context "未ログインの場合" do
       it "レスポンス200が返ってくること" do
         get signup_path
@@ -59,8 +59,6 @@ RSpec.describe User, type: :request do
     end
 
     context "ログイン済みの場合" do
-      let(:user) { create(:user) }
-
       it "TOPページへリダイレクトされること" do
         log_in(user)
         expect do
@@ -68,6 +66,44 @@ RSpec.describe User, type: :request do
           post signup_path, params: { user: user_params }
         end.not_to change(User, :count)
         expect(response).to redirect_to root_path
+      end
+    end
+  end
+
+  describe "#show" do
+    it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
+      expect do
+        get user_path(username: "foobar")
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    context "未ログインの場合" do
+      it "ユーザーページにアクセスできること" do
+        get user_path(username: user.user_name)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).not_to include "プロフィールを編集"
+      end
+    end
+
+    context "ログイン済みの場合" do
+      before do
+        log_in(user)
+      end
+
+      it "マイページにアクセスした場合、プロフィール編集ボタンが表示されていること" do
+        get user_path(username: user.user_name)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include "プロフィールを編集"
+      end
+
+      it "他人のユーザーページにアクセスした場合、プロフィール編集ボタンが表示されないこと" do
+        another_user = create(:another_user)
+        get user_path(username: another_user.user_name)
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+        expect(response.body).not_to include "プロフィールを編集"
       end
     end
   end

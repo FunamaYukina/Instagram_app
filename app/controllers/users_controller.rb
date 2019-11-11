@@ -3,6 +3,12 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :back_to_top, only: %i[new create]
+  before_action :set_user, only: :show
+
+  def show
+    @post = @user.posts.eager_load([:images])
+    @profile = @user.profile
+  end
 
   def new
     @user = User.new
@@ -12,9 +18,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in(@user)
-      flash[:notice] = "ユーザー登録が完了しました"
+      flash[:success] = "ユーザー登録が完了しました"
       redirect_to root_path
     else
+      flash.now[:danger] = "ユーザー登録に失敗しました"
       render "users/new"
     end
   end
@@ -23,6 +30,10 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
+    end
+
+    def set_user
+      @user = User.find_by!(user_name: params[:username])
     end
 
     def back_to_top

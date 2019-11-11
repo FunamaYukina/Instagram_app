@@ -6,3 +6,7 @@ def log_in(user)
     password: user.password
   }
 end
+
+def logout
+  post logout_path
+end

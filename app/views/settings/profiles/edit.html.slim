@@ -1,0 +1,36 @@
+.edit-container
+  = render 'settings/shared/side_menu'
+  .edit-contents
+    - current_user.errors.full_messages.each do |message|
+      .form-error
+        = message
+    .edit-form-container
+      .edit-profile-label
+        .edit-image-container
+          = image_tag current_user.profile.image_file, size: '50x50', class: "image-item"
+        p フルネーム
+        p ユーザーネーム
+        p.label-email メールアドレス
+        p 自己紹介
+        p.label-gender 性別
+
+      .edit-profile-form
+        = form_for(current_user, url: profile_path, html: {method: "patch"}) do |i|
+          = i.fields_for :profile do |prf|
+            = prf.label :image_file, "プロフィール画像の変更", class: "image_form_label"
+            = prf.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image_form"
+          = i.text_field :full_name
+          = i.text_field :user_name
+          p 非公開情報
+          = i.text_field :email
+          = i.fields_for :profile do |pr|
+            = pr.text_area :introduction
+            .gender-form
+              label
+                = pr.radio_button :gender, false, :checked => true, :value => false
+                |男性
+              label
+                = pr.radio_button :gender, true, :value => true
+                |女性
+          .submit-form
+            = i.submit "更新する", class: "button"
