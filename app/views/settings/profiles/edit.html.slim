@@ -7,9 +7,7 @@
     .edit-form-container
       .edit-profile-label
         .edit-image-container
-
-          - if current_user.profile.image_file
-            = image_tag current_user.profile.image_file, size: '50x50', class: "image-item"
+          = image_tag current_user.profile.image_file, size: '50x50', class: "image-item"
         p フルネーム
         p ユーザーネーム
         p.label-email メールアドレス
@@ -35,4 +33,4 @@
                 = pr.radio_button :gender, true, :value => true
                 |女性
           .submit-form
-            = i.submit "送信する", class: "button"
+            = i.submit "更新する", class: "button"

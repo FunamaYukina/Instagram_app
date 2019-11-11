@@ -72,10 +72,6 @@ RSpec.describe User, type: :request do
 
   describe "#show" do
     context "未ログインの場合" do
-      before do
-        logout
-      end
-
       it "ユーザーページにアクセスできること" do
         get user_path(username: user.user_name)
         expect(response).to be_success

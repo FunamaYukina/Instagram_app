@@ -14,12 +14,14 @@ RSpec.describe "Password", type: :request do
 
       context "パスワードと確認用パスワードが一致している場合" do
         it "更新に成功すること" do
+          new_password = "updated_password"
           password_params = FactoryBot.attributes_for(:user,
                                                       current_password: "test_password",
-                                                      password: "test_update_pass",
-                                                      password_confirmation: "test_update_pass")
+                                                      new_password: new_password,
+                                                      new_password_confirmation: new_password)
           patch password_path, params: { user: password_params }
           expect(response.status).to eq(302)
+          expect(!!user.reload.authenticate(new_password)).to be true
           expect(response).to redirect_to password_path
         end
       end
@@ -28,10 +30,11 @@ RSpec.describe "Password", type: :request do
         it "Validationエラーが発生すること" do
           password_params = FactoryBot.attributes_for(:user,
                                                       current_password: "test_password",
-                                                      password: "password",
-                                                      password_confirmation: "buzzword")
+                                                      new_password: "password",
+                                                      new_password_confirmation: "buzzword")
           patch password_path, params: { user: password_params }
           expect(response.status).to eq(200)
+          expect(!!user.reload.authenticate("password")).to be false
           expect(flash[:danger]).to include "再入力パスワードとパスワードの入力が一致しません"
         end
       end
@@ -40,10 +43,11 @@ RSpec.describe "Password", type: :request do
         it "NoCurrentPasswordErrorが発生すること" do
           password_params = FactoryBot.attributes_for(:user,
                                                       current_password: "buzzword",
-                                                      password: "password",
-                                                      password_confirmation: "password")
+                                                      new_password: "password",
+                                                      new_password_confirmation: "password")
           patch password_path, params: { user: password_params }
           expect(response.status).to eq(200)
+          expect(!!user.reload.authenticate("password")).to be false
           expect(flash[:danger]).to include "現在のパスワードが違います"
         end
       end

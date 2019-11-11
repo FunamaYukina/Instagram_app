@@ -26,10 +26,6 @@ RSpec.describe "Session", type: :request do
 
   describe "#login" do
     context "未ログインの場合" do
-      before do
-        logout
-      end
-
       it "ユーザーが存在する場合、ログイン出来ること" do
         log_in(user)
         expect(response.status).to eq(302)
