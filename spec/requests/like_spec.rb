@@ -5,6 +5,8 @@ require "support/utilities"
 
 RSpec.describe "likes", type: :request do
   describe "#like_and_#unlike" do
+    let(:user) { create(:user) }
+
     context "未ログインの場合" do
       it "いいねができないこと" do
         get root_path
@@ -14,8 +16,7 @@ RSpec.describe "likes", type: :request do
 
     context "ログイン済みの場合" do
       before do
-        signup
-        log_in
+        log_in(user)
         post_message_and_image
       end
 
