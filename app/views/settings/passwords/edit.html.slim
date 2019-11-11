@@ -1,9 +1,6 @@
 .edit-container
   = render 'settings/shared/side_menu'
   .edit-contents
-    - current_user.errors.full_messages.each do |message|
-      .form-error
-        = message
 
     .edit-form-container
       .edit-password-label

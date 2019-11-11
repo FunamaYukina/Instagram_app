@@ -6,22 +6,19 @@ class PasswordsController < ApplicationController
   end
 
   def update
-    if current_user.authenticate(params[:user][:current_password])
-      if current_user.update(password_params)
-        flash[:success] = "パスワードを更新しました"
-        redirect_to password_path
-      else
-        render "settings/passwords/edit"
-      end
-    else
-      flash[:danger] = "現在のパスワードが違います"
+    begin
+      current_user.update_password(params[:user][:current_password], params[:user][:password], params[:user][:password_confirmation])
+      flash[:success] = "パスワードを更新しました"
+      redirect_to password_path
+    rescue ActiveRecord::RecordInvalid, Exceptions::NoCurrentPasswordError => e
+      flash.now[:danger] = e.message
       render "settings/passwords/edit"
     end
   end
 
   private
 
-    def password_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 end

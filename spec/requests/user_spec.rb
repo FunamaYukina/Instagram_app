@@ -34,7 +34,7 @@ RSpec.describe User, type: :request do
     context "新規登録ユーザー登録に成功する場合" do
       it "新規ユーザーが登録されること" do
         user_params = attributes_for(:another_user)
-        post signup_path, params: { user: user_params }
+        post signup_path, params: {user: user_params}
         expect(response.status).to eq(302)
         expect(User.last.email).to eq user_params[:email]
         expect(response).to redirect_to root_path
@@ -42,7 +42,7 @@ RSpec.describe User, type: :request do
 
       it "メールアドレスは小文字で登録されること" do
         user_params = attributes_for(:another_user)
-        post signup_path, params: { user: user_params }
+        post signup_path, params: {user: user_params}
         expect(response.status).to eq(302)
         expect(User.last.email).to eq "another_example@test.com"
         expect(response).to redirect_to root_path
@@ -53,7 +53,7 @@ RSpec.describe User, type: :request do
       it "メールアドレスがない場合、ユーザー登録に失敗すること" do
         expect do
           user_params = attributes_for(:another_user, email: "")
-          post signup_path, params: { user: user_params }
+          post signup_path, params: {user: user_params}
         end.not_to change(User, :count)
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe User, type: :request do
         log_in(user)
         expect do
           user_params = attributes_for(:another_user)
-          post signup_path, params: { user: user_params }
+          post signup_path, params: {user: user_params}
         end.not_to change(User, :count)
         expect(response).to redirect_to root_path
       end
@@ -73,7 +73,6 @@ RSpec.describe User, type: :request do
   describe "#show" do
     context "未ログインの場合" do
       before do
-        post_message_and_image
         logout
       end
 
@@ -83,11 +82,18 @@ RSpec.describe User, type: :request do
         expect(response).to have_http_status(:ok)
         expect(response.body).not_to include "プロフィールを編集"
       end
+
+      it "存在しないユーザーページにアクセスした場合、404エラーが発生すること" do
+        expect do
+          get user_path(username: "foobar")
+        end.to raise_error(ActiveRecord::RecordNotFound)
+
+      end
     end
 
     context "ログイン済みの場合" do
       before do
-        post_message_and_image
+        log_in(user)
       end
 
       it "マイページにアクセスした場合、プロフィール編集ボタンが表示されていること" do
