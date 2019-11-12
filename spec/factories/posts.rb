@@ -6,7 +6,7 @@ FactoryBot.define do
     association :user
     images {
       [
-          FactoryBot.build(:image)
+        FactoryBot.build(:image)
       ]
     }
   end
@@ -27,8 +27,8 @@ FactoryBot.define do
     association :user
     images {
       [
-          FactoryBot.build(:image),
-          FactoryBot.build(:image)
+        FactoryBot.build(:image),
+        FactoryBot.build(:image)
       ]
     }
   end

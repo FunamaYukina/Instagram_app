@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   post "users/:username/posts" => "posts#create", as: "posts"
 
-  post   "users/:id/posts/:post_id/like" => "likes#like",   as: "like"
+  post   "users/:id/posts/:post_id/like" => "likes#like", as: "like"
   delete "users/:id/posts/:post_id/unlike" => "likes#unlike", as: "unlike"
 
   scope "settings" do
