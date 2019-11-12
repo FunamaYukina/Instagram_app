@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
   post "users/:username/posts" => "posts#create", as: "posts"
 
-  post   "/like/:post_id" => "likes#like",   as: "like"
-  delete "/like/:post_id" => "likes#unlike", as: "unlike"
+  post   "users/:id/posts/:post_id/like" => "likes#like",   as: "like"
+  delete "users/:id/posts/:post_id/unlike" => "likes#unlike", as: "unlike"
+
   scope "settings" do
     get "profile" => "profiles#edit"
     patch "profile" => "profiles#update"

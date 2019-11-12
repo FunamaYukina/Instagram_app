@@ -7,15 +7,14 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile, update_only: true
   has_many :likes, dependent: :destroy
-  has_many :like_posts, through: :likes, source: :post
 
   before_save { self.email = email.downcase }
   validates :user_name, presence: true, uniqueness: true
   validates :full_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }, allow_nil: true
+  validates :email, presence: true, format: {with: VALID_EMAIL_REGEX},
+            uniqueness: {case_sensitive: false}
+  validates :password, length: {minimum: 6}, allow_nil: true
 
   before_create :create_profile
 
@@ -25,9 +24,17 @@ class User < ApplicationRecord
     self.update!(password: new_password, password_confirmation: new_password_confirmation)
   end
 
+  def like_post(post_id)
+    likes.create(post_id: post_id)
+  end
+
+  def unlike_post(post_id)
+    likes.find_by(post_id: post_id).destroy
+  end
+
   private
 
-    def create_profile
-      self.build_profile
-    end
+  def create_profile
+    self.build_profile
+  end
 end

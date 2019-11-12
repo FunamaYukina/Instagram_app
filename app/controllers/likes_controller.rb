@@ -1,22 +1,27 @@
 # frozen_string_literal: true
-
 class LikesController < ApplicationController
   before_action :set_variables
+  before_action :authenticated_user
 
   def like
-    like = current_user.likes.new(post_id: @post.id)
-    like.save
+    current_user.like_post(@post.id)
   end
 
   def unlike
-    like = current_user.likes.find_by(post_id: @post.id)
-    like.destroy
+    current_user.unlike_post(@post.id)
   end
 
   private
 
-    def set_variables
-      @post = Post.find(params[:post_id])
-      @id_name = "#like-link-#{@post.id}"
-    end
+  def set_variables
+    @post = Post.find(params[:post_id])
+    @id = "#like-link-#{@post.id}"
+  end
+
+  def authenticated_user
+    return if logged_in?
+
+    flash[:danger] = "ログインしてください"
+    redirect_to login_path
+  end
 end

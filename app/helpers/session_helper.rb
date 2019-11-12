@@ -12,4 +12,8 @@ module SessionHelper
   def logged_in?
     !!current_user
   end
+
+  def current_user_likes?(post_id)
+    current_user.likes.find_by(post_id: post_id)
+  end
 end

@@ -6,9 +6,15 @@ FactoryBot.define do
     association :user
     images {
       [
-        FactoryBot.build(:image)
+          FactoryBot.build(:image)
       ]
     }
+  end
+
+  trait :with_post do
+    after(:create) do |user|
+      user.posts.create(FactoryBot.attributes_for(:post))
+    end
   end
 
   factory :no_images_post, class: Post do
@@ -21,8 +27,8 @@ FactoryBot.define do
     association :user
     images {
       [
-        FactoryBot.build(:image),
-        FactoryBot.build(:image)
+          FactoryBot.build(:image),
+          FactoryBot.build(:image)
       ]
     }
   end
