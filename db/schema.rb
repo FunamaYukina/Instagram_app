@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20191103111235) do
 
   create_table "images", force: :cascade do |t|
-    t.string "image_file"
+    t.string "image_file", null: false
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20191103111235) do
   create_table "posts", force: :cascade do |t|
     t.text "message"
     t.integer "user_id"
-    t.integer "likes_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"

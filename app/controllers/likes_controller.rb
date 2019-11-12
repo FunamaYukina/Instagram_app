@@ -5,11 +5,11 @@ class LikesController < ApplicationController
   before_action :authenticated_user
 
   def like
-    current_user.like_post(@post.id)
+    current_user.like!(@post.id)
   end
 
   def unlike
-    current_user.unlike_post(@post.id)
+    current_user.unlike!(@post.id)
   end
 
   private
