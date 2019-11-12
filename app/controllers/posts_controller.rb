@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def create
     post = current_user.posts.build(post_params)
-# binding.pry
+    # binding.pry
     if post.save
       flash[:success] = "投稿に成功しました"
     else
