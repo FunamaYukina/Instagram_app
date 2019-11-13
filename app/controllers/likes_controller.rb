@@ -17,5 +17,4 @@ class LikesController < ApplicationController
     def set_variables
       @post = Post.find(params[:post_id])
     end
-
 end
