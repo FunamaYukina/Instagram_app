@@ -60,8 +60,9 @@ header {
     color: #aaa;
   }
 }
-.alert-error{
-  display:none;
+
+.alert-error {
+  display: none;
 }
 
 //home
@@ -87,6 +88,7 @@ header {
       p {
         text-align: center;
       }
+
       .form-error {
         color: darkred;
         font-size: 14px;
@@ -190,4 +192,17 @@ header {
       padding: 10px 20px;
     }
   }
+}
+
+.like-btn {
+  color: darkred;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.unlike-btn {
+  color: gray;
+  font-size: 14px;
+  display: inline-block;
 }

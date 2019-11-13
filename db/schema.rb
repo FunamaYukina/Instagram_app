@@ -13,17 +13,25 @@
 ActiveRecord::Schema.define(version: 20191103111235) do
 
   create_table "images", force: :cascade do |t|
-    t.string "image_file"
+    t.string "image_file", null: false
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_images_on_post_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "message"
     t.integer "user_id"
-    t.integer "likes_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -45,6 +53,7 @@ ActiveRecord::Schema.define(version: 20191103111235) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["user_name"], name: "index_users_on_user_name"
   end
 
 end

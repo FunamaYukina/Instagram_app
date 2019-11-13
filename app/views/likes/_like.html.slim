@@ -1,0 +1,9 @@
+.like-link id="like-link-#{post.id}"
+  - if current_user.liked?(post.id)
+    = link_to unlike_path(username: current_user.user_name,post_id: post.id), method: :delete, remote: true do
+      .like_button
+        span.fa.fa-heart.like-btn #{post.likes.size}
+  - else
+    = link_to like_path(username: current_user.user_name,post_id: post.id), method: :post, remote: true do
+      .like_button
+        span.fa.fa-heart.unlike-btn #{post.likes.size}

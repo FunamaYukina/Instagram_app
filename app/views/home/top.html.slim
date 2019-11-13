@@ -35,4 +35,6 @@
           .post-image
             = image_tag image.image_file , size: '550x550'
           .post-message
+            - if logged_in?
+              = render partial: 'likes/like',locals: {post: post}
             = post.message

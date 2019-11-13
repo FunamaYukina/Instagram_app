@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   post "login" => "session#login"
   post "logout" => "session#logout"
 
-  get "users/:username" => "users#show", as: "user"
-
-  post "users/:username/posts" => "posts#create", as: "posts"
-
+  scope "users/:username" do
+    get "/" => "users#show", as: "user"
+    post "posts" => "posts#create", as: "posts"
+    post "posts/:post_id/like" => "likes#like", as: "like"
+    delete "posts/:post_id/unlike" => "likes#unlike", as: "unlike"
+  end
   scope "settings" do
     get "profile" => "profiles#edit"
     patch "profile" => "profiles#update"
