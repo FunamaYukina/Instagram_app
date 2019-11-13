@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
@@ -9,7 +10,7 @@ if User.last.nil?
                  full_name: "full_name",
                  email: "#{user_name}@example.com",
                  password: "password",
-                 password_confirmation: "password",)
+                 password_confirmation: "password")
   end
 
   users = User.all
@@ -17,7 +18,7 @@ if User.last.nil?
   users.each do |user|
     post = user.posts.build
     image = post.images.build
-    image.image_file = open("#{Rails.root}/db/fixtures/sample.png")
+    image.image_file = File.open("#{Rails.root}/db/fixtures/sample.png")
     post.save!(message: "test_message")
   end
 

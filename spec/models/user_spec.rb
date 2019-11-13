@@ -123,13 +123,12 @@ RSpec.describe User, type: :model do
   describe "#liked?" do
     it "いいねしている場合、trueが返ってくること" do
       user = create(:user, :with_post, :with_like)
-      user.liked?(1)
-      expect respond_to be true
+      expect(user.liked?(1)).to be true
     end
+
     it "いいねしていない場合、falseが返ってくること" do
       user = create(:user, :with_post)
-      user.liked?(1)
-      expect respond_to be false
+      expect(user.liked?(1)).to be false
     end
   end
 
