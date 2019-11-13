@@ -18,6 +18,7 @@ RSpec.describe "likes", type: :request do
         expect do
           post like_path(username: user.user_name, post_id: 1), xhr: true, params: { post_id: 1, user_id: 1 }
         end.not_to change(Like, :count)
+        expect(response).to redirect_to login_path
       end
     end
 
