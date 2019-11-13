@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  before_action :set_variables
   before_action :authenticated_user
+  before_action :set_variables
 
   def like
     current_user.like!(@post.id)
@@ -16,13 +16,6 @@ class LikesController < ApplicationController
 
     def set_variables
       @post = Post.find(params[:post_id])
-      @id = "#like-link-#{@post.id}"
     end
 
-    def authenticated_user
-      return if logged_in?
-
-      flash[:danger] = "ログインしてください"
-      redirect_to login_path
-    end
 end

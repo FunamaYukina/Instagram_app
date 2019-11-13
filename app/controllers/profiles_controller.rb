@@ -23,11 +23,4 @@ class ProfilesController < ApplicationController
       params.require(:user).permit(:user_name, :full_name, :email,
                                    [profile_attributes: %i[image_file introduction gender user_id]])
     end
-
-    def authenticated_user
-      return if logged_in?
-
-      flash[:danger] = "ログインしてください"
-      redirect_to login_path
-    end
 end

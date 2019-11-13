@@ -27,6 +27,9 @@ class User < ApplicationRecord
   end
 
   def liked?(post_id)
+    # ここはcurrent_userの持つpost.likeの１つ１つの情報を毎回SQLでとってくるようなコードになっていたので、
+    # はじめにcurrent_userのlikesからpost_idだけを抜き出して配列に置き換え、その中に今回選択したpost_idが
+    # 入っているかどうか？をチェックすることにしました。（フナマ）
     @post_ids ||= self.likes.all.map { |i| i[:post_id] }
     @post_ids.include?(post_id)
   end
