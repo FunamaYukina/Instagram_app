@@ -119,4 +119,51 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#liked?" do
+    it "いいねしている場合、trueが返ってくること" do
+      user = create(:user, :with_post, :with_like)
+      user.liked?(1)
+      expect respond_to be true
+    end
+    it "いいねしていない場合、falseが返ってくること" do
+      user = create(:user, :with_post)
+      user.liked?(1)
+      expect respond_to be false
+    end
+  end
+
+  describe "#like!" do
+    let(:user) { create(:user, :with_post) }
+
+    it "post_idがある場合、いいねに成功すること" do
+      expect do
+        user.like!(1)
+      end.to change(Like, :count).by(1)
+    end
+
+    it "post_idがない場合、いいねに失敗すること" do
+      expect do
+        user.like!
+      end.to raise_error(ArgumentError)
+    end
+  end
+
+  describe "#unlike!" do
+    let(:user) { create(:user, :with_post, :with_like) }
+
+    it "post_idがある場合、いいねの解除に成功すること" do
+      user
+      expect do
+        user.unlike!(1)
+      end.to change(Like, :count).by(-1)
+    end
+
+    it "post_idがない場合、いいねの解除に失敗すること" do
+      user
+      expect do
+        user.unlike!
+      end.to raise_error(ArgumentError)
+    end
+  end
 end

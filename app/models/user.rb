@@ -2,7 +2,6 @@
 
 class User < ApplicationRecord
   include Exceptions
-  include SessionHelper
 
   has_secure_password
   has_many :posts, dependent: :destroy

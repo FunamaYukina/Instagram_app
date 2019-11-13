@@ -14,8 +14,8 @@ RSpec.describe "likes", type: :request do
       end
 
       it "いいねができないこと" do
+        user
         expect do
-          user
           post like_path(username: user.user_name, post_id: 1), xhr: true, params: { post_id: 1, user_id: 1 }
         end.not_to change(Like, :count)
       end
