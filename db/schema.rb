@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20191103111235) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["user_name"], name: "index_users_on_user_name"
   end
 
 end
