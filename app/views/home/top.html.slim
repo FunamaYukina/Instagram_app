@@ -9,14 +9,14 @@
               - flash[:posting_errors].each do |e|
                 li = e
         = form_for(@post, url: posts_path(current_user.user_name)) do |f|
-          = f.fields_for :images,@post.images.build do |a|
+          = f.fields_for :images,@post.images.build do |i|
             .input-image onclick="$('#file').click()"
-              = a.label :image_file, "画像をアップロード", class: "input-btn"
+              = i.label :image_file, "画像をアップロード", class: "input-btn"
             #img_field
             #delete
               .remove-image onclick="$('#delete').click()"
-                = a.label "画像の削除", class: "delete-btn"
-            = a.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image-form", id: :file
+                = i.label "画像の削除", class: "delete-btn"
+            = i.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image-form", id: :file
             = f.text_area :message, class: "textarea", placeholder: "メッセージ"
             = f.submit "投稿する", class: "submit"
     .user-container

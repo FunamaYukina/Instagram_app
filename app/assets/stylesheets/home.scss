@@ -17,53 +17,56 @@ header {
 
   .navbar {
     background-color: white;
-  }
 
-  .nav-left {
-    .navbar-brand img {
-      width: 30px;
-      height: 30px;
-      margin-right: 5px;
+    .nav-left {
+      .navbar-brand img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+      }
+    }
+
+
+    .nav-center {
+      margin-left: 220px;
+      height: 26px;
+
+      .fa-search {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        width: 1.4rem;
+        height: 1.4rem;
+        font-size: 16px;
+        line-height: 1.4rem;
+        text-align: center;
+        pointer-events: none;
+        color: #aaa;
+      }
+
+      .search-form {
+        height: 24px;
+        font-size: 14px;
+        background-color: whitesmoke;
+        padding-left: 1.4rem;
+      }
+
+      input::placeholder {
+        text-align: center;
+      }
+    }
+
+    .nav-right {
+      margin-left: auto;
     }
   }
-
-  .nav-right {
-    margin-left: auto;
-  }
-
-  .nav-center {
-    margin-left: 220px;
-    height: 26px;
-  }
-
-  .search-form {
-    height: 24px;
-    font-size: 14px;
-    background-color: whitesmoke;
-    padding-left: 1.4rem;
-  }
-
-  input::placeholder {
-    text-align: center;
-  }
-
-  .fa-search {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 1.4rem;
-    height: 1.4rem;
-    font-size: 16px;
-    line-height: 1.4rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-  }
 }
 
-.alert-error {
+//header下body
+.alert-posting_errors {
   display: none;
 }
+
 
 //home
 .home {
@@ -108,7 +111,7 @@ header {
         display: none;
       }
 
-      .preview,.image-preview{
+      .preview, .image-preview {
         margin-left: 120px;
         margin-bottom: 20px;
       }
@@ -125,6 +128,7 @@ header {
         display: block;
         text-align: center;
       }
+
       .delete-btn {
         background: grey;
         color: #fff;
