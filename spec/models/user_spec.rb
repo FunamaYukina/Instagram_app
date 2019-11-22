@@ -165,4 +165,41 @@ RSpec.describe User, type: :model do
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe "#follow" do
+    let!(:user) { create(:user) }
+    let(:another_user) { create(:another_user) }
+
+    it "ユーザーが存在する場合、フォローに成功すること" do
+      expect do
+        user.follow(another_user)
+      end.to change(Relationship, :count)
+    end
+
+    it "ユーザーが存在しない場合、フォローに失敗すること" do
+      not_exist_user = build(:another_user)
+      not_exist_user.id = 999
+      expect do
+        user.follow(not_exist_user)
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+  describe "#unfollow" do
+    let!(:user) { create(:user) }
+    let(:another_user) { create(:another_user) }
+
+    it "ユーザーが存在する場合、フォローの解除に成功こと" do
+      user.follow(another_user)
+      expect do
+        user.unfollow(another_user)
+      end.to change(Relationship, :count).by(-1)
+    end
+
+    it "ユーザーが存在しない場合、フォロー解除に失敗すること" do
+      not_exist_user = build(:another_user)
+      expect do
+        user.unfollow(not_exist_user)
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end
