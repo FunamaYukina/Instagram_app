@@ -40,3 +40,25 @@ $(function () {
         preview.empty();
     })
 });
+$(function () {
+    fileInput = $('#profile_file');
+    previewProfile = $('#profile_img_field');
+
+    $(fileInput).on('change', fileInput, function (e) {
+        file = e.target.files[0];
+        reader = new FileReader(),
+            reader.onload = (function (file) {
+                return function (e) {
+                    previewProfile.empty();
+                    previewProfile.append($('<img>').attr({
+                        src: e.target.result,
+                        width: "50px",
+                        height: "50px",
+                        title: file.name,
+                        style:'border-radius:25px;'
+                    }));
+                };
+            })(file);
+        reader.readAsDataURL(file);
+    });
+});
