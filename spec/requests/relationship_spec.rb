@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 require "support/utilities"
 
@@ -11,9 +13,10 @@ RSpec.describe "relationships", type: :request do
         get user_path(user.user_name)
         expect(response.body).not_to include ".follow_button"
       end
+
       it "フォローができないこと" do
         expect do
-          post follow_path(username: user.user_name), params: {username: user.user_name}
+          post follow_path(username: user.user_name), params: { username: user.user_name }
         end.not_to change(Relationship, :count)
       end
     end
@@ -22,14 +25,16 @@ RSpec.describe "relationships", type: :request do
       before do
         log_in(user)
       end
+
       it "フォローできること" do
         expect do
-          post follow_path(username: another_user.user_name), params: {username: user.user_name}
+          post follow_path(username: another_user.user_name), params: { username: user.user_name }
         end.to change(Relationship, :count)
       end
-      it "フォローボタンが表示されていること" do
 
+      it "フォローボタンが表示されていること" do
       end
+
       it "フォローしていた場合、アンフォローできること"
     end
   end

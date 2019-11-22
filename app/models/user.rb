@@ -9,9 +9,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :profile, update_only: true
   has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id",
-           dependent: :destroy
+                                  dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id",
-           dependent: :destroy
+                                   dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -19,9 +19,9 @@ class User < ApplicationRecord
   validates :user_name, presence: true, uniqueness: true
   validates :full_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, format: {with: VALID_EMAIL_REGEX},
-            uniqueness: {case_sensitive: false}
-  validates :password, length: {minimum: 6}, allow_nil: true
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
   before_create :create_profile
 
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   end
 
   def follow(user)
-    unless self==user
+    unless self == user
       self.active_relationships.create!(followed_id: user.id)
     end
   end
@@ -60,7 +60,7 @@ class User < ApplicationRecord
 
   private
 
-  def create_profile
-    self.build_profile
-  end
+    def create_profile
+      self.build_profile
+    end
 end

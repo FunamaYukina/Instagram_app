@@ -184,6 +184,7 @@ RSpec.describe User, type: :model do
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
   describe "#unfollow" do
     let!(:user) { create(:user) }
     let(:another_user) { create(:another_user) }
