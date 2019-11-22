@@ -16,4 +16,16 @@ FactoryBot.define do
     password { "test_another_password" }
     password_confirmation { "test_another_password" }
   end
+
+  trait :with_post do
+    after(:create) do |user|
+      user.posts.create(FactoryBot.attributes_for(:post))
+    end
+  end
+
+  trait :with_like do
+    after(:create) do |user|
+      user.likes.create(FactoryBot.attributes_for(:like))
+    end
+  end
 end

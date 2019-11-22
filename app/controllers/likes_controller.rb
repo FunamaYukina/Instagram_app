@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
+  before_action :authenticated_user
   before_action :set_variables
 
   def like
-    like = current_user.likes.new(post_id: @post.id)
-    like.save
+    current_user.like!(@post.id)
   end
 
   def unlike
-    like = current_user.likes.find_by(post_id: @post.id)
-    like.destroy
+    current_user.unlike!(@post.id)
   end
 
   private
 
     def set_variables
       @post = Post.find(params[:post_id])
-      @id_name = "#like-link-#{@post.id}"
     end
 end
