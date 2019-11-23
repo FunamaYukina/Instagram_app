@@ -16,7 +16,7 @@ RSpec.describe "relationships", type: :request do
 
       it "フォローができないこと" do
         expect do
-          post follow_path(username: user.user_name), params: { username: user.user_name }
+          post follow_path(username: user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
         end.not_to change(Relationship, :count)
       end
     end
@@ -28,13 +28,8 @@ RSpec.describe "relationships", type: :request do
 
       it "フォローできること" do
         expect do
-          post follow_path(username: another_user.user_name), params: { username: user.user_name }
+          post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
         end.to change(Relationship, :count)
-      end
-
-      it "フォローボタンが表示されていること" do
-        get user_path(user.user_name)
-        expect(response.body).to include ".follow_button"
       end
     end
   end

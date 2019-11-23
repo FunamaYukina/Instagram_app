@@ -172,7 +172,7 @@ RSpec.describe User, type: :model do
 
     it "ユーザーが存在する場合、フォローに成功すること" do
       expect do
-        user.follow(another_user)
+        user.follow(another_user.id)
       end.to change(Relationship, :count)
     end
 
@@ -180,7 +180,7 @@ RSpec.describe User, type: :model do
       not_exist_user = build(:another_user)
       not_exist_user.id = 999
       expect do
-        user.follow(not_exist_user)
+        user.follow(not_exist_user.id)
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
@@ -190,16 +190,16 @@ RSpec.describe User, type: :model do
     let(:another_user) { create(:another_user) }
 
     it "ユーザーが存在する場合、フォローの解除に成功こと" do
-      user.follow(another_user)
+      user.follow(another_user.id)
       expect do
-        user.unfollow(another_user)
+        user.unfollow(another_user.id)
       end.to change(Relationship, :count).by(-1)
     end
 
     it "ユーザーが存在しない場合、フォロー解除に失敗すること" do
       not_exist_user = build(:another_user)
       expect do
-        user.unfollow(not_exist_user)
+        user.unfollow(not_exist_user.id)
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
