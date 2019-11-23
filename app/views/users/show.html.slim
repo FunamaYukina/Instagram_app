@@ -10,9 +10,9 @@
         .user-profile
           = link_to profile_path do
             span プロフィールを編集
-      - else
+      - elsif logged_in?
         .user-follow
-          button フォロー中
+          = render partial: 'relationships/follow', locals: {user: @user}
       .user-detail
         .user-detail-left
           span 投稿  1000件

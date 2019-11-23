@@ -2,14 +2,19 @@
 
 class RelationshipsController < ApplicationController
   before_action :authenticated_user
+  before_action :set_variables
 
   def follow
-    user = User.find_by(user_name: params[:username])
-    current_user.follow(user)
+    current_user.follow(@user.id)
   end
 
   def unfollow
-    user = Relationship.find_by(user_name: params[:username]).followed
-    current_user.unfollow(user)
+    current_user.unfollow(@user.id)
+  end
+
+  private
+
+  def set_variables
+    @user = User.find(params[:user_id])
   end
 end

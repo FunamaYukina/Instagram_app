@@ -7,7 +7,7 @@ RSpec.describe "relationships", type: :request do
   let(:user) { create(:user) }
   let(:another_user) { create(:another_user) }
 
-  describe "#follow_and_#unfollow" do
+  describe "#follow" do
     context "未ログインの場合" do
       it "フォローするボタンが表示されないこと" do
         get user_path(user.user_name)
@@ -33,9 +33,9 @@ RSpec.describe "relationships", type: :request do
       end
 
       it "フォローボタンが表示されていること" do
+        get user_path(user.user_name)
+        expect(response.body).to include ".follow_button"
       end
-
-      it "フォローしていた場合、アンフォローできること"
     end
   end
 end
