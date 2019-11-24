@@ -2,8 +2,8 @@
   - if current_user.followed?(user.id)
     = link_to unfollow_path(user_id: user.id), method: :delete, remote: true do
       .follow_button
-        button.follow-button フォロー解除
+        button.unfollow-button フォロー中
   - else
     = link_to follow_path(user_id: user.id), method: :post, remote: true do
       .follow_button
-        button.unfollow-button フォローする
+        button.follow-button フォローする

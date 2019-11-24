@@ -10,7 +10,7 @@ class SessionController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       log_in(user)
-      flash[:notice] = "ログインしました"
+      flash[:success] = "ログインしました"
       redirect_to root_path
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
@@ -22,7 +22,7 @@ class SessionController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
+    flash[:success] = "ログアウトしました"
     redirect_to login_path
   end
 
