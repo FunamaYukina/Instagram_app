@@ -14,51 +14,49 @@
 //= require rails-ujs
 //= require_tree .
 
-
-$(function () {
-    fileField = $('#file');
-    preview = $('#img_field');
-
+const readImage = (fileField, preview, options) => {
     $(fileField).on('change', fileField, function (e) {
         file = e.target.files[0];
         reader = new FileReader(),
             reader.onload = (function (file) {
                 return function (e) {
                     preview.empty();
-                    preview.append($('<img>').attr({
+                    let attributes = {
                         src: e.target.result,
-                        width: "140px",
-                        class: "preview",
                         title: file.name
-                    }));
+                    }
+                    preview.append($('<img>').attr(Object.assign(attributes, options)));
                 };
             })(file);
         reader.readAsDataURL(file);
     });
+}
 
-    $("#delete").click(()=>{
-        preview.empty();
-    })
-});
 $(function () {
-    fileInput = $('#profile_file');
-    previewProfile = $('#profile_img_field');
-
-    $(fileInput).on('change', fileInput, function (e) {
-        file = e.target.files[0];
-        reader = new FileReader(),
-            reader.onload = (function (file) {
-                return function (e) {
-                    previewProfile.empty();
-                    previewProfile.append($('<img>').attr({
-                        src: e.target.result,
-                        width: "50px",
-                        height: "50px",
-                        title: file.name,
-                        style:'border-radius:25px;'
-                    }));
-                };
-            })(file);
-        reader.readAsDataURL(file);
-    });
+    var fileField = "";
+    var preview = "";
+    var options = {};
+    if ($('#top_page').length) {
+        fileField = $('#post_file');
+        preview = $('#post_image');
+        options = {
+            width: "140px",
+            class: "preview",
+        };
+        $("#delete").click(() => {
+            preview.empty();
+            fileField.remove();
+        })
+    } else if ($('#profile_file').length) {
+        fileField = $('#profile_file');
+        preview = $('#profile_image');
+        options={
+            width: "50px",
+            height: "50px",
+            style: 'border-radius:25px;'
+        }
+    } else {
+        return
+    }
+    readImage(fileField, preview, options);
 });
