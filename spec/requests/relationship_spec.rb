@@ -16,7 +16,7 @@ RSpec.describe "relationships", type: :request do
 
       it "フォローができないこと" do
         expect do
-          post follow_path(username: user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          post follow_path(username: user.user_name), xhr: true
         end.not_to change(Relationship, :count)
       end
     end
@@ -28,20 +28,20 @@ RSpec.describe "relationships", type: :request do
 
       it "フォローできること" do
         expect do
-          post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          post follow_path(username: another_user.user_name), xhr: true
         end.to change(Relationship, :count).by(1)
       end
 
       it "フォローボタンを２回押した場合、フォローが１回できること" do
         expect do
-          post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
-          post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          post follow_path(username: another_user.user_name), xhr: true
+          post follow_path(username: another_user.user_name), xhr: true
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       it "自分自身をフォローできないこと" do
         expect do
-          post follow_path(username: user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          post follow_path(username: user.user_name), xhr: true
         end.not_to change(Relationship, :count)
       end
     end
@@ -55,9 +55,9 @@ RSpec.describe "relationships", type: :request do
       end
 
       it "フォロー解除ができないこと" do
-        post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+        post follow_path(username: another_user.user_name), xhr: true
         expect do
-          delete unfollow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          delete unfollow_path(username: another_user.user_name), xhr: true
         end.not_to change(Relationship, :count)
       end
     end
@@ -65,13 +65,20 @@ RSpec.describe "relationships", type: :request do
     context "ログイン済みの場合" do
       before do
         log_in(user)
-        post follow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+        post follow_path(username: another_user.user_name), xhr: true
       end
 
       it "フォロー解除できること" do
         expect do
-          delete unfollow_path(username: another_user.user_name), xhr: true, params: { username: user.user_name, user_id: user.id }
+          delete unfollow_path(username: another_user.user_name), xhr: true
         end.to change(Relationship, :count).by(-1)
+      end
+
+      it "フォロー解除ボタンを２回押した場合、フォロー解除が１回できること" do
+        expect do
+          delete unfollow_path(username: another_user.user_name), xhr: true
+          delete unfollow_path(username: another_user.user_name), xhr: true
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

@@ -17,9 +17,9 @@
         .user-detail-left
           span 投稿#{@user.posts.size}件
         .user-detail-center
-          span フォロワー#{@user.passive_relationships.size}人
+          span フォロワー#{@user.followers.size}人
         .user-detail-right
-          span #{@user.active_relationships.size}人をフォロー中
+          span #{@user.following.size}人をフォロー中
       .user-introduction
         = @user.profile.introduction
   .user-image-container

@@ -173,7 +173,7 @@ RSpec.describe User, type: :model do
     it "ユーザーが存在する場合、フォローに成功すること" do
       expect do
         user.follow!(another_user.id)
-      end.to change(Relationship, :count)
+      end.to change(Relationship, :count).by(1)
     end
 
     it "ユーザーが存在しない場合、フォローに失敗すること" do

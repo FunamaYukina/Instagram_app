@@ -49,8 +49,7 @@ class User < ApplicationRecord
   end
 
   def followed?(user_id)
-    @user_ids ||= self.active_relationships.all.map { |u| u[:followed_id] }
-    @user_ids.include?(user_id)
+    self.following.include?(user_id)
   end
 
   def follow!(user_id)
