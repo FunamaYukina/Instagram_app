@@ -3,7 +3,6 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :back_to_top, only: %i[new create]
-  before_action :set_user, only: :show
 
   def show
     @user = User.eager_load([:profile, :posts, posts: [:images]]).find_by!(user_name: params[:username])
@@ -31,10 +30,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:user_name, :full_name, :email, :password, :password_confirmation)
-    end
-
-    def set_user
-      @user = User.find_by!(user_name: params[:username])
     end
 
     def back_to_top
