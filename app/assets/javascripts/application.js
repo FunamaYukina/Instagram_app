@@ -15,7 +15,8 @@
 //= require_tree .
 
 const readImage = (fileField, preview, options) => {
-    $(fileField).on('change', fileField, function (e) {
+    let id　=fileField.attr("id")
+    $(`#${id}`).on('change', fileField, function (e) {
         file = e.target.files[0];
         reader = new FileReader(),
             reader.onload = (function (file) {
@@ -45,7 +46,10 @@ $(function () {
         };
         $("#delete").click(() => {
             preview.empty();
+            fileField.after('<input accept="image/jpg,image/jpeg,image/png,image/gif" class="image-form" id="new_post_file" type="file" name="post[images_attributes][0][image_file]">');
             fileField.remove();
+            fileField = $('#new_post_file').attr('id','post_file');
+            readImage(fileField,preview,options);
         })
     } else if ($('#profile_file').length) {
         fileField = $('#profile_file');
