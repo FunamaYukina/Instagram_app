@@ -48,8 +48,8 @@ class User < ApplicationRecord
     like.destroy
   end
 
-  def followed?(user_id)
-    self.following.include?(user_id)
+  def followed?(user)
+    self.following.include?(user)
   end
 
   def follow!(user_id)

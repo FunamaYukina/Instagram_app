@@ -36,7 +36,7 @@ RSpec.describe "relationships", type: :request do
         expect do
           post follow_path(username: another_user.user_name), xhr: true
           post follow_path(username: another_user.user_name), xhr: true
-        end.to raise_error(ActiveRecord::RecordInvalid)
+        end.to raise_error(ActiveRecord::RecordInvalid).and change(Relationship, :count).by(1)
       end
 
       it "自分自身をフォローできないこと" do
@@ -78,7 +78,7 @@ RSpec.describe "relationships", type: :request do
         expect do
           delete unfollow_path(username: another_user.user_name), xhr: true
           delete unfollow_path(username: another_user.user_name), xhr: true
-        end.to raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound).and change(Relationship, :count).by(-1)
       end
     end
   end
