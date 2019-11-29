@@ -181,7 +181,7 @@ RSpec.describe User, type: :model do
       not_exist_user.id = 999
       expect do
         user.follow!(not_exist_user.id)
-      end.to raise_error(ActiveRecord::RecordInvalid).and not_to change(Relationship, :count)
+      end.to raise_error(ActiveRecord::RecordInvalid).and change(Relationship, :count).by(0)
     end
   end
 
@@ -200,7 +200,7 @@ RSpec.describe User, type: :model do
       not_exist_user = build(:another_user)
       expect do
         user.unfollow!(not_exist_user.id)
-      end.to raise_error(ActiveRecord::RecordNotFound).and not_to change(Relationship, :count)
+      end.to raise_error(ActiveRecord::RecordNotFound).and change(Relationship, :count).by(0)
     end
   end
 end

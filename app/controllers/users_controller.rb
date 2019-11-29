@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: :show
 
   def show
-    @user=User.eager_load([:profile, :posts,posts: [:images]]).find_by!(user_name: params[:username])
+    @user = User.eager_load([:profile, :posts, posts: [:images]]).find_by!(user_name: params[:username])
     @post = @user.posts
     @profile = @user.profile
   end
