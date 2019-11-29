@@ -86,7 +86,6 @@ RSpec.describe "Profile", type: :request do
       context "ユーザー情報の更新に失敗する場合" do
         it "ユーザーネームがない場合、更新されないこと" do
           profile_params = FactoryBot.attributes_for(:user, user_name: "")
-          # get user_path(username: user.user_name)
           patch profile_path, params: { user: profile_params }
           expect(response.status).to eq(200)
           expect(User.last.user_name).not_to eq ""
