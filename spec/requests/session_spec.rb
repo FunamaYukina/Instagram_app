@@ -30,7 +30,7 @@ RSpec.describe "Session", type: :request do
         log_in(user)
         expect(response.status).to eq(302)
         expect(response).to redirect_to root_path
-        expect(session[:user_id]).to eq 1
+        expect(session[:user_id]).to eq 2
       end
 
       it "ユーザーが存在しない場合、ログインできないこと" do
