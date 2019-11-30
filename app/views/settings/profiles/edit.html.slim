@@ -7,7 +7,8 @@
     .edit-form-container
       .edit-profile-label
         .edit-image-container
-          = image_tag current_user.profile.image_file, size: '50x50', class: "image-item"
+          #profile_image.image-item
+            = image_tag current_user.profile.image_file, size: '50x50', class: "image-item"
         p フルネーム
         p ユーザーネーム
         p.label-email メールアドレス
@@ -17,8 +18,10 @@
       .edit-profile-form
         = form_for(current_user, url: profile_path, html: {method: "patch"}) do |i|
           = i.fields_for :profile do |prf|
-            = prf.label :image_file, "プロフィール画像の変更", class: "image_form_label"
-            = prf.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image_form"
+            p.title プロフィール画像の変更
+            .input-image  onclick="$('#profile_file').click()"
+              = prf.label :image_file, "画像を選択", class: "image_form_label"
+            = prf.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image_form",id: :profile_file
           = i.text_field :full_name
           = i.text_field :user_name
           p 非公開情報
