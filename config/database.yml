@@ -14,12 +14,12 @@ default: &default
   socket: /var/lib/mysql/mysql.sock
 
 development:
-  adapter: mysql2
+  adapter: sqlite3
   encording: utf8
   pool: 5
   username: <%= ENV["DEV_USER_NAME"] %>
   password: <%= ENV["DEV_USER_PASSWORD"] %>
-  socket: /tmp/mysql.sock
+  database: db/test.sqlite3
 
 
 #  <<: *default
