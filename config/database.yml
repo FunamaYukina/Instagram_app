@@ -14,11 +14,8 @@ default: &default
   socket: /var/lib/mysql/mysql.sock
 
 development:
+  <<: *default
   adapter: sqlite3
-  encording: utf8
-  pool: 5
-  username: <%= ENV["DEV_USER_NAME"] %>
-  password: <%= ENV["DEV_USER_PASSWORD"] %>
   database: db/test.sqlite3
 
 
@@ -29,11 +26,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
+  <<: *default
   adapter: sqlite3
-  encording: utf8
-  pool: 5
-  username: <%= ENV["DEV_USER_NAME"] %>
-  password: <%= ENV["DEV_USER_PASSWORD"] %>
   database: db/test.sqlite3
 
 
