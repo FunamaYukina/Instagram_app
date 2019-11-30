@@ -1,6 +1,6 @@
 .home
   - if logged_in?
-    .new-post-form
+    #top_page.new-post-form
       .form-body
         p 新規投稿
         - if flash[:posting_errors].present?
@@ -9,9 +9,11 @@
               - flash[:posting_errors].each do |e|
                 li = e
         = form_for(@post, url: posts_path(current_user.user_name)) do |f|
-          = f.fields_for :images,@post.images.build do |a|
-            = a.label :image_file, "画像をアップロード", class: "input-btn"
-            = a.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image-form"
+          = f.fields_for :images,@post.images.build do |i|
+            = i.label :image_file, "画像をアップロード", class: "input-btn",for: "post_file"
+            #post_image
+            = i.label "画像の削除", class: "delete-btn", id: :delete
+            = i.file_field :image_file, accept: 'image/jpg,image/jpeg,image/png,image/gif', class: "image-form", id: :post_file
             = f.text_area :message, class: "textarea", placeholder: "メッセージ"
             = f.submit "投稿する", class: "submit"
     .user-container
@@ -36,5 +38,5 @@
             = image_tag image.image_file , size: '550x550'
           .post-message
             - if logged_in?
-              = render partial: 'likes/like',locals: {post: post}
+              = render partial: 'likes/like', locals: {post: post}
             = post.message

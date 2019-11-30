@@ -12,5 +12,55 @@
 //
 //= require jquery
 //= require rails-ujs
-//= require turbolinks
 //= require_tree .
+
+const readImage = (fileField, preview, options) => {
+    let id　=fileField.attr("id")
+    $(`#${id}`).on('change', fileField, function (e) {
+        file = e.target.files[0];
+        reader = new FileReader(),
+            reader.onload = (function (file) {
+                return function (e) {
+                    preview.empty();
+                    let attributes = {
+                        src: e.target.result,
+                        title: file.name
+                    }
+                    preview.append($('<img>').attr(Object.assign(attributes, options)));
+                };
+            })(file);
+        reader.readAsDataURL(file);
+    });
+}
+
+$(function () {
+    var fileField = "";
+    var preview = "";
+    var options = {};
+    if ($('#top_page').length) {
+        fileField = $('#post_file');
+        preview = $('#post_image');
+        options = {
+            width: "140px",
+            class: "preview",
+        };
+        $("#delete").click(() => {
+            preview.empty();
+            fileField.after('<input accept="image/jpg,image/jpeg,image/png,image/gif" class="image-form" id="new_post_file" type="file" name="post[images_attributes][0][image_file]">');
+            fileField.remove();
+            fileField = $('#new_post_file').attr('id','post_file');
+            readImage(fileField,preview,options);
+        })
+    } else if ($('#profile_file').length) {
+        fileField = $('#profile_file');
+        preview = $('#profile_image');
+        options={
+            width: "50px",
+            height: "50px",
+            style: 'border-radius:25px;'
+        }
+    } else {
+        return
+    }
+    readImage(fileField, preview, options);
+});
