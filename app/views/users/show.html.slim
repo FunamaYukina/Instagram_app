@@ -10,16 +10,16 @@
         .user-profile
           = link_to profile_path do
             span プロフィールを編集
-      - else
+      - elsif logged_in?
         .user-follow
-          button フォロー中
+          = render partial: 'relationships/follow', locals: {user: @user}
       .user-detail
         .user-detail-left
-          span 投稿  1000件
+          span 投稿#{@user.posts.size}件
         .user-detail-center
-          span フォロワー　100人
+          span フォロワー#{@user.followers.size}人
         .user-detail-right
-          span 10人をフォロー中
+          span #{@user.following.size}人をフォロー中
       .user-introduction
         = @user.profile.introduction
   .user-image-container

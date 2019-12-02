@@ -15,18 +15,10 @@ html
           a.navbar-brand href="/"
             = image_tag 'logo.png'
             || Instagram
-        .nav-center
-          form.form-group
-            span.fa.fa-search aria-hidden="true"
-            input.form-control.search-form.font-awesome aria-label="Search" placeholder="検索" type="search" /
         .nav-right
           .navbar-nav
             - if current_user
-              a.nav-item.nav-link.active href="#"
-                i.fa.fa-compass aria-hidden="true" title="recommend"
-              a.nav-item.nav-link href="#"
-                i.fa.fa-heart-o aria-hidden="true" title="notification"
-              = link_to profile_path
+              = link_to user_path(username: current_user.user_name)
                 .nav-item.nav-link
                   i.fa.fa-user-o aria-hidden="true" title="mypage"
               = link_to logout_path, method: :post do

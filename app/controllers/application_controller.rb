@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
     flash[:danger] = "ログインしてください"
     redirect_to login_path
   end
+
+  def set_user
+    @user = User.find_by!(user_name: params[:username])
+  end
 end
