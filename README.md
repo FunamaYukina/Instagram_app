@@ -1,24 +1,10 @@
-# README
+# このアプリについて
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Instagram_appは、railsの勉強のために作成しました。
 
-Things you may want to cover:
+https://my-insta-28.work/
 
-* Ruby version
+こちらにアクセスすると動作の確認などができます。
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Ruby 2.4.1p111
+Rails 5.1.7
