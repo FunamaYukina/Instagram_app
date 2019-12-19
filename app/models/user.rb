@@ -3,6 +3,14 @@
 class User < ApplicationRecord
   include Exceptions
 
+  before_save { self.email = email.downcase }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
+  validates :full_name, presence: true
+  validates :user_name, presence: true, uniqueness: true
+  validates :password, length: { minimum: 6 }, allow_nil: true
+
   has_secure_password
   has_many :posts, dependent: :destroy
   has_one :profile, dependent: :destroy
@@ -14,14 +22,6 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-
-  before_save { self.email = email.downcase }
-  validates :user_name, presence: true, uniqueness: true
-  validates :full_name, presence: true
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }, allow_nil: true
 
   before_create :create_profile
 
